@@ -1,0 +1,1 @@
+{"templateName":"title_template","componentsTree":{"key":"node1","type":"PAGE_COMPONENT_TYPE","props":{"componentName":"usr.TitlePanel","componentInstance":"titlePanel"},"index":0,"children":[{"key":"node2","type":"COMPONENT_PROPERTY_STRING_TYPE","props":{"propertyName":"title","propertyValue":"My Text"},"index":0}]}}
