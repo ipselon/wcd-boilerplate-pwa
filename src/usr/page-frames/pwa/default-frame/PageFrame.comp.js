@@ -1,8 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import CloseIcon from '@material-ui/icons/Close';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameTypes } from './PageFrame.props';
@@ -10,6 +14,7 @@ import { PageFrameTypes } from './PageFrame.props';
 const styles = theme => ({
   root: {
     display: 'flex',
+    position: 'relative',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -21,41 +26,98 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  closeMenuButton: {
+    marginRight: 'auto',
+    marginLeft: 0,
+  },
   toolbar: theme.mixins.toolbar,
 });
 
 class PageFrame extends React.Component {
   constructor(props) {
     super(props);
-    const { drawer } = this.props;
     this.state = {
-      drawerStyle: { width: drawer.width },
+      isMobileDrawerOpen: false,
     };
   }
+
+  handleDrawerToggle = (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    this.setState({
+      isMobileDrawerOpen: !this.state.isMobileDrawerOpen,
+    });
+  };
 
   render() {
     const { classes, drawer, toolbar } = this.props;
     const { drawerWidth, drawerContent } = drawer;
-    const { toolbarTitle, toolbarTitleVariant } = toolbar;
+    const { toolbarTitle, toolbarTitleVariant, elevation } = toolbar;
+    const { isMobileDrawerOpen } = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar
+          position="fixed"
+          elevation={elevation ? Number(elevation): 3}
+          className={classes.appBar}
+        >
           <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
             <Typography variant={toolbarTitleVariant} noWrap>
               {toolbarTitle}
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          style={{ width: drawerWidth }}
-          PaperProps={{ style: { width: drawerWidth } }}
-        >
-          <div className={classes.toolbar} />
-          {drawerContent}
-        </Drawer>
+        <Hidden smUp implementation="css">
+          <Drawer
+            className={classes.drawer}
+            variant="temporary"
+            style={{ width: drawerWidth }}
+            open={ isMobileDrawerOpen }
+            anchor="left"
+            PaperProps={{ style: { width: drawerWidth } }}
+            ModalProps={{ keepMounted: true }}
+            onClose={this.handleDrawerToggle}
+          >
+            <div className={classes.toolbar}>
+              <IconButton
+                onClick={this.handleDrawerToggle}
+                className={classes.closeMenuButton}
+              >
+                <CloseIcon/>
+              </IconButton>
+            </div>
+            {drawerContent}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            style={{ width: drawerWidth }}
+            PaperProps={{ style: { width: drawerWidth } }}
+          >
+            <div className={classes.toolbar} />
+            {drawerContent}
+          </Drawer>
+        </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography paragraph>
@@ -96,7 +158,8 @@ PageFrame.defaultProps = {
   },
   toolbar: {
     toolbarTitle: 'Some Title Here',
-    toolbarTitleVariant: 'h6'
+    toolbarTitleVariant: 'h6',
+    elevation: '3'
   }
   // data: {
   //   title: 'Empty Title Value',

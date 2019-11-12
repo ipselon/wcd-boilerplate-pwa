@@ -1,1 +1,0 @@
-{"flowName":"start","model":{"key":"node1","type":"flowApplicationStarter","props":{"title":"Application","searchName":"Application","outputs":[{"name":"onApplicationStart","properties":{"type":"COMPONENT_PROPERTY_FUNCTION_TYPE","children":[]}}]},"index":0}}
