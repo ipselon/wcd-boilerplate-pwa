@@ -1425,9 +1425,9 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@webcodesk/react-app-framework@2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@webcodesk/react-app-framework/-/react-app-framework-2.0.6.tgz#904057431e9f5b1f22c166c3167afcdcdca6c4cf"
+"@webcodesk/react-app-framework@2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@webcodesk/react-app-framework/-/react-app-framework-2.0.7.tgz#d8cfcc0ee49dad88f0ed542a896d7ff588c61d38"
   dependencies:
     lodash "4.17.15"
     prop-types "15.7.2"

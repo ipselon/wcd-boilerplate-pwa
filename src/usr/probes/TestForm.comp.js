@@ -20,7 +20,8 @@ const styles = {
 class TestForm extends React.Component {
   constructor(props) {
     super(props);
-    const { inputText, styling } = this.props;
+    const { inputText, styling, data } = this.props;
+    console.info('Constructor data: ', data);
     this.state = {
       prevStyling: styling,
       rootStyle: { ...styling, ...styles.root },
@@ -82,6 +83,7 @@ class TestForm extends React.Component {
 
   render() {
     const { data, cells } = this.props;
+    console.info('Render TestForm (data): ', data);
     const { rootStyle, localInputText } = this.state;
     return (
       <div style={rootStyle}>
