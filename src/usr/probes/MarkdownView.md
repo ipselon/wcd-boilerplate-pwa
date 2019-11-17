@@ -1,5 +1,5 @@
 
-### TestForm
+### MarkdownView
 
 It's a template for a new React component.
 
@@ -30,8 +30,8 @@ It's a template for a new React component.
 
 #### Files
 
-* `TestForm.comp.js` - the source code of the component.
-* `TestForm.props.js` - the source code of the PropTypes definitions.
-* `TestForm.md` - the source of the current file
+* `MarkdownView.comp.js` - the source code of the component.
+* `MarkdownView.props.js` - the source code of the PropTypes definitions.
+* `MarkdownView.md` - the source of the current file
 
 > Don't remove the suffix before file extensions (`*.comp.js`, `*.props.js`)

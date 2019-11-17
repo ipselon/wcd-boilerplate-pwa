@@ -1,2 +1,2 @@
 
-export default {'usr':{'window':{'utilities':{'windowMessaging':require('usr/window/utilities/windowMessaging.funcs'),},},},};
+export default {'usr':{'window':{'utilities':{'dataFetching':require('usr/window/utilities/dataFetching.funcs'),'windowMessaging':require('usr/window/utilities/windowMessaging.funcs'),},},},};

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const PageFrameTypes = {
+export const PageFrameWithDrawerTypes = {
   // Drawer props
   drawer: PropTypes.shape({
     // The width of the drawer. Should be a string value with the width units.
@@ -39,4 +39,11 @@ export const PageFrameTypes = {
       '24'
     ])
   }),
+  mainArea: PropTypes.shape({
+    cells: PropTypes.arrayOf(PropTypes.element),
+  }),
+  /*
+   Use elements from this array for placing dialogs and other utilities components on the page
+   */
+  hiddenCells: PropTypes.arrayOf(PropTypes.element),
 };
