@@ -1,1 +1,1 @@
-{"templateName":"my-profile-picture","componentsTree":{"key":"node1","type":"PAGE_COMPONENT_TYPE","props":{"componentName":"usr.probes.ImageHolder","componentInstance":"imageHolder"},"index":0,"children":[{"key":"node2","type":"COMPONENT_PROPERTY_STRING_TYPE","props":{"propertyName":"imageUrl","isRequired":true,"propertyValue":"/img/profile_photo.png"},"index":0}]}}
+{"templateName":"my-profile-picture","componentsTree":{"key":"node2","type":"COMPONENT_PROPERTY_ELEMENT_TYPE","props":{"componentName":"__PlaceHolder"},"index":0}}

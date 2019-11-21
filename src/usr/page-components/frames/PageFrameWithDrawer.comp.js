@@ -65,6 +65,7 @@ class PageFrameWithDrawer extends React.Component {
     const { drawerWidth, drawerContent } = drawer;
     const { toolbarTitle, toolbarTitleVariant, elevation } = toolbar;
     const { cells } = mainArea;
+    console.info('Cellls: ', cells);
     const { isMobileDrawerOpen } = this.state;
     return (
       <React.Fragment>

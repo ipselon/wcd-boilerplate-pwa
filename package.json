@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@material-ui/core": "4.6.0",
+    "@material-ui/core": "4.6.1",
     "@material-ui/icons": "4.5.1",
-    "@webcodesk/react-app-framework": "2.0.8",
+    "@webcodesk/react-app-framework": "2.0.9",
     "@webcodesk/webcodesk-srv": "2.0.0-beta.5",
     "express": "4.17.1",
     "highlight.js": "9.16.2",

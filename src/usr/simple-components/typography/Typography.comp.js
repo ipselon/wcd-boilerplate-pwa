@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import TypographyMUI from '@material-ui/core/Typography';
 
 class Typography extends React.Component {
+
+  handleClick = () => {
+    console.info('Click: ', this.props.text);
+  };
+
   render() {
     const { align, color, display, gutterBottom, noWrap, paragraph, variant, text } = this.props;
+    console.info('Typography render: ', text);
     return (
       <TypographyMUI
         align={align}
@@ -14,6 +20,7 @@ class Typography extends React.Component {
         noWrap={noWrap}
         paragraph={paragraph}
         variant={variant}
+        onClick={this.handleClick}
       >
         <span>{text}</span>
       </TypographyMUI>
