@@ -28,6 +28,7 @@ class GridCell extends React.Component {
 GridCell.propTypes = GridCellTypes;
 
 GridCell.defaultProps = {
+  doNotUseInFlows: true,
   lg: 'false',
   md: 'false',
   sm: 'false',

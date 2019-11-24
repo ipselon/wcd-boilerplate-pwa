@@ -10,7 +10,6 @@ class Typography extends React.Component {
 
   render() {
     const { align, color, display, gutterBottom, noWrap, paragraph, variant, text } = this.props;
-    console.info('Typography render: ', text);
     return (
       <TypographyMUI
         align={align}
@@ -29,6 +28,9 @@ class Typography extends React.Component {
 }
 
 Typography.propTypes = {
+  // If true then the component's instance will not be allowed to use in flows,
+  // and you will not see the instance name in the pages instances list
+  doNotUseInFlows: PropTypes.bool,
   // Set the text-align on the component.
   align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   /**
@@ -71,6 +73,7 @@ Typography.propTypes = {
 };
 
 Typography.defaultProps = {
+  doNotUseInFlows: true,
   align: 'inherit',
   color: 'initial',
   display: 'initial',

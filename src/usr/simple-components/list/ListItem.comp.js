@@ -35,6 +35,9 @@ class ListItem extends React.Component {
 }
 
 ListItem.propTypes = {
+  // If true then the component's instance will not be allowed to use in flows,
+  // and you will not see the instance name in the pages instances list
+  doNotUseInFlows: PropTypes.bool,
   // Defines the align-items style property.
   alignItems: PropTypes.oneOf(['flex-start', 'center']),
   /*
@@ -67,6 +70,7 @@ ListItem.propTypes = {
 };
 
 ListItem.defaultProps = {
+  doNotUseInFlows: true,
   alignItems: 'center',
   autoFocus: false,
   button: false,

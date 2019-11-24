@@ -17,6 +17,9 @@ class ListItemText extends React.Component {
 }
 
 ListItemText.propTypes = {
+  // If true then the component's instance will not be allowed to use in flows,
+  // and you will not see the instance name in the pages instances list
+  doNotUseInFlows: PropTypes.bool,
   /**
    * If true, the children won't be wrapped by a Typography component.
    * This can be useful to render an alternative Typography variant by wrapping the children (or primary) text,
@@ -39,6 +42,7 @@ ListItemText.propTypes = {
 };
 
 ListItemText.defaultProps = {
+  doNotUseInFlows: true,
   disableTypography: false,
   inset: false,
   primary: [],

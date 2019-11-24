@@ -19,6 +19,9 @@ class List extends React.Component {
 }
 
 List.propTypes = {
+  // If true then the component's instance will not be allowed to use in flows,
+  // and you will not see the instance name in the pages instances list
+  doNotUseInFlows: PropTypes.bool,
   // The content of the component.
   content: PropTypes.arrayOf(PropTypes.element),
   // The component used for the root node. Either a string to use a DOM element or a component.
@@ -32,19 +35,10 @@ List.propTypes = {
   disablePadding: PropTypes.bool,
   // The content of the subheader, normally ListSubheader.
   subheader: PropTypes.arrayOf(PropTypes.element),
-  //
-  // testArray: PropTypes.arrayOf(PropTypes.shape({
-  //   field1: PropTypes.string,
-  //   field2: PropTypes.oneOf(['test1', 'test2']),
-  //   nestedArray: PropTypes.arrayOf(PropTypes.shape({
-  //     nestedField1: PropTypes.number,
-  //     nestedField2: PropTypes.oneOf(['test1', 'test2']),
-  //     nestedField3: PropTypes.bool,
-  //   }))
-  // })),
 };
 
 List.defaultProps = {
+  doNotUseInFlows: true,
   items: [],
   component: 'ul',
   dense: false,

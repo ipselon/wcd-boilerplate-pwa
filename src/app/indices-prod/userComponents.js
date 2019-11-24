@@ -1,2 +1,2 @@
 
-export default {'usr':{'page-components':{'frames':{'PageFrameWithDrawer':require('usr/page-components/frames/PageFrameWithDrawer.comp').default,},'utils':{'PageParametersReceiver':require('usr/page-components/utils/PageParametersReceiver.comp').default,},},},};
+export default {'usr':{'page-components':{'frames':{'PageFrameWithDrawer':require('usr/page-components/frames/PageFrameWithDrawer.comp').default,},'navigation':{'BottomNavigation':require('usr/page-components/navigation/BottomNavigation.comp').default,},},'repeaters-components':{'list':{'RecursiveList':require('usr/repeaters-components/list/RecursiveList.comp').default,},},'simple-components':{'misc':{'MarkdownView':require('usr/simple-components/misc/MarkdownView.comp').default,},},},};

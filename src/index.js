@@ -16,12 +16,14 @@ if (process.env.NODE_ENV !== 'production') {
   userComponents = require('./app/indices/userComponents').default;
   userFunctions = require('./app/indices/userFunctions').default;
   const packageJson = require('../package.json');
-  initStore(packageJson.name, packageJson.version);
+  const { history } = initStore(packageJson.name, packageJson.version);
+  window.__applicationBrowserHistory = history;
 } else {
   schema = require('./app/schema-prod').default;
   userComponents = require('./app/indices-prod/userComponents').default;
   userFunctions = require('./app/indices-prod/userFunctions').default;
-  initStore();
+  const { history } = initStore();
+  window.__applicationBrowserHistory = history;
 }
 
 const theme = createMuiTheme(appSettings.muiTheme);

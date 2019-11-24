@@ -24,10 +24,9 @@ export function markdownHighlight(str, lang) {
 }
 
 const styles = theme => ({
-  description: {
-    padding: '2em 2em 7em 2em',
-    minWidth: '150px',
+  root: {
     fontSize: '14px',
+    overflow: 'hidden'
   },
 });
 
@@ -68,7 +67,7 @@ class MarkdownView extends React.Component {
     if (markdownContent) {
       return (
         <div
-          className={`${classes.description} markdown-body`}
+          className={`${classes.root} markdown-body`}
           dangerouslySetInnerHTML={{
             __html: this.markdown.render(markdownContent)
           }}

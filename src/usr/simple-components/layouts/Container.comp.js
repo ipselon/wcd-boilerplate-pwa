@@ -8,11 +8,13 @@ class Container extends React.Component {
   }
 
   render() {
-    const { content, fixed, maxWidth, disableMaxWidth } = this.props;
+    const { content, fixed, maxWidth, disableMaxWidth, sizing } = this.props;
+    const style = {...sizing};
     return (
       <ContainerMUI
         fixed={fixed}
         maxWidth={disableMaxWidth ? false : maxWidth}
+        style={style}
       >
         {content}
       </ContainerMUI>

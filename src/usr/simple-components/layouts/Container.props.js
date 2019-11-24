@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { SizingTypes } from '../../common-props/sizing.props';
 
 export const ContainerTypes = {
   /**
@@ -23,5 +24,8 @@ export const ContainerTypes = {
   // If true then the component's instance will not be allowed to use in flows,
   // and you will not see the instance name in the pages instances list
   doNotUseInFlows: PropTypes.bool,
+
+  // CSS size values
+  sizing: PropTypes.shape(SizingTypes),
 
 };

@@ -8,7 +8,7 @@ class GridContainer extends React.Component {
   }
 
   render() {
-    const { alignContent, alignItems, direction, justify, wrap, spacing, content } = this.props;
+    const { alignContent, alignItems, direction, justify, wrap, spacing, content, sizing } = this.props;
     const contentList = [];
     if (content && content.length > 0) {
       content.forEach((contentCellItem, idx) => {
@@ -24,6 +24,7 @@ class GridContainer extends React.Component {
         wrap={wrap}
         direction={direction}
         spacing={validSpacingNumbersMap[spacing]}
+        style={{...sizing}}
       >
         {contentList}
       </GridMUI>

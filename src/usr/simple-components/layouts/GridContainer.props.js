@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { SizingTypes } from '../../common-props/sizing.props';
 
 export const validSpacingNumbersMap = {
   '0': 0,
@@ -48,4 +49,6 @@ export const GridContainerTypes = {
   ]),
   // Content - a list of the cells in the grid.
   content: PropTypes.arrayOf(PropTypes.element),
+  // CSS size values
+  sizing: PropTypes.shape(SizingTypes),
 };

@@ -10,21 +10,38 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
+import { validElevationNumbersMap } from '../../common-props/elevationMap';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     position: 'relative',
+    height: '100%',
+    width: '100%',
   },
   appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  bottomAppBar: {
+    top: 'auto',
+    bottom: 0,
     zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
     flexShrink: 0,
   },
   content: {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
-    padding: theme.spacing(3),
+  },
+  mainContent: {
+    display: 'flex',
+    position: 'relative',
+    flexGrow: 1,
+  },
+  footerContent: {
+    flexGrow: 0,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -61,11 +78,15 @@ class PageFrameWithDrawer extends React.Component {
   };
 
   render () {
-    const { classes, drawer, toolbar, mainArea, hiddenCells } = this.props;
-    const { drawerWidth, drawerContent } = drawer;
-    const { toolbarTitle, toolbarTitleVariant, elevation } = toolbar;
-    const { cells } = mainArea;
-    console.info('Cellls: ', cells);
+    const {
+      classes,
+      drawer,
+      topAppBar,
+      bottomAppBar,
+      mainContent,
+      hiddenMainContent,
+      footerContent,
+    } = this.props;
     const { isMobileDrawerOpen } = this.state;
     return (
       <React.Fragment>
@@ -73,64 +94,106 @@ class PageFrameWithDrawer extends React.Component {
           <CssBaseline/>
           <AppBar
             position="fixed"
-            elevation={elevation ? Number(elevation) : 3}
+            elevation={validElevationNumbersMap[topAppBar.elevation] || 3}
             className={classes.appBar}
           >
             <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={this.handleDrawerToggle}
-                className={classes.menuButton}
-              >
-                <MenuIcon/>
-              </IconButton>
-              <Typography variant={toolbarTitleVariant} noWrap>
-                {toolbarTitle}
+              {drawer.content && drawer.content.length > 0 && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={this.handleDrawerToggle}
+                  className={classes.menuButton}
+                >
+                  <MenuIcon/>
+                </IconButton>
+              )}
+              <Typography variant={topAppBar.titleVariant} noWrap>
+                {topAppBar.title}
               </Typography>
             </Toolbar>
           </AppBar>
-          <Hidden smUp implementation="css">
-            <Drawer
-              className={classes.drawer}
-              variant="temporary"
-              style={{ width: drawerWidth }}
-              open={isMobileDrawerOpen}
-              anchor="left"
-              PaperProps={{ style: { width: drawerWidth } }}
-              ModalProps={{ keepMounted: true }}
-              onClose={this.handleDrawerToggle}
-            >
-              <div className={classes.toolbar}>
-                <IconButton
-                  onClick={this.handleDrawerToggle}
-                  className={classes.closeMenuButton}
-                >
-                  <CloseIcon/>
-                </IconButton>
-              </div>
-              {drawerContent}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              style={{ width: drawerWidth }}
-              PaperProps={{ style: { width: drawerWidth } }}
-            >
-              <div className={classes.toolbar}/>
-              {drawerContent}
-            </Drawer>
-          </Hidden>
+          {drawer.content && drawer.content.length > 0 && (
+            <Hidden smUp implementation="css">
+              <Drawer
+                className={classes.drawer}
+                variant="temporary"
+                style={{ width: drawer.width }}
+                open={isMobileDrawerOpen}
+                anchor="left"
+                PaperProps={{ style: { width: drawer.width } }}
+                ModalProps={{ keepMounted: true }}
+                onClose={this.handleDrawerToggle}
+              >
+                <div className={classes.toolbar}>
+                  <IconButton
+                    onClick={this.handleDrawerToggle}
+                    className={classes.closeMenuButton}
+                  >
+                    <CloseIcon/>
+                  </IconButton>
+                </div>
+                {drawer.content.map((drawerItem, idx) => {
+                  return React.cloneElement(drawerItem, { key: `drawerItem${idx}` });
+                })}
+              </Drawer>
+            </Hidden>
+          )}
+          {bottomAppBar.content && bottomAppBar.content.length > 0 && (
+            <Hidden smUp implementation="css">
+              <AppBar
+                position="fixed"
+                color="primary"
+                className={classes.bottomAppBar}
+                elevation={validElevationNumbersMap[bottomAppBar.elevation] || 3}
+              >
+                <div className={classes.toolbar}>
+                  {bottomAppBar.content.map((bottomItem, idx) => {
+                    return React.cloneElement(bottomItem, { key: `bottomItem${idx}` });
+                  })}
+                </div>
+              </AppBar>
+            </Hidden>
+          )}
+          {drawer.content && drawer.content.length > 0 && (
+            <Hidden xsDown implementation="css">
+              <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                style={{ width: drawer.width }}
+                PaperProps={{ style: { width: drawer.width } }}
+              >
+                <div className={classes.toolbar}/>
+                {drawer.content.map((drawerItem, idx) => {
+                  return React.cloneElement(drawerItem, { key: `drawerItem${idx}` });
+                })}
+              </Drawer>
+            </Hidden>
+          )}
           <main className={classes.content}>
             <div className={classes.toolbar}/>
-            {cells}
+            <div className={classes.mainContent}>
+              {mainContent}
+            </div>
+            {bottomAppBar.content && bottomAppBar.content.length > 0 && (
+              <Hidden smUp implementation="css">
+                <div className={classes.toolbar}/>
+              </Hidden>
+            )}
+            {footerContent && footerContent.length > 0 && (
+              <Hidden xsDown implementation="css">
+                <div className={classes.footerContent}>
+                  {footerContent.map((footerItem, idx) => {
+                    return React.cloneElement(footerItem, { key: `footerItem${idx}` });
+                  })}
+                </div>
+              </Hidden>
+            )}
           </main>
         </div>
         <div className={classes.hiddenArea}>
-          {hiddenCells}
+          {hiddenMainContent}
         </div>
       </React.Fragment>
     );
@@ -141,18 +204,19 @@ PageFrameWithDrawer.propTypes = PageFrameWithDrawerTypes;
 
 PageFrameWithDrawer.defaultProps = {
   drawer: {
-    drawerWidth: '250px',
-    drawerContent: <div>Drawer</div>,
+    width: '250px',
+    content: [<div>Drawer</div>],
   },
-  toolbar: {
-    toolbarTitle: 'Some Title Here',
-    toolbarTitleVariant: 'h6',
-    elevation: '3'
+  topAppBar: {
+    title: 'Some Title Here',
+    titleVariant: 'h6',
+    elevation: '3',
   },
-  mainArea: {
-    cells: []
+  bottomAppBar: {
+    elevation: '3',
   },
-  hiddenCells: [],
+  mainContent: [],
+  hiddenMainContent: [],
 };
 
 export default withStyles(styles)(PageFrameWithDrawer);

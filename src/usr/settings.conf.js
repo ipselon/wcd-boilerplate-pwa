@@ -7,6 +7,9 @@ const SettingsProps = {
     // Main page title value
     title: PropTypes.string,
   }),
+  firebaseInitialization: PropTypes.shape({
+    initialScript: PropTypes.object,
+  }),
   muiTheme: PropTypes.shape({
     breakpoints: PropTypes.shape({
       values: PropTypes.shape({
