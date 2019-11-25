@@ -35,7 +35,14 @@ export const addStateListener = ({key}) => dispatch => {
     if (stateChangeCounter > listenerChangeCounter) {
       const newState = getStore().getState();
       // @param {AddStateListenerDispatchTypes from ./stateOperations.props.js}
-      dispatch('newValueInState', {data: newState[key]});
+      dispatch('newDataInState', {data: newState[key]});
     }
   });
+};
+
+// @param {GetFromStateArgTypes from ./stateOperations.props.js}
+export const getFromState = ({key, extraData}) => dispatch => {
+  const newState = getStore().getState();
+  // @param {GetFromStateDispatchTypes from ./stateOperations.props.js}
+  dispatch('dataInStateWithExtraData', {data: newState[key], extraData});
 };

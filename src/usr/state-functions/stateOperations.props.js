@@ -13,7 +13,20 @@ export const AddStateListenerArgTypes = {
 };
 
 export const AddStateListenerDispatchTypes = {
-  // The key under which the data is changed in the state storage
   // The data object to store
   data: PropTypes.object,
+};
+
+export const GetFromStateArgTypes = {
+  // The key under which the data is changed in the state storage
+  key: PropTypes.string.isRequired,
+  // An extra data
+  extraData: PropTypes.object,
+};
+
+export const GetFromStateDispatchTypes = {
+  // The data object to store
+  data: PropTypes.object,
+  // The extra data passed in as the additional parameter
+  extraData: PropTypes.object,
 };
