@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { createStore } from 'redux';
 
 const initialState = {};
@@ -41,8 +42,15 @@ export const addStateListener = ({key}) => dispatch => {
 };
 
 // @param {GetFromStateArgTypes from ./stateOperations.props.js}
-export const getFromState = ({key, extraData}) => dispatch => {
+export const getFromState = ({keys, extraData}) => dispatch => {
   const newState = getStore().getState();
   // @param {GetFromStateDispatchTypes from ./stateOperations.props.js}
-  dispatch('dataInStateWithExtraData', {data: newState[key], extraData});
+  const data = {};
+  if (keys && keys.length > 0) {
+    keys.forEach(key => {
+      data[key] = cloneDeep(newState[key]);
+    });
+  }
+  // @param {GetFromStateDispatchTypes from ./stateOperations.props.js}
+  dispatch('dataInStateWithExtraData', {data, extraData});
 };

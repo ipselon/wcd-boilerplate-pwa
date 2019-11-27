@@ -9,25 +9,38 @@ export const DataListTypes = {
   listItems: PropTypes.arrayOf(PropTypes.shape({
     // The list item is. It is a required field and should be unique.
     id: PropTypes.string.isRequired,
-    /**
-     * A reference to the record with the same type in the meta data.
-     * Meta data is used mainly for the decoration of the list item with the particular type.
-     */
-    type: PropTypes.string,
     //
     primaryText: PropTypes.string,
     //
     secondaryText: PropTypes.string,
     /**
-     * It is used for creating an URL in the list item instead of button.
-     * Will be passed in the onItemClick output object.
+     * It is used for creating an URL link in the list item instead of a button.
      */
     href: PropTypes.string,
     /**
-     * Any particular data you want to pass through the list item when the user clicks on the item.
+     * Add JSON description of the nested list items.
+     * The structure of each child should be equal to the parent list item.
+     */
+    children: PropTypes.array,
+    /**
+     * Any arbitrary data you want to pass through the list item when the user clicks on the item.
      * This data will appear in the onItemClick output object.
      */
     data: PropTypes.object,
+    metaData: PropTypes.shape({
+      // If true, the list item will be selected
+      selected: PropTypes.bool,
+      // If true, the list item will be disabled.
+      disabled: PropTypes.bool,
+      /**
+       * If true, compact vertical padding designed for keyboard and mouse input will be used.
+       */
+      dense: PropTypes.bool,
+      // If true, the left and right padding is removed.
+      disableGutters: PropTypes.bool,
+      // If true, a 1px light border is added to the bottom of the list item.
+      divider: PropTypes.bool,
+    }),
   })),
   /*
    * An array of the data objects references.
@@ -35,46 +48,13 @@ export const DataListTypes = {
    *
    * Read more in the component's Readme.
    */
-  listItemsMetaData: PropTypes.arrayOf(PropTypes.shape({
-    // The type value for referencing to the item value.
-    type: PropTypes.string,
-    // This element is used as the icon in the list item with this type.
-    icon: PropTypes.element,
-    /**
-     * If true, compact vertical padding designed for keyboard and mouse input will be used.
-     */
-    dense: PropTypes.bool,
-    // If true, the list item will be disabled.
-    disabled: PropTypes.bool,
-    // If true, the left and right padding is removed.
-    disableGutters: PropTypes.bool,
-    // If true, a 1px light border is added to the bottom of the list item.
-    divider: PropTypes.bool,
-    // Use to apply selected styling.
-    selected: PropTypes.bool,
-    // Use it when the list item should trigger onDrillInClick event
-    drillIn: PropTypes.bool,
-    // Use it when the list item should trigger onNavigateBackClick event
-    navigateBack: PropTypes.bool,
-  })),
+  icons: PropTypes.arrayOf(PropTypes.element),
   /*
    * Triggered when the user click on the list item.
    *
    * @param {DataListItemClickTypes}
    */
   onItemClick: PropTypes.func,
-  /*
-   * Triggered when the user click on the drillIn item.
-   *
-   * @param {DataListItemClickTypes}
-   */
-  onDrillInClick: PropTypes.func,
-  /*
-   * Triggered when the user click on the navigateBack item.
-   *
-   * @param {DataListItemClickTypes}
-   */
-  onNavigateBackClick: PropTypes.func
 };
 
 export const DataListItemClickTypes = {
@@ -84,11 +64,6 @@ export const DataListItemClickTypes = {
   listItem: PropTypes.shape({
     // It is a required field and should be unique.
     id: PropTypes.string.isRequired,
-    /**
-     * A reference to the record with the same type in the meta data.
-     * Meta data is used mainly for the decoration of the list item with the particular type.
-     */
-    type: PropTypes.string,
     //
     primaryText: PropTypes.string,
     //

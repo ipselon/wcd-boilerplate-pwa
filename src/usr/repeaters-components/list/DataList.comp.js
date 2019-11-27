@@ -1,6 +1,8 @@
-import groupBy from 'lodash/groupBy';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,19 +19,9 @@ const styles = theme => ({
 class DataList extends React.Component {
   constructor (props) {
     super(props);
-    const { itemsMetaData } = this.props;
     this.state = {
-      itemsMetaDataMap: itemsMetaData ? groupBy(itemsMetaData, ['type']) : {},
+      expandedById: {},
     };
-  }
-
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    const { itemsMetaData } = this.props;
-    if (itemsMetaData !== prevProps.itemsMetaData) {
-      this.setState({
-        itemsMetaDataMap: itemsMetaData ? groupBy(itemsMetaData, ['type']) : {},
-      });
-    }
   }
 
   handleItemClick = (itemValueData) => e => {
@@ -42,31 +34,83 @@ class DataList extends React.Component {
     });
   };
 
-  renderList = (itemsValueData) => {
-    const { itemsMetaDataMap } = this.state;
+  handleItemToggle = (itemId) => (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    const expandedById = {...this.state.expandedById};
+    expandedById[itemId] = !expandedById[itemId];
+    this.setState({
+      expandedById
+    });
+  };
+
+  renderList = (listItems, level = 0) => {
+    const { classes } = this.props;
+    const { expandedById } = this.state;
     const resultElementList = [];
-    if (itemsValueData && itemsValueData.length > 0) {
-      itemsValueData.forEach((itemValueData, idx) => {
-        if (itemValueData) {
-          const { id, type, primaryText, secondaryText, href } = itemValueData;
-          if (id && type) {
-            if (href) {
+    if (listItems && listItems.length > 0) {
+      listItems.forEach((item, idx) => {
+        if (item) {
+          const {id, primaryText, secondaryText, href, children, metaData} = item;
+          if (id) {
+            let divider;
+            if (metaData) {
+              divider = metaData.divider;
+            }
+            if (children && children.length > 0) {
               resultElementList.push(
-                <ListItem key={id} button={false}>
-                  <ListItemText
-                    primary={
-                      <a href={href} onClick={this.handleItemClick(itemValueData)}>{primaryText}</a>
-                    }
-                    secondary={secondaryText}
-                  />
+                <ListItem
+                  key={id}
+                  button={true}
+                  onClick={this.handleItemToggle(id)}
+                >
+                  <ListItemText primary={primaryText} secondary={secondaryText} />
+                  {expandedById[id] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
               );
+              resultElementList.push(
+                <Collapse
+                  in={expandedById[id]}
+                  timeout="auto"
+                  unmountOnExit={true}
+                >
+                  {this.renderList(children, level + 1)}
+                </Collapse>
+              )
             } else {
+              console.info('Is divider: ', id, divider);
               resultElementList.push(
-                <ListItem key={id} button={true} onClick={this.handleItemClick(itemValueData)}>
-                  <ListItemText primary={primaryText} secondary={secondaryText}/>
+                <ListItem
+                  key={id}
+                  button={!href}
+                  divider={divider}
+                  onClick={this.handleItemClick(item)}
+                >
+                  {href
+                    ? (
+                      <ListItemText
+                        primary={
+                          <a
+                            href={href}
+                            onClick={this.handleItemClick(item)}
+                          >
+                            {primaryText}
+                          </a>
+                        }
+                        secondary={secondaryText}
+                      />
+                    )
+                    : (
+                      <ListItemText
+                        primary={primaryText}
+                        secondary={secondaryText}
+                      />
+                    )
+                  }
                 </ListItem>
-              );
+              )
             }
           }
         }
@@ -75,6 +119,7 @@ class DataList extends React.Component {
     return (
       <List
         component="div"
+        className={level > 0 ? classes.nested : ''}
         disablePadding={true}
       >
         {resultElementList}
@@ -83,22 +128,42 @@ class DataList extends React.Component {
   };
 
   render () {
-    const { itemsValueData } = this.props;
-    return this.renderList(itemsValueData);
+    const { listItems } = this.props;
+    return this.renderList(listItems);
   }
 }
 
 DataList.propTypes = DataListTypes;
 
 DataList.defaultProps = {
-  itemsValueData: [
-    { id: '00001', type: 'someType', primaryText: 'List Item 00001', secondaryText: 'Subtext 00001' },
-    { id: '00002', type: 'someType', primaryText: 'List Item 00002', secondaryText: 'Subtext 00002' },
-    { id: '00003', type: 'someType', primaryText: 'List Item 00003', secondaryText: 'Subtext 00003' }
+  listItems: [
+    {
+      id: '00001',
+      primaryText: 'List Item 00001',
+      secondaryText: 'Subtext 00001',
+      metaData: {
+        divider: true,
+      }
+    },
+    {
+      id: '00002',
+      primaryText: 'List Item 00002',
+      secondaryText: 'Subtext 00002'
+    },
+    {
+      id: '00003',
+      primaryText: 'List Item 00003',
+      secondaryText: 'Subtext 00003',
+    },
+    {
+      id: '00004',
+      primaryText: 'List Item 00004',
+      secondaryText: 'Subtext 00004'
+    }
   ],
-  itemsMetaData: [],
+  icons: [],
   onItemClick: () => {
-    console.info('RecursiveList.onItemClick is not set');
+    console.info('DataList.onItemClick is not set');
   }
 };
 
