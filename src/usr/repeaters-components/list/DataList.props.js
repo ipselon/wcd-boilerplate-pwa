@@ -27,6 +27,7 @@ export const DataListTypes = {
      * This data will appear in the onItemClick output object.
      */
     data: PropTypes.object,
+    // Extra properties
     metaData: PropTypes.shape({
       // If true, the list item will be selected
       selected: PropTypes.bool,

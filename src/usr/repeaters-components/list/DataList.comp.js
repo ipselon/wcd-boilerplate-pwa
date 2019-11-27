@@ -24,13 +24,13 @@ class DataList extends React.Component {
     };
   }
 
-  handleItemClick = (itemValueData) => e => {
+  handleItemClick = (listItem) => e => {
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
     this.props.onItemClick({
-      itemValueData
+      listItem
     });
   };
 
