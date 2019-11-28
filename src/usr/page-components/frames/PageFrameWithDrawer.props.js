@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 
 export const PageFrameWithDrawerTypes = {
+  /**
+   * If true then the component's instance will not be allowed to use in flows,
+   * and you will not see the instance name in the pages instances list
+   */
+  doNotUseInFlows: PropTypes.bool,
   // Drawer
   drawer: PropTypes.shape({
     // The width of the drawer. Should be a string value with the width units.

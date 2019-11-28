@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
-import { validElevationNumbersMap } from '../../common-props/elevationMap';
+import validElevationMap from '../../common-props/utils/elevationMap';
 
 const styles = theme => ({
   root: {
@@ -94,7 +94,7 @@ class PageFrameWithDrawer extends React.Component {
           <CssBaseline/>
           <AppBar
             position="fixed"
-            elevation={validElevationNumbersMap[topAppBar.elevation] || 3}
+            elevation={validElevationMap[topAppBar.elevation] || 3}
             className={classes.appBar}
           >
             <Toolbar>
@@ -115,7 +115,7 @@ class PageFrameWithDrawer extends React.Component {
             </Toolbar>
           </AppBar>
           {drawer.content && drawer.content.length > 0 && (
-            <Hidden smUp implementation="css">
+            <Hidden smUp implementation="js">
               <Drawer
                 className={classes.drawer}
                 variant="temporary"
@@ -134,30 +134,26 @@ class PageFrameWithDrawer extends React.Component {
                     <CloseIcon/>
                   </IconButton>
                 </div>
-                {drawer.content.map((drawerItem, idx) => {
-                  return React.cloneElement(drawerItem, { key: `drawerItem${idx}` });
-                })}
+                {drawer.content}
               </Drawer>
             </Hidden>
           )}
           {bottomAppBar.content && bottomAppBar.content.length > 0 && (
-            <Hidden smUp implementation="css">
+            <Hidden smUp implementation="js">
               <AppBar
                 position="fixed"
                 color="primary"
                 className={classes.bottomAppBar}
-                elevation={validElevationNumbersMap[bottomAppBar.elevation] || 3}
+                elevation={validElevationMap[bottomAppBar.elevation] || 3}
               >
                 <div className={classes.toolbar}>
-                  {bottomAppBar.content.map((bottomItem, idx) => {
-                    return React.cloneElement(bottomItem, { key: `bottomItem${idx}` });
-                  })}
+                  {bottomAppBar.content}
                 </div>
               </AppBar>
             </Hidden>
           )}
           {drawer.content && drawer.content.length > 0 && (
-            <Hidden xsDown implementation="css">
+            <Hidden xsDown implementation="js">
               <Drawer
                 className={classes.drawer}
                 variant="permanent"
@@ -165,9 +161,7 @@ class PageFrameWithDrawer extends React.Component {
                 PaperProps={{ style: { width: drawer.width } }}
               >
                 <div className={classes.toolbar}/>
-                {drawer.content.map((drawerItem, idx) => {
-                  return React.cloneElement(drawerItem, { key: `drawerItem${idx}` });
-                })}
+                {drawer.content}
               </Drawer>
             </Hidden>
           )}
@@ -177,16 +171,14 @@ class PageFrameWithDrawer extends React.Component {
               {mainContent}
             </div>
             {bottomAppBar.content && bottomAppBar.content.length > 0 && (
-              <Hidden smUp implementation="css">
+              <Hidden smUp implementation="js">
                 <div className={classes.toolbar}/>
               </Hidden>
             )}
             {footerContent && footerContent.length > 0 && (
-              <Hidden xsDown implementation="css">
+              <Hidden xsDown implementation="js">
                 <div className={classes.footerContent}>
-                  {footerContent.map((footerItem, idx) => {
-                    return React.cloneElement(footerItem, { key: `footerItem${idx}` });
-                  })}
+                  {classes.footerContent}
                 </div>
               </Hidden>
             )}
@@ -215,7 +207,9 @@ PageFrameWithDrawer.defaultProps = {
   bottomAppBar: {
     elevation: '3',
   },
-  mainContent: [],
+  mainContent: [
+    <span />
+  ],
   hiddenMainContent: [],
 };
 
