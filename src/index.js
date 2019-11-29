@@ -4,6 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Application, { initStore } from '@webcodesk/react-app-framework';
 import './index.css';
 import appSettings from './app/settings';
+import findColor from './usr/common-props/utils/colorMap';
 import * as serviceWorker from './serviceWorker';
 import serviceWorkerConfig from './serviceWorkerConfig';
 
@@ -26,7 +27,39 @@ if (process.env.NODE_ENV !== 'production') {
   window.__applicationBrowserHistory = history;
 }
 
-const theme = createMuiTheme(appSettings.muiTheme);
+const muiTheme = {};
+if (appSettings && appSettings.muiTheme) {
+  const { breakpoints, palette } = appSettings.muiTheme;
+  muiTheme.breakpoints = breakpoints;
+  if (palette) {
+    const { type, primary, secondary, error } = palette;
+    muiTheme.palette = {
+      type,
+      primary: {
+        light: findColor(primary.light.colorHue, primary.light.colorShade),
+        main: findColor(primary.main.colorHue, primary.main.colorShade),
+        dark: findColor(primary.dark.colorHue, primary.dark.colorShade),
+        contrastText: primary.contrastText,
+      },
+      secondary: {
+        light: findColor(secondary.light.colorHue, secondary.light.colorShade),
+        main: findColor(secondary.main.colorHue, secondary.main.colorShade),
+        dark: findColor(secondary.dark.colorHue, secondary.dark.colorShade),
+        contrastText: secondary.contrastText,
+      },
+      error: {
+        light: findColor(error.light.colorHue, error.light.colorShade),
+        main: findColor(error.main.colorHue, error.main.colorShade),
+        dark: findColor(error.dark.colorHue, error.dark.colorShade),
+        contrastText: error.contrastText,
+      }
+    };
+  }
+}
+
+// console.info(JSON.stringify(muiTheme, null, 4));
+
+const theme = createMuiTheme(muiTheme);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

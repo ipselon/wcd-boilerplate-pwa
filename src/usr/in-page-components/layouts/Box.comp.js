@@ -1,3 +1,5 @@
+import pickBy from 'lodash/pickBy';
+import isNumber from 'lodash/isNumber';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
@@ -7,7 +9,18 @@ import { BoxTypes } from './Box.props';
 const Box = (props) => {
   const theme = useTheme();
   const { content, borders, palette } = props;
-  const properties = {};
+  let properties = {};
+  if (borders) {
+    const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor } = borders;
+    properties = {
+      ...properties,
+      ...{...pickBy({border, borderTop, borderRight, borderBottom, borderLeft}, isNumber)}
+    };
+    if (borderColor) {
+      const { colorHue, colorShade } = borderColor;
+      properties.borderColor = findColor(colorHue, colorShade, theme);
+    }
+  }
   const { color, backgroundColor } = palette;
   if (color) {
     const { colorHue, colorShade } = color;
@@ -30,7 +43,7 @@ Box.propTypes = BoxTypes;
 Box.defaultProps = {
   doNotUseInFlows: true,
   borders: {
-    border: '0',
+    border: 0,
   },
   palette: {
     color: {

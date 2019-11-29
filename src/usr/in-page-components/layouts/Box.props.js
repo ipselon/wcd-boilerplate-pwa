@@ -8,11 +8,11 @@ export const BoxTypes = {
    */
   doNotUseInFlows: PropTypes.bool,
   borders: PropTypes.shape({
-    border: PropTypes.string,
-    borderTop: PropTypes.string,
-    borderRight: PropTypes.string,
-    borderBottom: PropTypes.string,
-    borderLeft: PropTypes.string,
+    border: PropTypes.number,
+    borderTop: PropTypes.number,
+    borderRight: PropTypes.number,
+    borderBottom: PropTypes.number,
+    borderLeft: PropTypes.number,
     borderColor: PropTypes.shape(ColorTypes),
   }),
   palette: PropTypes.shape({

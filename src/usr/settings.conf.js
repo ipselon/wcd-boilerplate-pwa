@@ -1,5 +1,7 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "SettingsProps" }]*/
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "defaultSettings" }]*/
 import PropTypes from 'prop-types';
+import { ThemeColorTypes } from './common-props/color.props';
 
 const SettingsProps = {
   // Main page meta data
@@ -23,12 +25,28 @@ const SettingsProps = {
     palette: PropTypes.shape({
       type: PropTypes.oneOf([
         'light',
-        'main',
         'dark',
-        'contrastText'
-      ])
+      ]),
+      // Primary
+      primary: PropTypes.shape({
+        light: PropTypes.shape(ThemeColorTypes),
+        main: PropTypes.shape(ThemeColorTypes),
+        dark: PropTypes.shape(ThemeColorTypes),
+        contrastText: PropTypes.string,
+      }),
+      secondary: PropTypes.shape({
+        light: PropTypes.shape(ThemeColorTypes),
+        main: PropTypes.shape(ThemeColorTypes),
+        dark: PropTypes.shape(ThemeColorTypes),
+        contrastText: PropTypes.string,
+      }),
+      error: PropTypes.shape({
+        light: PropTypes.shape(ThemeColorTypes),
+        main: PropTypes.shape(ThemeColorTypes),
+        dark: PropTypes.shape(ThemeColorTypes),
+        contrastText: PropTypes.string,
+      }),
     }),
-    test: PropTypes.string,
   })
 };
 
@@ -47,7 +65,52 @@ export const defaultSettings = {
       }
     },
     palette: {
-      type: 'light'
+      type: 'light',
+      primary: {
+        light: {
+          colorHue: 'indigo',
+          colorShade: '300'
+        },
+        main: {
+          colorHue: 'indigo',
+          colorShade: '500'
+        },
+        dark: {
+          colorHue: 'indigo',
+          colorShade: '700'
+        },
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: {
+          colorHue: 'pink',
+          colorShade: 'A200'
+        },
+        main: {
+          colorHue: 'pink',
+          colorShade: 'A400'
+        },
+        dark: {
+          colorHue: 'indigo',
+          colorShade: 'A700'
+        },
+        contrastText: '#fff',
+      },
+      error: {
+        light: {
+          colorHue: 'red',
+          colorShade: '300'
+        },
+        main: {
+          colorHue: 'red',
+          colorShade: '500'
+        },
+        dark: {
+          colorHue: 'indigo',
+          colorShade: '700'
+        },
+        contrastText: '#fff',
+      }
     }
   }
 };
