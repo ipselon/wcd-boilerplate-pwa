@@ -1,6 +1,6 @@
 import React from 'react';
 import GridMUI from '@material-ui/core/Grid';
-import spacingMap from '../../common-props/utils/spacingMap';
+import gridSpacingMap from '../../common-props/utils/gridSpacingMap';
 import gridMap from '../../common-props/utils/gridMap';
 import { GridWithCellsTypes } from './GridWithCells.props';
 
@@ -42,7 +42,7 @@ class GridWithCells extends React.Component {
         justify={justify}
         wrap={wrap}
         direction={direction}
-        spacing={spacingMap[spacing]}
+        spacing={gridSpacingMap[spacing]}
       >
         {contentList}
       </GridMUI>

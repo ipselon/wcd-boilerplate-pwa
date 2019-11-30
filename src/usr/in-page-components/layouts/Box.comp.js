@@ -1,5 +1,7 @@
 import pickBy from 'lodash/pickBy';
-import isNumber from 'lodash/isNumber';
+import isNil from 'lodash/isNil';
+import forOwn from 'lodash/forOwn';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
@@ -8,27 +10,66 @@ import { BoxTypes } from './Box.props';
 
 class Box extends React.Component {
   render() {
-    const { content, borders, palette, theme } = this.props;
     let properties = {};
-    if (borders) {
-      const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor } = borders;
-      properties = {
-        ...properties,
-        ...pickBy({ border, borderTop, borderRight, borderBottom, borderLeft }, isNumber)
-      };
-      if (borderColor) {
-        const { colorHue, colorShade } = borderColor;
-        properties.borderColor = findColor(colorHue, colorShade, theme);
+    const { stylesByScreenSize, content, theme } = this.props;
+    if (stylesByScreenSize && stylesByScreenSize.length > 0) {
+      let stylingBreakpoint;
+      for(let i = 0; i < stylesByScreenSize.length; i++) {
+        stylingBreakpoint = stylesByScreenSize[i];
+        if (stylingBreakpoint && stylingBreakpoint.styling) {
+          let breakpointProperties = {};
+          const { breakpoint, styling } = stylingBreakpoint;
+          const { borders, palette, sizing, spacing } = styling;
+          if (borders) {
+            const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius } = borders;
+            breakpointProperties = {
+              ...pickBy({ border, borderTop, borderRight, borderBottom, borderLeft }, i => !isNaN(i)),
+              borderRadius,
+            };
+            if (borderColor) {
+              const { colorHue, colorShade } = borderColor;
+              breakpointProperties.borderColor = findColor(colorHue, colorShade, theme);
+            }
+          }
+          const { color, backgroundColor } = palette;
+          if (color) {
+            const { colorHue, colorShade } = color;
+            breakpointProperties.color = findColor(colorHue, colorShade, theme);
+          }
+          if (backgroundColor) {
+            const { colorHue, colorShade } = backgroundColor;
+            breakpointProperties.bgcolor = findColor(colorHue, colorShade, theme);
+          }
+          if (sizing) {
+            // const { width, maxWidth, minWidth, height, maxHeight, minHeight } = sizing;
+            breakpointProperties = {
+              ...breakpointProperties,
+              ...pickBy(sizing, i => !!i)
+            };
+          }
+          if (spacing) {
+            forOwn(spacing, (spacingGroup) => {
+              const validSpacing = pickBy(spacingGroup, i => !!i);
+              if (!isEmpty(validSpacing)) {
+                forOwn(validSpacing, (value, prop) => {
+                  if (!isNaN(value)) {
+                    breakpointProperties[prop] = parseFloat(value);
+                  } else {
+                    breakpointProperties[prop] = value;
+                  }
+                });
+              }
+            });
+          }
+          // get rid of nulls and undefined
+          breakpointProperties = pickBy(breakpointProperties, i => !isNil(i));
+          //
+          forOwn(breakpointProperties, (propValue, propName) => {
+            properties[propName] = properties[propName] || {};
+            properties[propName][breakpoint] = propValue;
+          });
+        }
       }
-    }
-    const { color, backgroundColor } = palette;
-    if (color) {
-      const { colorHue, colorShade } = color;
-      properties.color = findColor(colorHue, colorShade, theme);
-    }
-    if (backgroundColor) {
-      const { colorHue, colorShade } = backgroundColor;
-      properties.bgcolor = findColor(colorHue, colorShade, theme);
     }
     console.info('properties: ', properties);
     return (
@@ -43,19 +84,16 @@ Box.propTypes = BoxTypes;
 
 Box.defaultProps = {
   doNotUseInFlows: true,
-  borders: {
-    border: 0,
-  },
-  palette: {
-    color: {
-      colorHue: 'red',
-      colorShade: '100'
-    },
-    backgroundColor: {
-      colorHue: 'blue',
-      colorShade: '100'
+  stylesByScreenSize: [
+    {
+      breakpoint: 'xs',
+      styling: {
+        borders: {
+          border: 1,
+        },
+      }
     }
-  },
+  ],
   content: [<span/>],
 };
 
