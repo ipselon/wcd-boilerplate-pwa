@@ -6,9 +6,12 @@ import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
 import findColor from '../../common-props/utils/colorMap';
-import { BoxTypes } from './Box.props';
+import { BoxResponsiveTypes } from './BoxResponsive.props';
 
-class Box extends React.Component {
+/**
+ * BoxResponsive comment..... test
+ */
+class BoxResponsive extends React.Component {
   render() {
     let properties = {};
     const { stylesByScreenSize, content, theme } = this.props;
@@ -19,7 +22,7 @@ class Box extends React.Component {
         if (stylingBreakpoint && stylingBreakpoint.styling) {
           let breakpointProperties = {};
           const { breakpoint, styling } = stylingBreakpoint;
-          const { borders, palette, sizing, spacing } = styling;
+          const { borders, display, palette, sizing, spacing } = styling;
           if (borders) {
             const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius } = borders;
             breakpointProperties = {
@@ -30,6 +33,12 @@ class Box extends React.Component {
               const { colorHue, colorShade } = borderColor;
               breakpointProperties.borderColor = findColor(colorHue, colorShade, theme);
             }
+          }
+          if (display) {
+            breakpointProperties = {
+              ...breakpointProperties,
+              ...pickBy(display, i => !!i)
+            };
           }
           const { color, backgroundColor } = palette;
           if (color) {
@@ -80,9 +89,9 @@ class Box extends React.Component {
   }
 }
 
-Box.propTypes = BoxTypes;
+BoxResponsive.propTypes = BoxResponsiveTypes;
 
-Box.defaultProps = {
+BoxResponsive.defaultProps = {
   doNotUseInFlows: true,
   stylesByScreenSize: [
     {
@@ -97,4 +106,4 @@ Box.defaultProps = {
   content: [<span/>],
 };
 
-export default withTheme(Box);
+export default withTheme(BoxResponsive);
