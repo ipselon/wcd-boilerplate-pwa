@@ -47,6 +47,16 @@ const SettingsProps = {
         contrastText: PropTypes.string,
       }),
     }),
+    // Test
+    zIndex: PropTypes.shape({
+      mobileStepper: PropTypes.number,
+      speedDial: PropTypes.number,
+      appBar: PropTypes.number,
+      drawer: PropTypes.number,
+      modal: PropTypes.number,
+      snackbar: PropTypes.number,
+      tooltip: PropTypes.number
+    }),
   })
 };
 
@@ -111,6 +121,15 @@ export const defaultSettings = {
         },
         contrastText: '#fff',
       }
+    },
+    zIndex: {
+      mobileStepper: 1000,
+      speedDial: 1050,
+      appBar: 1100,
+      drawer: 1200,
+      modal: 1300,
+      snackbar: 1400,
+      tooltip: 1500
     }
   }
 };

@@ -8,8 +8,6 @@ export const ListWithItemsTypes = {
   doNotUseInFlows: PropTypes.bool,
   /**
    * The array of the data objects.
-   *
-   * Read about the structure of the data object in the component's Readme.
    */
   listItems: PropTypes.arrayOf(PropTypes.shape({
     // The list item is. It is a required field and should be unique.
@@ -51,8 +49,6 @@ export const ListWithItemsTypes = {
   /*
    * An array of the data objects references.
    * Each data object item in the itemsData references to the item in the itemsMetaData by the "type" value.
-   *
-   * Read more in the component's Readme.
    */
   icons: PropTypes.arrayOf(PropTypes.element),
   /*

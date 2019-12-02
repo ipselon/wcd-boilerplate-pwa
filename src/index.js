@@ -29,8 +29,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const muiTheme = {};
 if (appSettings && appSettings.muiTheme) {
-  const { breakpoints, palette } = appSettings.muiTheme;
+  const { breakpoints, palette, zIndex } = appSettings.muiTheme;
   muiTheme.breakpoints = breakpoints;
+  muiTheme.zIndex = zIndex;
   if (palette) {
     const { type, primary, secondary, error } = palette;
     muiTheme.palette = {

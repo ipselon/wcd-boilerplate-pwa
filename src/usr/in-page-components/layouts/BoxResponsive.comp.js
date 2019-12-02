@@ -7,6 +7,7 @@ import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
 import findColor from '../../common-props/utils/colorMap';
 import { BoxResponsiveTypes } from './BoxResponsive.props';
+import elevationMap from '../../common-props/utils/elevationMap';
 
 /**
  * BoxResponsive comment..... test
@@ -22,7 +23,7 @@ class BoxResponsive extends React.Component {
         if (stylingBreakpoint && stylingBreakpoint.styling) {
           let breakpointProperties = {};
           const { breakpoint, styling } = stylingBreakpoint;
-          const { borders, display, palette, sizing, spacing } = styling;
+          const { borders, display, flexbox, palette, positions, sizing, spacing, boxShadow } = styling;
           if (borders) {
             const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius } = borders;
             breakpointProperties = {
@@ -56,6 +57,18 @@ class BoxResponsive extends React.Component {
               ...pickBy(sizing, i => !!i)
             };
           }
+          if (flexbox) {
+            breakpointProperties = {
+              ...breakpointProperties,
+              ...flexbox
+            };
+          }
+          if (positions) {
+            breakpointProperties = {
+              ...breakpointProperties,
+              ...positions
+            };
+          }
           if (spacing) {
             forOwn(spacing, (spacingGroup) => {
               const validSpacing = pickBy(spacingGroup, i => !!i);
@@ -69,6 +82,9 @@ class BoxResponsive extends React.Component {
                 });
               }
             });
+          }
+          if (boxShadow) {
+            breakpointProperties.boxShadow = elevationMap[boxShadow];
           }
           // get rid of nulls and undefined
           breakpointProperties = pickBy(breakpointProperties, i => !isNil(i));

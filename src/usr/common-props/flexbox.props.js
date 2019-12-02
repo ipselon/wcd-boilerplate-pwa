@@ -58,4 +58,38 @@ export const FlexboxTypes = {
    * Items in a container are sorted by ascending order value and then by their source code order.
    */
   order: PropTypes.number,
+  /**
+   * The flex CSS property sets how a flex item will grow or shrink to fit the space available in its flex container.
+   * It is a shorthand for flex-grow, flex-shrink, and flex-basis.
+   */
+  flex: PropTypes.string,
+  /**
+   * The flex-grow CSS property sets the flex grow factor of a flex item main size.
+   * It specifies how much of the remaining space in the flex container should be assigned to the item
+   * (the flex grow factor).
+   */
+  flexGrow: PropTypes.number,
+  /**
+   * The flex-shrink CSS property sets the flex shrink factor of a flex item.
+   * If the size of all flex items is larger than the flex container,
+   * items shrink to fit according to flex-shrink.
+   */
+  flexShrink: PropTypes.number,
+  /**
+   * The align-self CSS property overrides a grid or flex item's align-items value.
+   * In Flexbox, it aligns the item on the cross axis.
+   */
+  alignSelf: PropTypes.oneOf([
+    '',
+    'auto',
+    'center',
+    'start',
+    'end',
+    'flex-start',
+    'flex-end',
+    'baseline',
+    'normal',
+    'stretch'
+  ]),
+
 };
