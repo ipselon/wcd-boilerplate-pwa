@@ -1,0 +1,147 @@
+{
+  "templateName": "styled-div-probe-1",
+  "componentsTree": {
+    "key": "node1",
+    "type": "PAGE_COMPONENT_TYPE",
+    "props": {
+      "componentName": "usr.in-page-components.layouts.DivWithStyle",
+      "componentInstance": "flexboxRow"
+    },
+    "index": 0,
+    "children": [
+      {
+        "key": "node2",
+        "type": "COMPONENT_PROPERTY_ARRAY_OF_TYPE",
+        "props": {
+          "propertyName": "content",
+          "propertyComment": "\n  An array of the placeholders for child components.\n  Increase array size to put more items.\n",
+          "defaultChildren": [
+            {
+              "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+              "props": {
+                "componentName": "__PlaceHolder"
+              }
+            }
+          ]
+        },
+        "index": 0,
+        "children": [
+          {
+            "key": "node6",
+            "type": "PAGE_COMPONENT_TYPE",
+            "props": {
+              "componentName": "usr.in-page-components.layouts.DivWithStyle",
+              "componentInstance": "bigArea"
+            },
+            "index": 0,
+            "children": [
+              {
+                "key": "node7",
+                "type": "COMPONENT_PROPERTY_ARRAY_OF_TYPE",
+                "props": {
+                  "propertyName": "content",
+                  "propertyComment": "\n  An array of the placeholders for child components.\n  Increase array size to put more items.\n",
+                  "defaultChildren": [
+                    {
+                      "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+                      "props": {
+                        "componentName": "__PlaceHolder"
+                      }
+                    }
+                  ]
+                },
+                "index": 0,
+                "children": [
+                  {
+                    "key": "node8",
+                    "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+                    "props": {
+                      "componentName": "__PlaceHolder"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              {
+                "key": "node10",
+                "type": "COMPONENT_PROPERTY_OBJECT_TYPE",
+                "props": {
+                  "propertyName": "style",
+                  "propertyComment": "\n Inline styles of the component. The object is used as a style property of the div component.\n",
+                  "propertyValue": {
+                    "flexGrow": 1
+                  }
+                },
+                "index": 1
+              }
+            ]
+          },
+          {
+            "key": "node11",
+            "type": "PAGE_COMPONENT_TYPE",
+            "props": {
+              "componentName": "usr.in-page-components.layouts.DivWithStyle",
+              "componentInstance": "smallArea",
+              "isSelected": true
+            },
+            "index": 1,
+            "children": [
+              {
+                "key": "node12",
+                "type": "COMPONENT_PROPERTY_ARRAY_OF_TYPE",
+                "props": {
+                  "propertyName": "content",
+                  "propertyComment": "\n  An array of the placeholders for child components.\n  Increase array size to put more items.\n",
+                  "defaultChildren": [
+                    {
+                      "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+                      "props": {
+                        "componentName": "__PlaceHolder"
+                      }
+                    }
+                  ]
+                },
+                "index": 0,
+                "children": [
+                  {
+                    "key": "node13",
+                    "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+                    "props": {
+                      "componentName": "__PlaceHolder"
+                    },
+                    "index": 0
+                  }
+                ]
+              },
+              {
+                "key": "node15",
+                "type": "COMPONENT_PROPERTY_OBJECT_TYPE",
+                "props": {
+                  "propertyName": "style",
+                  "propertyComment": "\n Inline styles of the component. The object is used as a style property of the div component.\n",
+                  "propertyValue": {
+                    "display": "flex"
+                  }
+                },
+                "index": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "node16",
+        "type": "COMPONENT_PROPERTY_OBJECT_TYPE",
+        "props": {
+          "propertyName": "style",
+          "propertyComment": "\n Inline styles of the component. The object is used as a style property of the div component.\n",
+          "propertyValue": {
+            "display": "flex",
+            "width": "100%"
+          }
+        },
+        "index": 1
+      }
+    ]
+  }
+}
