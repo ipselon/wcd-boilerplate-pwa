@@ -23,9 +23,27 @@ class BoxResponsive extends React.Component {
         if (stylingBreakpoint && stylingBreakpoint.styling) {
           let breakpointProperties = {};
           const { breakpoint, styling } = stylingBreakpoint;
-          const { borders, display, flexbox, palette, positions, sizing, spacing, boxShadow } = styling;
+          const {
+            borders,
+            display,
+            flexbox,
+            palette,
+            positions,
+            sizing,
+            spacing,
+            boxShadow,
+            typography
+          } = styling;
           if (borders) {
-            const { border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius } = borders;
+            const {
+              border,
+              borderTop,
+              borderRight,
+              borderBottom,
+              borderLeft,
+              borderColor,
+              borderRadius
+            } = borders;
             breakpointProperties = {
               ...pickBy({ border, borderTop, borderRight, borderBottom, borderLeft }, i => !isNaN(i)),
               borderRadius,
@@ -51,7 +69,6 @@ class BoxResponsive extends React.Component {
             breakpointProperties.bgcolor = findColor(colorHue, colorShade, theme);
           }
           if (sizing) {
-            // const { width, maxWidth, minWidth, height, maxHeight, minHeight } = sizing;
             breakpointProperties = {
               ...breakpointProperties,
               ...pickBy(sizing, i => !!i)
@@ -85,6 +102,12 @@ class BoxResponsive extends React.Component {
           }
           if (boxShadow) {
             breakpointProperties.boxShadow = elevationMap[boxShadow];
+          }
+          if (typography) {
+            breakpointProperties = {
+              ...breakpointProperties,
+              ...typography
+            };
           }
           // get rid of nulls and undefined
           breakpointProperties = pickBy(breakpointProperties, i => !isNil(i));

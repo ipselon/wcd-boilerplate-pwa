@@ -6,6 +6,7 @@ import { BordersTypes } from '../../common-props/borders.props';
 import { DisplayTypes } from '../../common-props/display.props';
 import { FlexboxTypes } from '../../common-props/flexbox.props';
 import { PositionsTypes } from '../../common-props/positions.props';
+import { TypographyTypes } from '../../common-props/typography.props';
 
 export const BoxResponsiveTypes = {
   /**
@@ -68,6 +69,8 @@ export const BoxResponsiveTypes = {
         '20', '21', '22', '23',
         '24'
       ]),
+      // Text utilities to control alignment, wrapping, weight, and more.
+      typography: PropTypes.shape(TypographyTypes),
     }),
   })),
   // A list of the components that will be placed inside the Box component. Increase the array to have more items.
