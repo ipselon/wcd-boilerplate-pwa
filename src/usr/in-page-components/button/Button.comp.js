@@ -1,21 +1,6 @@
-import isEqual from 'lodash/isEqual';
 import React from 'react';
+import ButtonMUI from '@material-ui/core/Button';
 import { ButtonTypes } from './Button.props';
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  containerStyle: {
-    marginTop: '1em',
-    marginBottom: '1em',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-};
 
 class Button extends React.Component {
   constructor(props) {
@@ -27,39 +12,16 @@ class Button extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.props.onSubmit({
-      enteredText: this.state.localInputText
-    });
+    this.props.onClick();
   };
 
   render() {
-    const { data, cells } = this.props;
-    const { rootStyle, localInputText } = this.state;
+    const { label } = this.props;
+
     return (
-      <div style={rootStyle}>
-        <h3>{data.title}</h3>
-        <div style={styles.containerStyle}>
-          <input
-            type="text"
-            name="inputText"
-            id="inputText"
-            placeholder={data.placeholder}
-            value={localInputText}
-            onChange={this.handleChangeInputValue}
-          />
-        </div>
-        <div style={styles.containerStyle}>
-          <button onClick={this.handleButtonClick}>Click</button>
-        </div>
-        {cells &&
-          cells.map((item, itemIdx) => {
-            return (
-              <div key={itemIdx} style={styles.containerStyle}>
-                {item}
-              </div>
-            );
-          })}
-      </div>
+      <ButtonMUI onClick={this.handleButtonClick}>
+        {label}
+      </ButtonMUI>
     );
   }
 }
@@ -67,26 +29,9 @@ class Button extends React.Component {
 Button.propTypes = ButtonTypes;
 
 Button.defaultProps = {
-  styling: {
-    padding: '1em',
-    margin: '4em',
-    borderColor: '#cdcdcd',
-    borderWidth: '2px',
-    borderStyle: 'dotted'
-  },
-  data: {
-    title: 'Empty Title Value',
-    placeholder: 'Enter text',
-    inputText: '',
-    inputObject: {},
-    inputArray: []
-  },
-  cells: [<div>Placeholder</div>],
-  onInputTextChange: () => {
-    console.info('Button.onInputTextChange is not set');
-  },
-  onSubmit: () => {
-    console.info('Button.onSubmit is not set');
+  label: 'Button',
+  onClick: () => {
+    console.info('Button.onClick is not set');
   }
 };
 
