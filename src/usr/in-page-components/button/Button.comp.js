@@ -1,51 +1,80 @@
 import isNil from 'lodash/isNil';
 import pickBy from 'lodash/pickBy';
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ButtonTypes } from './Button.props';
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
+const useStyles = makeStyles(theme => ({
+  button: {
+    position: 'relative',
+  },
+  progress: {
+    color: theme.palette.primary.main,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    zIndex: 1,
   }
+}));
 
-  handleButtonClick = e => {
+const progressCircleSizesMap = {
+  'small': 14,
+  'medium': 20,
+  'large': 24,
+};
+
+const ButtonCircularProgress = props => {
+  const classes = useStyles();
+  const progressSize = progressCircleSizesMap[props.size || 'medium'];
+  const progressStyle = {
+    marginTop: -(progressSize / 2),
+    marginLeft: -(progressSize / 2),
+  };
+  return (
+    <CircularProgress
+      size={progressSize}
+      style={progressStyle}
+      className={classes.progress}
+    />
+  );
+};
+
+const Button = props => {
+  const classes = useStyles();
+  const handleButtonClick = e => {
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.props.onClick();
+    props.onClick();
   };
-
-  render() {
-    const { label, variant, disabled, endIcon, startIcon, size, fullWidth, href } = this.props;
-    console.info('Button props: ', {label, variant, disabled, endIcon, startIcon, size, fullWidth, href});
-    const muiButtonProps = pickBy({variant, disabled, size, fullWidth, href}, i => !isNil(i));
-    let startIconElement = null;
-    if (startIcon && startIcon.length > 0) {
-      muiButtonProps.startIcon = startIcon[0];
-    }
-    let endIconElement = null;
-    if (endIcon && endIcon.length > 0) {
-      muiButtonProps.endIcon = startIcon[0];
-    }
-
-    return (
-      <ButtonMUI
-        onClick={this.handleButtonClick}
-        variant={variant}
-        disabled={disabled}
-        endIcon={endIconElement}
-        startIcon={startIconElement}
-        size={size}
-        fullWidth={fullWidth}
-        href={href}
-      >
-        {label}
-      </ButtonMUI>
-    );
+  const { label, color, variant, disabled, endIcon, startIcon, size, fullWidth, href, loading } = props;
+  const muiButtonProps = pickBy({ variant, color, disabled, size, fullWidth, href }, i => !isNil(i));
+  if (startIcon && startIcon.length > 0) {
+    muiButtonProps.startIcon = startIcon[0];
   }
-}
+  if (endIcon && endIcon.length > 0) {
+    muiButtonProps.endIcon = endIcon[0];
+  }
+  console.info('Button props: ', muiButtonProps);
+  if (loading) {
+    muiButtonProps.disabled = true;
+  }
+  return (
+    <ButtonMUI
+      className={classes.button}
+      onClick={handleButtonClick}
+      {...muiButtonProps}
+    >
+      {label}
+      {loading && (
+        <ButtonCircularProgress size={size} />
+      )}
+    </ButtonMUI>
+  );
+};
 
 Button.propTypes = ButtonTypes;
 
