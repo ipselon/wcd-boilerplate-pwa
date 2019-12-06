@@ -38,7 +38,7 @@ export const ButtonTypes = {
    */
   href: PropTypes.string,
   /**
-   * If true the circular progress is shown.
+   * If true the circular progress is shown and button is disabled.
    */
   loading: PropTypes.bool,
   /*

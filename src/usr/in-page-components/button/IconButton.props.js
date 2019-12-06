@@ -23,6 +23,10 @@ export const IconButtonTypes = {
    * The size of the button. `small` is equivalent to the dense button styling.
    */
   size: PropTypes.oneOf(['', 'small', 'medium']),
+  /**
+   * If true the circular progress is shown and button is disabled.
+   */
+  loading: PropTypes.bool,
   /*
    * Triggered when the user click on the button
    *

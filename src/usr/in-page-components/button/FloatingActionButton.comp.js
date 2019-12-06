@@ -3,9 +3,13 @@ import pickBy from 'lodash/pickBy';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FabMUI from '@material-ui/core/Fab';
+import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { FloatingActionButtonTypes } from './FloatingActionButton.props';
 
 const styles = theme => ({
+  button: {
+    position: 'relative',
+  },
   label: {
     marginLeft: theme.spacing(1),
   }
@@ -25,7 +29,7 @@ class FloatingActionButton extends React.Component {
   };
 
   render() {
-    const { classes, label, color, variant, disabled, icon, size, href } = this.props;
+    const { classes, label, color, variant, disabled, icon, size, href, loading } = this.props;
     const muiButtonProps = pickBy({variant, color, disabled, size, href}, i => !isNil(i));
     let iconElement = null;
     if (icon && icon.length > 0) {
@@ -39,13 +43,20 @@ class FloatingActionButton extends React.Component {
         labelElement = <span>{label}</span>;
       }
     }
+    if (loading) {
+      muiButtonProps.disabled = true;
+    }
     return (
       <FabMUI
+        className={classes.button}
         onClick={this.handleButtonClick}
         {...muiButtonProps}
       >
         {iconElement}
         {labelElement}
+        {loading && (
+          <ButtonCircularProgress size={size} />
+        )}
       </FabMUI>
     );
   }

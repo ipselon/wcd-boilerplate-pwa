@@ -3,43 +3,14 @@ import pickBy from 'lodash/pickBy';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { ButtonTypes } from './Button.props';
 
 const useStyles = makeStyles(theme => ({
   button: {
     position: 'relative',
   },
-  progress: {
-    color: theme.palette.primary.main,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    zIndex: 1,
-  }
 }));
-
-const progressCircleSizesMap = {
-  'small': 14,
-  'medium': 20,
-  'large': 24,
-};
-
-const ButtonCircularProgress = props => {
-  const classes = useStyles();
-  const progressSize = progressCircleSizesMap[props.size || 'medium'];
-  const progressStyle = {
-    marginTop: -(progressSize / 2),
-    marginLeft: -(progressSize / 2),
-  };
-  return (
-    <CircularProgress
-      size={progressSize}
-      style={progressStyle}
-      className={classes.progress}
-    />
-  );
-};
 
 const Button = props => {
   const classes = useStyles();

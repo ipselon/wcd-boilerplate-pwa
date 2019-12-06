@@ -2,6 +2,7 @@ import isNil from 'lodash/isNil';
 import pickBy from 'lodash/pickBy';
 import React from 'react';
 import IconButtonMUI from '@material-ui/core/IconButton';
+import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { IconButtonTypes } from './IconButton.props';
 
 class IconButton extends React.Component {
@@ -18,11 +19,14 @@ class IconButton extends React.Component {
   };
 
   render() {
-    const { color, edge, disabled, icon, size } = this.props;
+    const { color, edge, disabled, icon, size, loading } = this.props;
     const muiButtonProps = pickBy({color, edge, disabled, size}, i => !isNil(i));
     let childIconElement = null;
     if (icon && icon.length > 0) {
       childIconElement = icon[0];
+    }
+    if (loading) {
+      muiButtonProps.disabled = true;
     }
     console.info('IconButton props: ', muiButtonProps);
     return (
@@ -31,6 +35,9 @@ class IconButton extends React.Component {
         {...muiButtonProps}
       >
         {childIconElement}
+        {loading && (
+          <ButtonCircularProgress size={size} />
+        )}
       </IconButtonMUI>
     );
   }

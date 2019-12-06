@@ -29,6 +29,10 @@ export const FloatingActionButtonTypes = {
    * The URL to link to when the button is clicked. If defined, an a element will be used as the root node.
    */
   href: PropTypes.string,
+  /**
+   * If true the circular progress is shown and button is disabled.
+   */
+  loading: PropTypes.bool,
   /*
    * Triggered when the user click on the button
    *
