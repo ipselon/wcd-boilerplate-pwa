@@ -1,3 +1,6 @@
+/**
+ * My Function Test
+ */
 // @param {FetchTextFileByUrlInputTypes from ./dataFetching.props.js}
 export const fetchTextFileByUrl = options => dispatch => {
   console.info('fetchTextFileByUrl: ', options);

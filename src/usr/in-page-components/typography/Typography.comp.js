@@ -1,3 +1,5 @@
+import isNil from 'lodash/isNil';
+import pickBy from 'lodash/pickBy';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TypographyMUI from '@material-ui/core/Typography';
@@ -10,15 +12,13 @@ class Typography extends React.Component {
 
   render() {
     const { align, color, display, gutterBottom, noWrap, paragraph, variant, text } = this.props;
+    console.info('text: ', text);
+    const muiTypographyProps = pickBy(
+      { align, color, display, gutterBottom, noWrap, paragraph, variant, text }, i => !isNil(i)
+    );
     return (
       <TypographyMUI
-        align={align}
-        color={color}
-        display={display}
-        gutterBottom={gutterBottom}
-        noWrap={noWrap}
-        paragraph={paragraph}
-        variant={variant}
+        {...muiTypographyProps}
         onClick={this.handleClick}
       >
         <span>{text}</span>

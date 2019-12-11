@@ -7,10 +7,10 @@ import { DivWithStyleTypes } from './DivWithStyle.props';
  */
 class DivWithStyle extends React.Component {
   render() {
-    const { content, style } = this.props;
+    const { children, style } = this.props;
     return (
       <div style={style}>
-        {content}
+        {children}
       </div>
     );
   }
@@ -22,7 +22,7 @@ DivWithStyle.defaultProps = {
   style: {
     display: 'flex',
   },
-  content: [<span/>],
+  children: [<span/>],
 };
 
 export default DivWithStyle;

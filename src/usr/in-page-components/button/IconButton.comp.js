@@ -21,20 +21,15 @@ class IconButton extends React.Component {
   render() {
     const { color, edge, disabled, icon, size, loading } = this.props;
     const muiButtonProps = pickBy({color, edge, disabled, size}, i => !isNil(i));
-    let childIconElement = null;
-    if (icon && icon.length > 0) {
-      childIconElement = icon[0];
-    }
     if (loading) {
       muiButtonProps.disabled = true;
     }
-    console.info('IconButton props: ', muiButtonProps);
     return (
       <IconButtonMUI
         onClick={this.handleButtonClick}
         {...muiButtonProps}
       >
-        {childIconElement}
+        {icon}
         {loading && (
           <ButtonCircularProgress size={size} />
         )}
@@ -46,7 +41,7 @@ class IconButton extends React.Component {
 IconButton.propTypes = IconButtonTypes;
 
 IconButton.defaultProps = {
-  icon: [<span/>],
+  icon: <span/>,
   onClick: () => {
     console.info('IconButton.onClick is not set');
   }

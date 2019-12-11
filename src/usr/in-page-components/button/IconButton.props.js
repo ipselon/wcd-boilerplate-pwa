@@ -2,6 +2,11 @@ import PropTypes from 'prop-types';
 
 export const IconButtonTypes = {
   /**
+   * If true then the component's instance will not be allowed to use in flows,
+   * and you will not see the instance name in the pages instances list
+   */
+  doNotUseInFlows: PropTypes.bool,
+  /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
   color: PropTypes.oneOf(['', 'default', 'inherit', 'primary', 'secondary']),
@@ -16,9 +21,9 @@ export const IconButtonTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * An array of the elements placed as a child of the button. Only the first item is picked.
+   * Icon
    */
-  icon: PropTypes.arrayOf(PropTypes.element),
+  icon: PropTypes.element,
   /**
    * The size of the button. `small` is equivalent to the dense button styling.
    */

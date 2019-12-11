@@ -9,5 +9,5 @@ export const DivWithStyleTypes = {
    *  An array of the placeholders for child components.
    *  Increase array size to put more items.
    */
-  content: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.arrayOf(PropTypes.element),
 };
