@@ -28,9 +28,10 @@ export const ButtonGroupTypes = {
      * If true, the button will be disabled.
      */
     disabled: PropTypes.bool,
-  })),
-  // The icons list, each item corresponds to the button item in the group by index in the array
-  icons: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * The color of the component. It supports those theme colors that make sense for this component.
+     */
+    color: PropTypes.oneOf(['', 'default', 'inherit', 'primary', 'secondary']),
     /**
      * An array of the elements placed after the button label. Only the first item is picked.
      */
@@ -44,14 +45,6 @@ export const ButtonGroupTypes = {
    * The variant to use.
    */
   variant: PropTypes.oneOf(['', 'text', 'outlined', 'contained']),
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
-  color: PropTypes.oneOf(['', 'default', 'inherit', 'primary', 'secondary']),
-  /**
-   * If true, all buttons will be disabled.
-   */
-  disabled: PropTypes.bool,
   /**
    * The size of the button group. `small` is equivalent to the dense button styling.
    */

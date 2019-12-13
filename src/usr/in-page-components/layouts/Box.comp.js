@@ -96,7 +96,6 @@ class Box extends React.Component {
     // get rid of nulls and undefined
     properties = pickBy(properties, i => !isNil(i));
     //
-    console.info('properties: ', properties);
     return (
       <BoxMUI {...properties}>
         {content}

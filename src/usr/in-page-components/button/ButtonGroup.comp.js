@@ -27,26 +27,28 @@ const ButtonGroup = (props) => {
     props.onClick(buttonProps);
   };
 
-  const { buttons, icons, color, variant, disabled, size, fullWidth } = props;
+  const { buttons, variant, size, fullWidth } = props;
 
   const buttonsElements = [];
   if (buttons && buttons.length > 0) {
     let muiButtonProps;
     for (let i = 0; i < buttons.length; i++) {
-      const { id, loading, label, disabled, href } = buttons[i];
-      muiButtonProps = pickBy({disabled, href}, prop => !isNil(prop));
+      const { id, loading, label, disabled, href, color, endIcon, startIcon } = buttons[i];
+      muiButtonProps = pickBy({disabled, href, color}, prop => !isNil(prop));
       if (loading) {
         muiButtonProps.disabled = true;
       }
+      let startIconElement = null;
+      let endIconElement = null;
+      if (startIcon && startIcon.length > 0) {
+        startIconElement = startIcon[0];
+      }
+      if (endIcon && endIcon.length > 0) {
+        endIconElement = endIcon[0];
+      }
       if (label) {
-        if (icons && icons.length > i) {
-          if (icons[i].startIcon && icons[i].startIcon.length > 0) {
-            muiButtonProps.startIcon = icons[i].startIcon[0];
-          }
-          if (icons[i].endIcon && icons[i].endIcon.length > 0) {
-            muiButtonProps.endIcon = icons[i].endIcon[0];
-          }
-        }
+        muiButtonProps.startIcon = startIconElement;
+        muiButtonProps.endIcon = endIconElement;
         buttonsElements.push(
           <ButtonMUI
             key={`${id}${i}`}
@@ -61,16 +63,6 @@ const ButtonGroup = (props) => {
           </ButtonMUI>
         );
       } else {
-        let startIcon = null;
-        let endIcon = null;
-        if (icons && icons.length > i) {
-          if (icons[i].startIcon && icons[i].startIcon.length > 0) {
-            startIcon = icons[i].startIcon[0];
-          }
-          if (icons[i].endIcon && icons[i].endIcon.length > 0) {
-            endIcon = icons[i].endIcon[0];
-          }
-        }
         buttonsElements.push(
           <ButtonMUI
             key={`${id}${i}`}
@@ -78,8 +70,8 @@ const ButtonGroup = (props) => {
             onClick={handleButtonClick({ id, href, label })}
             {...muiButtonProps}
           >
-            {startIcon}
-            {endIcon}
+            {startIconElement}
+            {endIconElement}
             {loading && (
               <ButtonCircularProgress size={size}/>
             )}
@@ -89,7 +81,7 @@ const ButtonGroup = (props) => {
     }
   }
 
-  const muiButtonGroupProps = pickBy({ color, variant, disabled, size, fullWidth }, i => !isNil(i));
+  const muiButtonGroupProps = pickBy({ variant, size, fullWidth }, i => !isNil(i));
   return (
     <ButtonGroupMUI {...muiButtonGroupProps}>
       {buttonsElements}
