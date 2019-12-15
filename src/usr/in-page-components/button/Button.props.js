@@ -23,13 +23,13 @@ export const ButtonTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * An array of the elements placed after the button label. Only the first item is picked.
+   * An element placed after the button label.
    */
-  endIcon: PropTypes.arrayOf(PropTypes.element),
+  endIcon: PropTypes.node,
   /**
-   * An array of the elements placed before the button label. Only the first item is picked.
+   * An element placed before the button label.
    */
-  startIcon: PropTypes.arrayOf(PropTypes.element),
+  startIcon: PropTypes.node,
   /**
    * The size of the button. `small` is equivalent to the dense button styling.
    */

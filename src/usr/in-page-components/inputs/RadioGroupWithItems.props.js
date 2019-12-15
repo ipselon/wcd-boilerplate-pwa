@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const RadioGroupTypes = {
+export const RadioGroupWithItemsTypes = {
   /**
    * If true then the component's instance will not be allowed to use in flows,
    * and you will not see the instance name in the pages instances list
@@ -47,15 +47,19 @@ export const RadioGroupTypes = {
    * Value of the selected radio button.
    */
   selectedValue: PropTypes.string,
+  /**
+   * The size of the radio. small is equivalent to the dense radio styling
+   */
+  size: PropTypes.oneOf(['', 'medium', 'small']),
   /*
    * Submits the entered value
    *
-   * @param {RadioGroupOnChangeTypes}
+   * @param {RadioGroupWithItemsOnChangeTypes}
    */
   onChange: PropTypes.func
 };
 
-export const RadioGroupOnChangeTypes = {
+export const RadioGroupWithItemsOnChangeTypes = {
   // Value of the selected radio button.
   value: PropTypes.string
 };

@@ -19,11 +19,15 @@ export const BottomNavigationTypes = {
     navigationKey: PropTypes.string,
     // The navigation item label. Shown only when showLabels is true.
     label: PropTypes.string,
-    // The navigation icon.
-    icon: PropTypes.element,
+    // An icon index from the icons array property
+    iconIndex: PropTypes.number,
     // If true, the button will be disabled.
     disabled: PropTypes.bool,
   })),
+  /**
+   * An array of icons
+   */
+  icons: PropTypes.arrayOf(PropTypes.node),
   /*
    * Triggered when the user click on the navigation item. Pass the navigation key value.
    *

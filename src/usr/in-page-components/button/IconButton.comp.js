@@ -20,7 +20,7 @@ class IconButton extends React.Component {
 
   render() {
     const { color, edge, disabled, icon, size, loading } = this.props;
-    const muiButtonProps = pickBy({color, edge, disabled, size}, i => !isNil(i));
+    const muiButtonProps = {...this.props, ...pickBy({color, edge, disabled, size}, i => !isNil(i))};
     if (loading) {
       muiButtonProps.disabled = true;
     }

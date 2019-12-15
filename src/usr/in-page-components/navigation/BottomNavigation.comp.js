@@ -34,7 +34,7 @@ class BottomNavigation extends React.Component {
   };
 
   render() {
-    const { navigationItems, showLabels } = this.props;
+    const { navigationItems, showLabels, icons } = this.props;
     const { activeNavigationKeyLocal } = this.state;
     return (
       <BottomNavigationMUI
@@ -44,12 +44,13 @@ class BottomNavigation extends React.Component {
       >
         {navigationItems && navigationItems.length > 0 &&
           navigationItems.map((navigationItem, idx) => {
+            const icon = icons && icons.length > 0 ? icons[navigationItem.iconIndex] : null;
             return (
               <BottomNavigationActionMUI
                 key={`navigationItem${idx}`}
                 label={navigationItem.label}
                 value={navigationItem.navigationKey}
-                icon={navigationItem.icon}
+                icon={icon}
               />
             );
           })
@@ -68,17 +69,14 @@ BottomNavigation.defaultProps = {
     {
       navigationKey: 'navItem1',
       label: 'Nav Item 1',
-      icon: <span />
     },
     {
       navigationKey: 'navItem2',
       label: 'Nav Item 2',
-      icon: <span />
     },
     {
       navigationKey: 'navItem3',
       label: 'Nav Item 3',
-      icon: <span />
     },
   ],
   onChange: () => {

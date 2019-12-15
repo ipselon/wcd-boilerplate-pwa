@@ -15,7 +15,7 @@ import elevationMap from '../../common-props/utils/elevationMap';
 class BoxResponsive extends React.Component {
   render() {
     let properties = {};
-    const { stylesByScreenSize, content, theme } = this.props;
+    const { stylesByScreenSize, children, theme } = this.props;
     if (stylesByScreenSize && stylesByScreenSize.length > 0) {
       let stylingBreakpoint;
       for(let i = 0; i < stylesByScreenSize.length; i++) {
@@ -122,7 +122,7 @@ class BoxResponsive extends React.Component {
     console.info('properties: ', properties);
     return (
       <BoxMUI {...properties}>
-        {content}
+        {children}
       </BoxMUI>
     );
   }
@@ -142,7 +142,7 @@ BoxResponsive.defaultProps = {
       }
     }
   ],
-  content: [<span/>],
+  children: [<span/>],
 };
 
 export default withTheme(BoxResponsive);

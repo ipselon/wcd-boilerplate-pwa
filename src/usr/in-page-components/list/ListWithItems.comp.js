@@ -1,3 +1,5 @@
+import pickBy from 'lodash/pickBy';
+import isNil from 'lodash/isNil';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
@@ -47,25 +49,40 @@ class ListWithItems extends React.Component {
   };
 
   renderList = (listItems, level = 0) => {
-    const { classes } = this.props;
+    const { classes, icons } = this.props;
     const { expandedById } = this.state;
     const resultElementList = [];
     if (listItems && listItems.length > 0) {
       listItems.forEach((item, idx) => {
         if (item) {
-          const {id, primaryText, secondaryText, href, children, metaData} = item;
+          const {
+            id,
+            primaryText,
+            secondaryText,
+            href,
+            childrenListItems,
+            selected,
+            disabled,
+            dense,
+            disableGutters,
+            divider,
+            iconIndex
+          } = item;
+          const listItemProperties = pickBy({selected, disabled, dense, disableGutters, divider}, i => !isNil(i));
           if (id) {
-            let divider;
-            if (metaData) {
-              divider = metaData.divider;
-            }
-            if (children && children.length > 0) {
+            if (childrenListItems && childrenListItems.length > 0) {
               resultElementList.push(
                 <ListItem
                   key={id}
                   button={true}
+                  {...listItemProperties}
                   onClick={this.handleItemToggle(id)}
                 >
+                  {iconIndex >= 0 && icons[iconIndex] && (
+                    <ListItemIcon>
+                      {icons[iconIndex]}
+                    </ListItemIcon>
+                  )}
                   <ListItemText primary={primaryText} secondary={secondaryText} />
                   {expandedById[id] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -76,7 +93,7 @@ class ListWithItems extends React.Component {
                   timeout="auto"
                   unmountOnExit={true}
                 >
-                  {this.renderList(children, level + 1)}
+                  {this.renderList(childrenListItems, level + 1)}
                 </Collapse>
               )
             } else {
@@ -84,9 +101,14 @@ class ListWithItems extends React.Component {
                 <ListItem
                   key={id}
                   button={!href}
-                  divider={divider}
+                  {...listItemProperties}
                   onClick={this.handleItemClick(item)}
                 >
+                  {iconIndex >= 0 && icons[iconIndex] && (
+                    <ListItemIcon>
+                      {icons[iconIndex]}
+                    </ListItemIcon>
+                  )}
                   {href
                     ? (
                       <ListItemText
@@ -140,9 +162,7 @@ ListWithItems.defaultProps = {
       id: '00001',
       primaryText: 'List Item 00001',
       secondaryText: 'Subtext 00001',
-      metaData: {
-        divider: true,
-      }
+      divider: true,
     },
     {
       id: '00002',

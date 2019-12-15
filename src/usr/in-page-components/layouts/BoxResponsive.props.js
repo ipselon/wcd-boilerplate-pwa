@@ -74,5 +74,5 @@ export const BoxResponsiveTypes = {
     }),
   })),
   // A list of the components that will be placed inside the Box component. Increase the array to have more items.
-  content: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.arrayOf(PropTypes.element),
 };

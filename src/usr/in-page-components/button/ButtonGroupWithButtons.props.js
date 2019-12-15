@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const ButtonGroupTypes = {
+export const ButtonGroupWithButtonsTypes = {
   /**
    * If true then the component's instance will not be allowed to use in flows,
    * and you will not see the instance name in the pages instances list
@@ -33,13 +33,13 @@ export const ButtonGroupTypes = {
      */
     color: PropTypes.oneOf(['', 'default', 'inherit', 'primary', 'secondary']),
     /**
-     * An array of the elements placed after the button label. Only the first item is picked.
+     * An element placed after the button label.
      */
-    endIcon: PropTypes.arrayOf(PropTypes.element),
+    endIcon: PropTypes.node,
     /**
-     * An array of the elements placed before the button label. Only the first item is picked.
+     * An element placed before the button label.
      */
-    startIcon: PropTypes.arrayOf(PropTypes.element),
+    startIcon: PropTypes.node,
   })),
   /**
    * The variant to use.
@@ -56,12 +56,12 @@ export const ButtonGroupTypes = {
   /*
    * Triggered when the user clicks on one of the buttons in the group
    *
-   * @param {ButtonGroupOnClickTypes}
+   * @param {ButtonGroupWithButtonsOnClickTypes}
    */
   onClick: PropTypes.func
 };
 
-export const ButtonGroupOnClickTypes = {
+export const ButtonGroupWithButtonsOnClickTypes = {
   // The clicked button id
   id: PropTypes.string,
   /**

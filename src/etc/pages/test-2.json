@@ -1,0 +1,673 @@
+{
+  "pageName": "test-2",
+  "pagePath": "test-2",
+  "componentsTree": {
+    "key": "node2",
+    "type": "PAGE_COMPONENT_TYPE",
+    "props": {
+      "componentName": "usr.in-page-components.layouts.Box",
+      "componentInstance": "box",
+      "isSelected": true
+    },
+    "index": 0,
+    "children": [
+      {
+        "key": "node3",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "borders",
+          "externalProperties": "usr.common-props.borders.BordersTypes"
+        },
+        "index": 0,
+        "children": [
+          {
+            "key": "node4",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "border"
+            },
+            "index": 0
+          },
+          {
+            "key": "node5",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "borderBottom"
+            },
+            "index": 1
+          },
+          {
+            "key": "node6",
+            "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+            "props": {
+              "propertyName": "borderColor",
+              "externalProperties": "usr.common-props.color.ColorTypes"
+            },
+            "index": 2,
+            "children": [
+              {
+                "key": "node7",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorHue"
+                },
+                "index": 0
+              },
+              {
+                "key": "node8",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorShade"
+                },
+                "index": 1
+              }
+            ]
+          },
+          {
+            "key": "node9",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "borderLeft"
+            },
+            "index": 3
+          },
+          {
+            "key": "node10",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "borderRadius"
+            },
+            "index": 4
+          },
+          {
+            "key": "node11",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "borderRight"
+            },
+            "index": 5
+          },
+          {
+            "key": "node12",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "borderTop"
+            },
+            "index": 6
+          }
+        ]
+      },
+      {
+        "key": "node13",
+        "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+        "props": {
+          "propertyName": "boxShadow"
+        },
+        "index": 1
+      },
+      {
+        "key": "node14",
+        "type": "COMPONENT_PROPERTY_ARRAY_OF_TYPE",
+        "props": {
+          "propertyName": "children"
+        },
+        "index": 2,
+        "children": [
+          {
+            "key": "node15",
+            "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+            "props": {
+              "componentName": "__PlaceHolder"
+            },
+            "index": 0
+          },
+          {
+            "key": "node16",
+            "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+            "props": {
+              "componentName": "__PlaceHolder"
+            },
+            "index": 1
+          }
+        ]
+      },
+      {
+        "key": "node17",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "display",
+          "externalProperties": "usr.common-props.display.DisplayTypes"
+        },
+        "index": 3,
+        "children": [
+          {
+            "key": "node18",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "display",
+              "propertyValue": "flex"
+            },
+            "index": 0
+          },
+          {
+            "key": "node19",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "overflow"
+            },
+            "index": 1
+          },
+          {
+            "key": "node20",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "textOverflow"
+            },
+            "index": 2
+          },
+          {
+            "key": "node21",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "visibility"
+            },
+            "index": 3
+          },
+          {
+            "key": "node22",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "whiteSpace"
+            },
+            "index": 4
+          }
+        ]
+      },
+      {
+        "key": "node23",
+        "type": "COMPONENT_PROPERTY_BOOL_TYPE",
+        "props": {
+          "propertyName": "doNotUseInFlows",
+          "propertyValue": true
+        },
+        "index": 4
+      },
+      {
+        "key": "node24",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "flexbox",
+          "externalProperties": "usr.common-props.flexbox.FlexboxTypes"
+        },
+        "index": 5,
+        "children": [
+          {
+            "key": "node25",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "alignContent"
+            },
+            "index": 0
+          },
+          {
+            "key": "node26",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "alignItems"
+            },
+            "index": 1
+          },
+          {
+            "key": "node27",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "alignSelf"
+            },
+            "index": 2
+          },
+          {
+            "key": "node28",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "flex"
+            },
+            "index": 3
+          },
+          {
+            "key": "node29",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "flexDirection",
+              "propertyValue": "column"
+            },
+            "index": 4
+          },
+          {
+            "key": "node30",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "flexGrow"
+            },
+            "index": 5
+          },
+          {
+            "key": "node31",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "flexShrink"
+            },
+            "index": 6
+          },
+          {
+            "key": "node32",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "flexWrap"
+            },
+            "index": 7
+          },
+          {
+            "key": "node33",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "justifyContent"
+            },
+            "index": 8
+          },
+          {
+            "key": "node34",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "order"
+            },
+            "index": 9
+          }
+        ]
+      },
+      {
+        "key": "node35",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "palette"
+        },
+        "index": 6,
+        "children": [
+          {
+            "key": "node36",
+            "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+            "props": {
+              "propertyName": "backgroundColor",
+              "externalProperties": "usr.common-props.color.ColorTypes"
+            },
+            "index": 0,
+            "children": [
+              {
+                "key": "node37",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorHue"
+                },
+                "index": 0
+              },
+              {
+                "key": "node38",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorShade"
+                },
+                "index": 1
+              }
+            ]
+          },
+          {
+            "key": "node39",
+            "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+            "props": {
+              "propertyName": "color",
+              "externalProperties": "usr.common-props.color.ColorTypes"
+            },
+            "index": 1,
+            "children": [
+              {
+                "key": "node40",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorHue"
+                },
+                "index": 0
+              },
+              {
+                "key": "node41",
+                "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+                "props": {
+                  "propertyName": "colorShade"
+                },
+                "index": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "node42",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "positions",
+          "externalProperties": "usr.common-props.positions.PositionsTypes"
+        },
+        "index": 7,
+        "children": [
+          {
+            "key": "node43",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "bottom"
+            },
+            "index": 0
+          },
+          {
+            "key": "node44",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "left"
+            },
+            "index": 1
+          },
+          {
+            "key": "node45",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "position"
+            },
+            "index": 2
+          },
+          {
+            "key": "node46",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "right"
+            },
+            "index": 3
+          },
+          {
+            "key": "node47",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "top"
+            },
+            "index": 4
+          },
+          {
+            "key": "node48",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "zIndex"
+            },
+            "index": 5
+          }
+        ]
+      },
+      {
+        "key": "node49",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "sizing",
+          "externalProperties": "usr.common-props.sizing.SizingTypes"
+        },
+        "index": 8,
+        "children": [
+          {
+            "key": "node50",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "height"
+            },
+            "index": 0
+          },
+          {
+            "key": "node51",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "maxHeight"
+            },
+            "index": 1
+          },
+          {
+            "key": "node52",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "maxWidth"
+            },
+            "index": 2
+          },
+          {
+            "key": "node53",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "minHeight"
+            },
+            "index": 3
+          },
+          {
+            "key": "node54",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "minWidth"
+            },
+            "index": 4
+          },
+          {
+            "key": "node55",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "width"
+            },
+            "index": 5
+          }
+        ]
+      },
+      {
+        "key": "node56",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "spacing",
+          "externalProperties": "usr.common-props.spacing.SpacingTypes"
+        },
+        "index": 9,
+        "children": [
+          {
+            "key": "node57",
+            "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+            "props": {
+              "propertyName": "marginSpacing"
+            },
+            "index": 0,
+            "children": [
+              {
+                "key": "node58",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "margin"
+                },
+                "index": 0
+              },
+              {
+                "key": "node59",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginBottom"
+                },
+                "index": 1
+              },
+              {
+                "key": "node60",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginLeft"
+                },
+                "index": 2
+              },
+              {
+                "key": "node61",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginRight"
+                },
+                "index": 3
+              },
+              {
+                "key": "node62",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginTop"
+                },
+                "index": 4
+              },
+              {
+                "key": "node63",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginX"
+                },
+                "index": 5
+              },
+              {
+                "key": "node64",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "marginY"
+                },
+                "index": 6
+              }
+            ]
+          },
+          {
+            "key": "node65",
+            "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+            "props": {
+              "propertyName": "paddingSpacing"
+            },
+            "index": 1,
+            "children": [
+              {
+                "key": "node66",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "padding"
+                },
+                "index": 0
+              },
+              {
+                "key": "node67",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingBottom"
+                },
+                "index": 1
+              },
+              {
+                "key": "node68",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingLeft"
+                },
+                "index": 2
+              },
+              {
+                "key": "node69",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingRight"
+                },
+                "index": 3
+              },
+              {
+                "key": "node70",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingTop"
+                },
+                "index": 4
+              },
+              {
+                "key": "node71",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingX"
+                },
+                "index": 5
+              },
+              {
+                "key": "node72",
+                "type": "COMPONENT_PROPERTY_STRING_TYPE",
+                "props": {
+                  "propertyName": "paddingY"
+                },
+                "index": 6
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "node73",
+        "type": "COMPONENT_PROPERTY_SHAPE_TYPE",
+        "props": {
+          "propertyName": "typography",
+          "externalProperties": "usr.common-props.typography.TypographyTypes"
+        },
+        "index": 10,
+        "children": [
+          {
+            "key": "node74",
+            "type": "COMPONENT_PROPERTY_NUMBER_TYPE",
+            "props": {
+              "propertyName": "fontSize"
+            },
+            "index": 0
+          },
+          {
+            "key": "node75",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "fontStyle"
+            },
+            "index": 1
+          },
+          {
+            "key": "node76",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "fontWeight"
+            },
+            "index": 2
+          },
+          {
+            "key": "node77",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "letterSpacing"
+            },
+            "index": 3
+          },
+          {
+            "key": "node78",
+            "type": "COMPONENT_PROPERTY_STRING_TYPE",
+            "props": {
+              "propertyName": "lineHeight"
+            },
+            "index": 4
+          },
+          {
+            "key": "node79",
+            "type": "COMPONENT_PROPERTY_ONE_OF_TYPE",
+            "props": {
+              "propertyName": "textAlign"
+            },
+            "index": 5
+          }
+        ]
+      }
+    ]
+  }
+}

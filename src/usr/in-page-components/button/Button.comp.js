@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Button = props => {
+  console.info('Button raw props: ', props);
   const classes = useStyles();
   const handleButtonClick = e => {
     if (e) {
@@ -21,13 +22,13 @@ const Button = props => {
     }
     props.onClick();
   };
-  const { label, color, variant, disabled, endIcon, startIcon, size, fullWidth, href, loading } = props;
+  const { className, label, color, variant, disabled, endIcon, startIcon, size, fullWidth, href, loading } = props;
   const muiButtonProps = pickBy({ variant, color, disabled, size, fullWidth, href }, i => !isNil(i));
-  if (startIcon && startIcon.length > 0) {
-    muiButtonProps.startIcon = startIcon[0];
+  if (startIcon) {
+    muiButtonProps.startIcon = startIcon;
   }
-  if (endIcon && endIcon.length > 0) {
-    muiButtonProps.endIcon = endIcon[0];
+  if (endIcon) {
+    muiButtonProps.endIcon = endIcon;
   }
   console.info('Button props: ', muiButtonProps);
   if (loading) {
@@ -35,9 +36,9 @@ const Button = props => {
   }
   return (
     <ButtonMUI
-      className={classes.button}
-      onClick={handleButtonClick}
+      className={`${className} ${classes.button}`}
       {...muiButtonProps}
+      onClick={handleButtonClick}
     >
       {label}
       {loading && (

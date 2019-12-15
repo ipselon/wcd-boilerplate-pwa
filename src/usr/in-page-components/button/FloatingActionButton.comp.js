@@ -30,14 +30,11 @@ class FloatingActionButton extends React.Component {
 
   render() {
     const { classes, label, color, variant, disabled, icon, size, href, loading } = this.props;
+    // const muiButtonProps = {...this.props, ...pickBy({variant, color, disabled, size, href}, i => !isNil(i))};
     const muiButtonProps = pickBy({variant, color, disabled, size, href}, i => !isNil(i));
-    let iconElement = null;
-    if (icon && icon.length > 0) {
-      iconElement = icon[0];
-    }
     let labelElement = null;
     if (label) {
-      if (iconElement) {
+      if (icon) {
         labelElement = <span className={classes.label}>{label}</span>;
       } else {
         labelElement = <span>{label}</span>;
@@ -52,7 +49,7 @@ class FloatingActionButton extends React.Component {
         onClick={this.handleButtonClick}
         {...muiButtonProps}
       >
-        {iconElement}
+        {icon}
         {labelElement}
         {loading && (
           <ButtonCircularProgress size={size} />

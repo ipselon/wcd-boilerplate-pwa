@@ -24,33 +24,28 @@ export const ListWithItemsTypes = {
      * Add JSON description of the nested list items.
      * The structure of each child should be equal to the parent list item.
      */
-    children: PropTypes.array,
+    childrenListItems: PropTypes.array,
+    // If true, the list item will be selected
+    selected: PropTypes.bool,
+    // If true, the list item will be disabled.
+    disabled: PropTypes.bool,
     /**
-     * Any arbitrary data you want to pass through the list item when the user clicks on the item.
-     * This data will appear in the onItemClick output object.
+     * If true, compact vertical padding designed for keyboard and mouse input will be used.
      */
-    data: PropTypes.object,
-    // Extra properties
-    metaData: PropTypes.shape({
-      // If true, the list item will be selected
-      selected: PropTypes.bool,
-      // If true, the list item will be disabled.
-      disabled: PropTypes.bool,
-      /**
-       * If true, compact vertical padding designed for keyboard and mouse input will be used.
-       */
-      dense: PropTypes.bool,
-      // If true, the left and right padding is removed.
-      disableGutters: PropTypes.bool,
-      // If true, a 1px light border is added to the bottom of the list item.
-      divider: PropTypes.bool,
-    }),
+    dense: PropTypes.bool,
+    // If true, the left and right padding is removed.
+    disableGutters: PropTypes.bool,
+    // If true, a 1px light border is added to the bottom of the list item.
+    divider: PropTypes.bool,
+    /**
+     * The index value if the icon in the icons array property
+     */
+    iconIndex: PropTypes.number,
   })),
-  /*
-   * An array of the data objects references.
-   * Each data object item in the itemsData references to the item in the itemsMetaData by the "type" value.
+  /**
+   * An array of icons that can be used in the list item referenced by index number value in the iconIndex property.
    */
-  icons: PropTypes.arrayOf(PropTypes.element),
+  icons: PropTypes.arrayOf(PropTypes.node),
   /*
    * Triggered when the user click on the list item.
    *
@@ -72,9 +67,5 @@ export const ListWithItemsOnItemClickTypes = {
     secondaryText: PropTypes.string,
     // It is used for creating an URL in the list item instead of button.
     href: PropTypes.string,
-    /**
-     * Any particular data you want to pass through the list item when the user clicks on the item.
-     */
-    data: PropTypes.object,
   }),
 };

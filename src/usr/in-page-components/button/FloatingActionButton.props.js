@@ -23,9 +23,9 @@ export const FloatingActionButtonTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * An array of the elements placed as a child of the button. Only the first item is picked.
+   * An icon placed as a child of the button.
    */
-  icon: PropTypes.arrayOf(PropTypes.element),
+  icon: PropTypes.node,
   /**
    * The size of the button. `small` is equivalent to the dense button styling.
    */

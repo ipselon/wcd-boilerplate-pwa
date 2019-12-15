@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
 import ButtonGroupMUI from '@material-ui/core/ButtonGroup';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
-import { ButtonGroupTypes } from './ButtonGroup.props';
+import { ButtonGroupWithButtonsTypes } from './ButtonGroupWithButtons.props';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 /**
  * The ButtonGroup component can be used to group outlined (the default) or contained buttons.
  */
-const ButtonGroup = (props) => {
+const ButtonGroupWithButtons = (props) => {
   const classes = useStyles();
 
   const handleButtonClick = (buttonProps) => e => {
@@ -38,17 +38,9 @@ const ButtonGroup = (props) => {
       if (loading) {
         muiButtonProps.disabled = true;
       }
-      let startIconElement = null;
-      let endIconElement = null;
-      if (startIcon && startIcon.length > 0) {
-        startIconElement = startIcon[0];
-      }
-      if (endIcon && endIcon.length > 0) {
-        endIconElement = endIcon[0];
-      }
       if (label) {
-        muiButtonProps.startIcon = startIconElement;
-        muiButtonProps.endIcon = endIconElement;
+        muiButtonProps.startIcon = startIcon;
+        muiButtonProps.endIcon = endIcon;
         buttonsElements.push(
           <ButtonMUI
             key={`${id}${i}`}
@@ -70,8 +62,8 @@ const ButtonGroup = (props) => {
             onClick={handleButtonClick({ id, href, label })}
             {...muiButtonProps}
           >
-            {startIconElement}
-            {endIconElement}
+            {startIcon}
+            {endIcon}
             {loading && (
               <ButtonCircularProgress size={size}/>
             )}
@@ -89,9 +81,9 @@ const ButtonGroup = (props) => {
   );
 };
 
-ButtonGroup.propTypes = ButtonGroupTypes;
+ButtonGroupWithButtons.propTypes = ButtonGroupWithButtonsTypes;
 
-ButtonGroup.defaultProps = {
+ButtonGroupWithButtons.defaultProps = {
   buttons: [
     {id: '0001', label: 'Button1'},
     {id: '0002', label: 'Button2'},
@@ -102,4 +94,4 @@ ButtonGroup.defaultProps = {
   }
 };
 
-export default ButtonGroup;
+export default ButtonGroupWithButtons;

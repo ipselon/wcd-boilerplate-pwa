@@ -25,7 +25,7 @@ class Box extends React.Component {
       spacing,
       boxShadow,
       typography,
-      content,
+      children,
       theme
     } = this.props;
     if (borders) {
@@ -98,7 +98,7 @@ class Box extends React.Component {
     //
     return (
       <BoxMUI {...properties}>
-        {content}
+        {children}
       </BoxMUI>
     );
   }
@@ -108,10 +108,10 @@ Box.propTypes = BoxTypes;
 
 Box.defaultProps = {
   doNotUseInFlows: true,
-  borders: {
-    border: 1,
+  display: {
+    display: 'flex',
   },
-  content: [<span/>],
+  children: [<span/>],
 };
 
 export default withTheme(Box);

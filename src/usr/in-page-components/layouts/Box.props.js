@@ -55,5 +55,5 @@ export const BoxTypes = {
   // Text utilities to control alignment, wrapping, weight, and more.
   typography: PropTypes.shape(TypographyTypes),
   // A list of the components that will be placed inside the Box component. Increase the array to have more items.
-  content: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.arrayOf(PropTypes.element),
 };
