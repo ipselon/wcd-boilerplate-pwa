@@ -1,1 +1,11 @@
-{"templateName":"my-profile-picture","componentsTree":{"key":"node2","type":"COMPONENT_PROPERTY_ELEMENT_TYPE","props":{"componentName":"__PlaceHolder"},"index":0}}
+{
+  "templateName": "my-profile-picture",
+  "componentsTree": {
+    "key": "node2",
+    "type": "COMPONENT_PROPERTY_ELEMENT_TYPE",
+    "props": {
+      "componentName": "__PlaceHolder"
+    },
+    "index": 0
+  }
+}
