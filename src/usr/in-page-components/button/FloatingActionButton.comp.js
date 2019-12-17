@@ -1,8 +1,7 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FabMUI from '@material-ui/core/Fab';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { FloatingActionButtonTypes } from './FloatingActionButton.props';
 
@@ -31,7 +30,7 @@ class FloatingActionButton extends React.Component {
   render() {
     const { classes, label, color, variant, disabled, icon, size, href, loading } = this.props;
     // const muiButtonProps = {...this.props, ...pickBy({variant, color, disabled, size, href}, i => !isNil(i))};
-    const muiButtonProps = pickBy({variant, color, disabled, size, href}, i => !isNil(i));
+    const muiButtonProps = pickWithValues({variant, color, disabled, size, href});
     let labelElement = null;
     if (label) {
       if (icon) {

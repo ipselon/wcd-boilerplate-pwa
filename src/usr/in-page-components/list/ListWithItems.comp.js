@@ -1,5 +1,3 @@
-import pickBy from 'lodash/pickBy';
-import isNil from 'lodash/isNil';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
@@ -9,7 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { ListWithItemsTypes } from './ListWithItems.props';
 
 const styles = theme => ({
@@ -68,7 +66,7 @@ class ListWithItems extends React.Component {
             divider,
             iconIndex
           } = item;
-          const listItemProperties = pickBy({selected, disabled, dense, disableGutters, divider}, i => !isNil(i));
+          const listItemProperties = pickWithValues({selected, disabled, dense, disableGutters, divider});
           if (id) {
             if (childrenListItems && childrenListItems.length > 0) {
               resultElementList.push(

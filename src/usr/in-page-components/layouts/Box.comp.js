@@ -1,13 +1,12 @@
-import pickBy from 'lodash/pickBy';
-import isNil from 'lodash/isNil';
 import forOwn from 'lodash/forOwn';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
-import findColor from '../../common-props/utils/colorMap';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import findColor from 'usr/common-props/utils/colorMap';
+import elevationMap from 'usr/common-props/utils/elevationMap';
 import { BoxTypes } from './Box.props';
-import elevationMap from '../../common-props/utils/elevationMap';
 
 /**
  * Box comment
@@ -38,7 +37,7 @@ class Box extends React.Component {
     if (display) {
       properties = {
         ...properties,
-        ...pickBy(display, i => !!i)
+        ...pickWithValues(display)
       };
     }
     if (palette) {
@@ -55,7 +54,7 @@ class Box extends React.Component {
     if (sizing) {
       properties = {
         ...properties,
-        ...pickBy(sizing, i => !!i)
+        ...pickWithValues(sizing)
       };
     }
     if (flexbox) {
@@ -72,7 +71,7 @@ class Box extends React.Component {
     }
     if (spacing) {
       forOwn(spacing, (spacingGroup) => {
-        const validSpacing = pickBy(spacingGroup, i => !!i);
+        const validSpacing = pickWithValues(spacingGroup);
         if (!isEmpty(validSpacing)) {
           forOwn(validSpacing, (value, prop) => {
             if (!isNaN(value)) {
@@ -94,7 +93,7 @@ class Box extends React.Component {
       };
     }
     // get rid of nulls and undefined
-    properties = pickBy(properties, i => !isNil(i));
+    properties = pickWithValues(properties);
     //
     return (
       <BoxMUI {...properties}>

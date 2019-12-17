@@ -1,8 +1,7 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { ButtonTypes } from './Button.props';
 
@@ -13,7 +12,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Button = props => {
-  console.info('Button raw props: ', props);
   const classes = useStyles();
   const handleButtonClick = e => {
     if (e) {
@@ -23,14 +21,13 @@ const Button = props => {
     props.onClick();
   };
   const { className, label, color, variant, disabled, endIcon, startIcon, size, fullWidth, href, loading } = props;
-  const muiButtonProps = pickBy({ variant, color, disabled, size, fullWidth, href }, i => !isNil(i));
+  const muiButtonProps = pickWithValues({ variant, color, disabled, size, fullWidth, href });
   if (startIcon) {
     muiButtonProps.startIcon = startIcon;
   }
   if (endIcon) {
     muiButtonProps.endIcon = endIcon;
   }
-  console.info('Button props: ', muiButtonProps);
   if (loading) {
     muiButtonProps.disabled = true;
   }

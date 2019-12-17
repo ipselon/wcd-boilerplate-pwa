@@ -1,8 +1,7 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TypographyMUI from '@material-ui/core/Typography';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 
 class Typography extends React.Component {
 
@@ -12,10 +11,8 @@ class Typography extends React.Component {
 
   render() {
     const { align, color, display, gutterBottom, noWrap, paragraph, variant, text } = this.props;
-    console.info('text: ', text);
-    const muiTypographyProps = pickBy(
-      { align, color, display, gutterBottom, noWrap, paragraph, variant, text }, i => !isNil(i)
-    );
+    const muiTypographyProps =
+      pickWithValues({ align, color, display, gutterBottom, noWrap, paragraph, variant, text });
     return (
       <TypographyMUI
         {...muiTypographyProps}

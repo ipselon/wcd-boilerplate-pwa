@@ -1,70 +1,106 @@
 import PropTypes from 'prop-types';
 
 export const SelectWithOptionsTypes = {
-  // CSS properties
-  styling: PropTypes.shape({
-    // The border-color shorthand CSS property sets the color of an element's border.
-    borderColor: PropTypes.string,
-    // The border-width shorthand CSS property sets the width of an element's border.
-    borderWidth: PropTypes.string,
-    // The border-style shorthand CSS property sets the line style for all four sides of an element's border.
-    borderStyle: PropTypes.oneOf([
-      'none',
-      'hidden',
-      'dotted',
-      'dashed',
-      'solid',
-      'double',
-      'groove',
-      'ridge',
-      'inset',
-      'outset',
-      'inherit',
-      'initial'
-    ]),
-    // An element's padding area is the space between its content and its border.
-    padding: PropTypes.string,
-    // The margin CSS property sets the margin area on all four sides of an element.
-    margin: PropTypes.string
-  }),
-  // Used for passing data in the component
-  data: PropTypes.shape({
-    // Component title value
-    title: PropTypes.string,
-    // Placeholder text in the input element
-    placeholder: PropTypes.string,
-    // Text value in the input element
-    inputText: PropTypes.string,
-    // Input arbitrary object
-    inputObject: PropTypes.object,
-    // Input arbitrary array
-    inputArray: PropTypes.array
-  }),
-  /*
-   *  An array of the placeholders for child components.
-   *  Increase array size to put more items.
+  /**
+   * If true then the component's instance will not be allowed to use in flows,
+   * and you will not see the instance name in the pages instances list
    */
-  cells: PropTypes.arrayOf(PropTypes.element),
-  /*
-   * Triggered when the text is changed in the input control
-   *
-   * @param {SelectWithOptionsInputTextTypes}
+  doNotUseInFlows: PropTypes.bool,
+  /**
+   * If true, the width of the popover will automatically be set according to the items inside the menu,
+   * otherwise it will be at least the width of the select input.
    */
-  onInputTextChange: PropTypes.func,
+  autoWidth: PropTypes.bool,
+  /**
+   * If true, a value is displayed even if no items are selected.
+   */
+  displayEmpty: PropTypes.bool,
+  /**
+   * The input value. Providing an empty string will select no options.
+   */
+  selectedValue: PropTypes.string,
+  /**
+   * The variant to use.
+   */
+  variant: PropTypes.oneOf(['standard', 'outlined', 'filled']),
+  /**
+   * The size of the select control.
+   */
+  size: PropTypes.oneOf(['small', 'medium']),
+  /**
+   * Label text
+   */
+  label: PropTypes.string,
+  /**
+   * If true, the left and right padding is removed in each option.
+   */
+  disableGuttersInOptions: PropTypes.bool,
+  /**
+   * If true, compact vertical padding designed for keyboard and mouse input will be used for each option.
+   */
+  denseOptions: PropTypes.bool,
+  /**
+   * If true, the input element will be disabled.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Helper text, it is placed below the component
+   */
+  helperText: PropTypes.string,
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: PropTypes.oneOf(['primary', 'secondary']),
+  /**
+   * If true, the component should be displayed in an error state.
+   */
+  error: PropTypes.bool,
+  /**
+   * If true, the component will take up the full width of its container.
+   */
+  fullWidth: PropTypes.bool,
+  /**
+   * If true, the label will be hidden. This is used to increase density for a filled component.
+   */
+  hiddenLabel: PropTypes.bool,
+  /**
+   * If dense or normal, will adjust vertical spacing of this and contained components.
+   */
+  margin: PropTypes.oneOf(['none', 'dense', 'normal']),
+  /**
+   * If true, the label will indicate that the select is required.
+   */
+  required: PropTypes.bool,
+  /**
+   * An array of select options
+   */
+  options: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * Unique id of the option
+     */
+    id: PropTypes.string,
+    /**
+     * Option value
+     */
+    value: PropTypes.string,
+    /**
+     * Option display label
+     */
+    label: PropTypes.string,
+    /**
+     * If true, the list item will be disabled.
+     */
+    disabled: PropTypes.bool,
+  })),
   /*
    * Submits the entered value
    *
-   * @param {SelectWithOptionsSubmitTypes}
+   * @param {SelectWithOptionsOnChangeTypes}
    */
-  onSubmit: PropTypes.func
+  onChange: PropTypes.func
 };
 
-export const SelectWithOptionsInputTextTypes = {
-  // changed text in the input control
-  enteredText: PropTypes.string
-};
-
-export const SelectWithOptionsSubmitTypes = {
-  // entered text into the input control
-  enteredText: PropTypes.string
+export const SelectWithOptionsOnChangeTypes = {
+  // Selected option value
+  value: PropTypes.string
 };

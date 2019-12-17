@@ -1,13 +1,12 @@
-import pickBy from 'lodash/pickBy';
-import isNil from 'lodash/isNil';
 import forOwn from 'lodash/forOwn';
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
-import findColor from '../../common-props/utils/colorMap';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import elevationMap from 'usr/common-props/utils/elevationMap';
+import findColor from 'usr/common-props/utils/colorMap';
 import { BoxResponsiveTypes } from './BoxResponsive.props';
-import elevationMap from '../../common-props/utils/elevationMap';
 
 /**
  * BoxResponsive comment..... test
@@ -45,7 +44,7 @@ class BoxResponsive extends React.Component {
               borderRadius
             } = borders;
             breakpointProperties = {
-              ...pickBy({ border, borderTop, borderRight, borderBottom, borderLeft }, i => !isNaN(i)),
+              ...pickWithValues({ border, borderTop, borderRight, borderBottom, borderLeft }),
               borderRadius,
             };
             if (borderColor) {
@@ -56,7 +55,7 @@ class BoxResponsive extends React.Component {
           if (display) {
             breakpointProperties = {
               ...breakpointProperties,
-              ...pickBy(display, i => !!i)
+              ...pickWithValues(display)
             };
           }
           const { color, backgroundColor } = palette;
@@ -71,7 +70,7 @@ class BoxResponsive extends React.Component {
           if (sizing) {
             breakpointProperties = {
               ...breakpointProperties,
-              ...pickBy(sizing, i => !!i)
+              ...pickWithValues(sizing)
             };
           }
           if (flexbox) {
@@ -88,7 +87,7 @@ class BoxResponsive extends React.Component {
           }
           if (spacing) {
             forOwn(spacing, (spacingGroup) => {
-              const validSpacing = pickBy(spacingGroup, i => !!i);
+              const validSpacing = pickWithValues(spacingGroup);
               if (!isEmpty(validSpacing)) {
                 forOwn(validSpacing, (value, prop) => {
                   if (!isNaN(value)) {
@@ -110,7 +109,7 @@ class BoxResponsive extends React.Component {
             };
           }
           // get rid of nulls and undefined
-          breakpointProperties = pickBy(breakpointProperties, i => !isNil(i));
+          breakpointProperties = pickWithValues(breakpointProperties);
           //
           forOwn(breakpointProperties, (propValue, propName) => {
             properties[propName] = properties[propName] || {};
@@ -119,7 +118,6 @@ class BoxResponsive extends React.Component {
         }
       }
     }
-    console.info('properties: ', properties);
     return (
       <BoxMUI {...properties}>
         {children}

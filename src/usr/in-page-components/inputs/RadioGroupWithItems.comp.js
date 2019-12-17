@@ -1,11 +1,10 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import uniqueId from 'lodash/uniqueId';
 import React from 'react';
 import RadioGroupMUI from '@material-ui/core/RadioGroup';
 import RadioMUI from '@material-ui/core/Radio';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { RadioGroupWithItemsTypes } from './RadioGroupWithItems.props';
 import InputCircularProgress from './assets/InputCircularProgress';
 
@@ -58,17 +57,11 @@ class RadioGroupWithItems extends React.Component {
         radioItem = items[i];
         if (radioItem) {
           const { label, value, required, disabled, color } = radioItem;
-          muiRadioLabelProps = pickBy(
-            { label, labelPlacement },
-            i => !isNil(i)
-          );
+          muiRadioLabelProps = pickWithValues({ label, labelPlacement });
           if (labelPlacement) {
             muiRadioLabelProps.labelPlacement = labelPlacement;
           }
-          muiRadioItemProps = pickBy(
-            { value, required, disabled, color, size },
-            i => !isNil(i)
-          );
+          muiRadioItemProps = pickWithValues({ value, required, disabled, color, size });
           if (loading) {
             muiRadioItemProps.disabled = true;
           }
@@ -83,7 +76,7 @@ class RadioGroupWithItems extends React.Component {
       }
     }
     const { selectedValueLocal: value } = this.state;
-    const muiRadioGroupProps = pickBy({ row, value }, i => !isNil(i));
+    const muiRadioGroupProps = pickWithValues({ row, value });
     return (
       <RadioGroupMUI
         aria-label={this.uniqueName}

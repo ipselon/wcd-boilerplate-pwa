@@ -1,10 +1,9 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
 import ButtonGroupMUI from '@material-ui/core/ButtonGroup';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { ButtonGroupWithButtonsTypes } from './ButtonGroupWithButtons.props';
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +33,7 @@ const ButtonGroupWithButtons = (props) => {
     let muiButtonProps;
     for (let i = 0; i < buttons.length; i++) {
       const { id, loading, label, disabled, href, color, endIcon, startIcon } = buttons[i];
-      muiButtonProps = pickBy({disabled, href, color}, prop => !isNil(prop));
+      muiButtonProps = pickWithValues({disabled, href, color});
       if (loading) {
         muiButtonProps.disabled = true;
       }
@@ -73,7 +72,7 @@ const ButtonGroupWithButtons = (props) => {
     }
   }
 
-  const muiButtonGroupProps = pickBy({ variant, size, fullWidth }, i => !isNil(i));
+  const muiButtonGroupProps = pickWithValues({ variant, size, fullWidth });
   return (
     <ButtonGroupMUI {...muiButtonGroupProps}>
       {buttonsElements}

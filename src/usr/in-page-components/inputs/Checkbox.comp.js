@@ -1,8 +1,7 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import CheckboxMUI from '@material-ui/core/Checkbox';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { CheckboxTypes } from './Checkbox.props';
 
 /**
@@ -18,14 +17,8 @@ class Checkbox extends React.Component {
   render() {
     const { disabled, label, labelPlacement } = this.props;
     const { value, checked, id, color, indeterminate, required } = this.props;
-    const muiFormControlLabelProps = pickBy(
-      { disabled, label, labelPlacement },
-      i => !isNil(i)
-    );
-    const muiCheckboxProps = pickBy(
-      { value, checked, id, color, indeterminate, required },
-      i => !isNil(i)
-    );
+    const muiFormControlLabelProps = pickWithValues({ disabled, label, labelPlacement });
+    const muiCheckboxProps = pickWithValues({ value, checked, id, color, indeterminate, required });
     return (
       <FormControlLabelMUI
         control={

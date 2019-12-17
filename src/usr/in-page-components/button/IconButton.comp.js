@@ -1,7 +1,6 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
 import React from 'react';
 import IconButtonMUI from '@material-ui/core/IconButton';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { IconButtonTypes } from './IconButton.props';
 
@@ -20,7 +19,7 @@ class IconButton extends React.Component {
 
   render() {
     const { color, edge, disabled, icon, size, loading } = this.props;
-    const muiButtonProps = {...this.props, ...pickBy({color, edge, disabled, size}, i => !isNil(i))};
+    const muiButtonProps = {...this.props, ...pickWithValues({color, edge, disabled, size})};
     if (loading) {
       muiButtonProps.disabled = true;
     }
