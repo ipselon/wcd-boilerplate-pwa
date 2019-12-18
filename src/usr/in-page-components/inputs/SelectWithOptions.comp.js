@@ -33,10 +33,15 @@ class SelectWithOptions extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    const { selectedValue } = this.props;
+    const { selectedValue, label, variant } = this.props;
     const { selectedValueLocal } = this.state;
     if (selectedValue !== prevProps.selectedValue && selectedValue !== selectedValueLocal) {
       this.setState({ selectedValueLocal: selectedValue });
+    }
+    if (label !== prevProps.label && variant === 'outlined' && this.inputLabel) {
+      this.setState({
+        labelWidthLocal: this.inputLabel.current.offsetWidth,
+      });
     }
   }
 
@@ -58,7 +63,7 @@ class SelectWithOptions extends React.Component {
       autoWidth,
       displayEmpty,
       variant,
-      label,
+      label: controlLabel,
       disabled,
       helperText,
       color,
@@ -73,7 +78,6 @@ class SelectWithOptions extends React.Component {
       options
     } = this.props;
     const { selectedValueLocal, labelWidthLocal } = this.state;
-    const controlLabel = label && label.length > 0 ? label : null;
     const muiFormControlProps = pickWithValues({ disabled, error, fullWidth, hiddenLabel, required });
     const muiSelectProps = pickWithValues({ autoWidth, displayEmpty });
     const optionsElements = [];
@@ -108,7 +112,7 @@ class SelectWithOptions extends React.Component {
         {controlLabel && (<InputLabel id={this.labelId} ref={this.inputLabel}>{controlLabel}</InputLabel>)}
         <SelectMUI
           labelId={this.labelId}
-          value={selectedValueLocal}
+          value={selectedValueLocal || ''}
           labelWidth={labelWidthLocal}
           {...muiSelectProps}
           onChange={this.handleChange}

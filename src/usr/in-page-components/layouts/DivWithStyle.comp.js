@@ -19,6 +19,7 @@ class DivWithStyle extends React.Component {
 DivWithStyle.propTypes = DivWithStyleTypes;
 
 DivWithStyle.defaultProps = {
+  doNotUseInFlows: true,
   style: {
     display: 'flex',
   },

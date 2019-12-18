@@ -23,6 +23,9 @@ function getStore() {
   return store;
 }
 
+/**
+ * Put the object to global state under some key
+ */
 // @param {PutIntoStateTypes from ./stateOperations.props.js}
 export const putIntoState = ({key, data}) => dispatch => {
   getStore().dispatch({type: key, data});
