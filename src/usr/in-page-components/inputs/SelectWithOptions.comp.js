@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMUI from '@material-ui/core/Select';
+import NativeSelectMUI from '@material-ui/core/NativeSelect';
 import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { SelectWithOptionsTypes } from './SelectWithOptions.props';
 
@@ -60,21 +61,24 @@ class SelectWithOptions extends React.Component {
 
   render() {
     const {
-      autoWidth,
-      displayEmpty,
-      variant,
       label: controlLabel,
-      disabled,
-      helperText,
-      color,
       error,
-      fullWidth,
-      hiddenLabel,
-      disableGuttersInOptions,
-      denseOptions,
-      margin,
       required,
-      size,
+      disabled,
+      formControl: {
+        native,
+        autoWidth,
+        displayEmpty,
+        variant,
+        helperText,
+        color,
+        fullWidth,
+        hiddenLabel,
+        disableGuttersInOptions,
+        denseOptions,
+        margin,
+        size,
+      },
       options
     } = this.props;
     const { selectedValueLocal, labelWidthLocal } = this.state;
@@ -87,17 +91,29 @@ class SelectWithOptions extends React.Component {
         optionItem = options[i];
         if (optionItem) {
           const { id, value, label, disabled } = optionItem;
-          optionsElements.push(
-            <MenuItem
-              key={id ? id : `menuItem${i}`}
-              value={value}
-              disabled={!!disabled}
-              disableGutters={!!disableGuttersInOptions}
-              dense={!!denseOptions}
-            >
-              {label}
-            </MenuItem>
-          );
+          if (native) {
+            optionsElements.push(
+              <option
+                key={id ? id : `menuItem${i}`}
+                value={value}
+                disabled={!!disabled}
+              >
+                {label}
+              </option>
+            )
+          } else {
+            optionsElements.push(
+              <MenuItem
+                key={id ? id : `menuItem${i}`}
+                value={value}
+                disabled={!!disabled}
+                disableGutters={!!disableGuttersInOptions}
+                dense={!!denseOptions}
+              >
+                {label}
+              </MenuItem>
+            );
+          }
         }
       }
     }
@@ -110,15 +126,30 @@ class SelectWithOptions extends React.Component {
         {...muiFormControlProps}
       >
         {controlLabel && (<InputLabel id={this.labelId} ref={this.inputLabel}>{controlLabel}</InputLabel>)}
-        <SelectMUI
-          labelId={this.labelId}
-          value={selectedValueLocal || ''}
-          labelWidth={labelWidthLocal}
-          {...muiSelectProps}
-          onChange={this.handleChange}
-        >
-          {optionsElements}
-        </SelectMUI>
+        {native
+          ? (
+            <NativeSelectMUI
+              value={selectedValueLocal || ''}
+              inputProps={{
+                id: this.labelId,
+              }}
+              onChange={this.handleChange}
+            >
+              {optionsElements}
+            </NativeSelectMUI>
+          )
+          : (
+            <SelectMUI
+              labelId={this.labelId}
+              value={selectedValueLocal || ''}
+              labelWidth={labelWidthLocal}
+              {...muiSelectProps}
+              onChange={this.handleChange}
+            >
+              {optionsElements}
+            </SelectMUI>
+          )
+        }
         {helperText && (<FormHelperText>{helperText}</FormHelperText>)}
       </FormControl>
     );
@@ -128,10 +159,12 @@ class SelectWithOptions extends React.Component {
 SelectWithOptions.propTypes = SelectWithOptionsTypes;
 
 SelectWithOptions.defaultProps = {
-  color: 'primary',
-  fullWidth: true,
-  margin: 'none',
-  variant: 'standard',
+  formControl: {
+    color: 'primary',
+    fullWidth: true,
+    margin: 'none',
+    variant: 'standard',
+  },
   options: [
     {id: '0000', value: '', label: 'None'},
     {id: '0001', value: 'orange', label: 'Orange'},
