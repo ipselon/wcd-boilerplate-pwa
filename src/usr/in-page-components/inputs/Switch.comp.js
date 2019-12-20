@@ -1,8 +1,8 @@
-import isNil from 'lodash/isNil';
-import pickBy from 'lodash/pickBy';
+
 import React from 'react';
 import SwitchMUI from '@material-ui/core/Switch';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { SwitchTypes } from './Switch.props';
 
 /**
@@ -20,14 +20,8 @@ class Switch extends React.Component {
   render() {
     const { disabled, label, labelPlacement } = this.props;
     const { value, checked, id, color,  required, size } = this.props;
-    const muiFormControlLabelProps = pickBy(
-      { disabled, label, labelPlacement },
-      i => !isNil(i)
-    );
-    const muiSwitchProps = pickBy(
-      { value, checked, id, color, required },
-      i => !isNil(i)
-    );
+    const muiFormControlLabelProps = pickWithValues({ disabled, label, labelPlacement });
+    const muiSwitchProps = pickWithValues({ value, checked, id, color, required });
     if (size) {
       muiSwitchProps.size = size;
     }
