@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import SelectMUI from '@material-ui/core/Select';
 import NativeSelectMUI from '@material-ui/core/NativeSelect';
 import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import InputCircularProgress from './assets/InputCircularProgress';
 import { SelectWithOptionsTypes } from './SelectWithOptions.props';
 
 /**
@@ -65,6 +66,7 @@ class SelectWithOptions extends React.Component {
       error,
       required,
       disabled,
+      loading,
       formControl: {
         native,
         autoWidth,
@@ -117,6 +119,9 @@ class SelectWithOptions extends React.Component {
         }
       }
     }
+    if (loading) {
+      muiFormControlProps.disabled = true;
+    }
     return (
       <FormControl
         variant={variant}
@@ -151,6 +156,9 @@ class SelectWithOptions extends React.Component {
           )
         }
         {helperText && (<FormHelperText>{helperText}</FormHelperText>)}
+        {loading && (
+          <InputCircularProgress size={size} />
+        )}
       </FormControl>
     );
   }

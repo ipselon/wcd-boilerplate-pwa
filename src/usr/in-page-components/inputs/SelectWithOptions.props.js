@@ -27,6 +27,10 @@ export const SelectWithOptionsTypes = {
    */
   required: PropTypes.bool,
   /**
+   * If true the circular progress is shown and the component is disabled.
+   */
+  loading: PropTypes.bool,
+  /**
    * Form control properties
    */
   formControl: PropTypes.shape({
@@ -46,11 +50,11 @@ export const SelectWithOptionsTypes = {
     /**
      * The variant to use.
      */
-    variant: PropTypes.oneOf(['standard', 'outlined', 'filled']),
+    variant: PropTypes.oneOf(['', 'standard', 'outlined', 'filled']),
     /**
      * The size of the select control.
      */
-    size: PropTypes.oneOf(['small', 'medium']),
+    size: PropTypes.oneOf(['', 'small', 'medium']),
     /**
      * If true, the left and right padding is removed in each option.
      */
@@ -66,7 +70,7 @@ export const SelectWithOptionsTypes = {
     /**
      * The color of the component. It supports those theme colors that make sense for this component.
      */
-    color: PropTypes.oneOf(['primary', 'secondary']),
+    color: PropTypes.oneOf(['', 'primary', 'secondary']),
     /**
      * If true, the component will take up the full width of its container.
      */
