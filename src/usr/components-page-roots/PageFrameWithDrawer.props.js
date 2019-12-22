@@ -1,12 +1,21 @@
 import PropTypes from 'prop-types';
-import { ListWithItemsTypes } from '../components-library/list/ListWithItems.props';
-import { TypographyTypes } from '../components-library/typography/Typography.props';
-import { SpacingTypes } from '../components-library/common-props/spacing.props';
-import { SizingTypes } from '../components-library/common-props/sizing.props';
-import { ContainerTypes } from '../components-library/layouts/Container.props';
-import { BottomNavigationTypes } from '../components-library/navigation/BottomNavigation.props';
+import { TypographyTypes } from 'usr/components-library/typography/Typography.props';
+import { SpacingTypes } from 'usr/components-library/common-props/spacing.props';
+import { SizingTypes } from 'usr/components-library/common-props/sizing.props';
+import { ContainerTypes } from 'usr/components-library/layouts/Container.props';
+import { BottomNavigationTypes } from 'usr/components-library/navigation/BottomNavigation.props';
+import { PageHelmetTypes } from 'usr/components-library/misc/PageHelmet.props';
+import { PageParametersReceiverTypes } from '../components-library/misc/PageParametersReceiver.props';
 
 export const PageFrameWithDrawerTypes = {
+  /**
+   * Page header properties
+   */
+  pageHeader: PropTypes.shape(PageHelmetTypes),
+  /**
+   * It is used to receive the page parameters in the flow.
+   */
+  pageParameters: PropTypes.shape(PageParametersReceiverTypes),
   // Drawer
   drawer: PropTypes.shape({
     /**
@@ -16,7 +25,7 @@ export const PageFrameWithDrawerTypes = {
     // The width of the drawer. Should be a string value with the width units.
     width: PropTypes.string,
     // Put the components inside the drawer.
-    drawerNavigationList: PropTypes.shape(ListWithItemsTypes),
+    child: PropTypes.element,
   }),
   // Top application bar. It has fixed position, and is shown in any resolution.
   applicationTopBar: PropTypes.shape({
@@ -105,17 +114,16 @@ export const PageFrameWithDrawerTypes = {
    * Hidden elements, useful for dialogs, hidden utilities, and etc.
    */
   hidden: PropTypes.arrayOf(PropTypes.node),
-
-  /*
-   * Triggered when the user clicks on the list item in the drawer.
-   *
-   * @param {ListWithItemsOnItemClickTypes from ../components-library/list/ListWithItems.props}
-   */
-  onDrawerNavigationListClick: PropTypes.func,
   /*
    * Triggered when the user clicks on the bottom navigation item in the application bottom bar.
    *
    * @param {BottomNavigationChangeTypes from ../components-library/navigation/BottomNavigation.props}
    */
   onBottomNavigationChange: PropTypes.func,
+  /*
+   * Triggered when the component receives the page parameters.
+   * It is used to pass the page parameters on the flow to the nested components.
+   * @param {PageParametersReceiverOnReceivedTypes from ../components-library/misc/PageParametersReceiver.props}
+   */
+  onPageParametersReceived: PropTypes.func,
 };

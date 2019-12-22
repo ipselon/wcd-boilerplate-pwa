@@ -1,2 +1,2 @@
 
-export default {};
+export default {"test":[{"type":"component","props":{"componentName":"applicationStartWrapper","componentInstance":"wrapperInstance"},"events":[{"name":"onApplicationStart","targets":[{"type":"component","props":{"componentName":"usr.components-page-roots.PageFrameWithDrawer","componentInstance":"pageFrameWithDrawer","propertyName":"pageParameters"},"events":[{"name":"onPageParametersReceived","targets":[{"type":"component","props":{"forwardPath":"main"}}]}]}]}]}]};

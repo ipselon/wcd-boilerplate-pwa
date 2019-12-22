@@ -62,7 +62,7 @@ GridWithCells.defaultProps = {
     alignItems: 'stretch',
     direction: 'row',
     justify: 'flex-start',
-    wrap: 'wrap',
+    wrap: 'nowrap',
   },
   cells: [
     {

@@ -5,16 +5,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
 import validElevationMap from 'usr/components-library/common-props/utils/elevationMap';
-import ListWithItems from 'usr/components-library/list/ListWithItems';
 import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
 import Box from 'usr/components-library/layouts/Box';
 import Container from 'usr/components-library/layouts/Container';
-import BottomNavigation from '../components-library/navigation/BottomNavigation';
+import BottomNavigation from 'usr/components-library/navigation/BottomNavigation';
+import PageHelmet from 'usr/components-library/misc/PageHelmet';
+import PageParametersReceiver from 'usr/components-library/misc/PageParametersReceiver';
+import MenuIcon from '../icons/material/MenuIcon';
+import CloseIcon from '../icons/material/CloseIcon';
 
 const styles = theme => ({
   root: {
@@ -81,13 +83,19 @@ class PageFrameWithDrawer extends React.Component {
     });
   };
 
-  handleOnDrawerNavigationListClick = (options) => {
-    this.props.onDrawerNavigationListClick(options);
+  handleBottomNavigationChange = (options) => {
+    this.props.onBottomNavigationChange(options);
+  };
+
+  handlePageParametersReceived = (options) => {
+    this.props.onPageParametersReceived(options);
   };
 
   render () {
     const {
       classes,
+      pageHeader,
+      pageParameters,
       drawer,
       applicationTopBar,
       applicationBottomBar,
@@ -98,6 +106,7 @@ class PageFrameWithDrawer extends React.Component {
     const { isMobileDrawerOpen } = this.state;
     return (
       <React.Fragment>
+        <PageHelmet {...pickWithValues(pageHeader)} />
         <div className={classes.root}>
           <CssBaseline/>
           <AppBar
@@ -114,7 +123,7 @@ class PageFrameWithDrawer extends React.Component {
                   onClick={this.handleDrawerToggle}
                   className={classes.menuButton}
                 >
-                  <Icon>menu</Icon>
+                  <MenuIcon />
                 </IconButton>
               )}
               <Typography {...pickWithValues(applicationTopBar.title)}>
@@ -139,13 +148,10 @@ class PageFrameWithDrawer extends React.Component {
                     onClick={this.handleDrawerToggle}
                     className={classes.closeMenuButton}
                   >
-                    <Icon>close</Icon>
+                    <CloseIcon />
                   </IconButton>
                 </div>
-                <ListWithItems
-                  {...drawer.drawerNavigationList}
-                  onItemClick={this.handleOnDrawerNavigationListClick}
-                />
+                {drawer.child}
               </Drawer>
             </Hidden>
           )}
@@ -158,7 +164,10 @@ class PageFrameWithDrawer extends React.Component {
                 elevation={0}
               >
                 <div className={classes.toolbar}>
-                  <BottomNavigation {...applicationBottomBar.bottomNavigation} />
+                  <BottomNavigation
+                    {...applicationBottomBar.bottomNavigation}
+                    onChange={this.handleBottomNavigationChange}
+                  />
                 </div>
               </AppBar>
             </Hidden>
@@ -172,10 +181,7 @@ class PageFrameWithDrawer extends React.Component {
                 PaperProps={{ style: { width: drawer.width } }}
               >
                 <div className={classes.toolbar}/>
-                <ListWithItems
-                  {...drawer.drawerNavigationList}
-                  onItemClick={this.handleOnDrawerNavigationListClick}
-                />
+                {drawer.child}
               </Drawer>
             </Hidden>
           )}
@@ -207,6 +213,10 @@ class PageFrameWithDrawer extends React.Component {
           </main>
         </div>
         <div className={classes.hiddenArea}>
+          <PageParametersReceiver
+            {...pickWithValues(pageParameters)}
+            onPageParametersReceived={this.handlePageParametersReceived}
+          />
           {hidden}
         </div>
       </React.Fragment>
@@ -217,10 +227,13 @@ class PageFrameWithDrawer extends React.Component {
 PageFrameWithDrawer.propTypes = PageFrameWithDrawerTypes;
 
 PageFrameWithDrawer.defaultProps = {
+  pageHeader: {
+    title: "New Page"
+  },
   drawer: {
     available: true,
     width: '250px',
-    drawerNavigationList: [],
+    child: <span />,
   },
   applicationTopBar: {
     title: {
@@ -284,8 +297,11 @@ PageFrameWithDrawer.defaultProps = {
     child: <span/>,
   },
   contentHidden: [],
-  onDrawerNavigationListClick: () => {
-    console.info('PageFrameWithDrawer.onDrawerNavigationListClick is not set');
+  onBottomNavigationChange: () => {
+    console.info('PageFrameWithDrawer.onBottomNavigationChange is not set');
+  },
+  onPageParametersReceived: () => {
+    console.info('PageFrameWithDrawer.onPageParametersReceived is not set');
   },
 };
 
