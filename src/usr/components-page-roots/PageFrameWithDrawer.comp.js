@@ -14,6 +14,7 @@ import ListWithItems from 'usr/components-library/list/ListWithItems';
 import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
 import Box from 'usr/components-library/layouts/Box';
 import Container from 'usr/components-library/layouts/Container';
+import BottomNavigation from '../components-library/navigation/BottomNavigation';
 
 const styles = theme => ({
   root: {
@@ -89,7 +90,7 @@ class PageFrameWithDrawer extends React.Component {
       classes,
       drawer,
       applicationTopBar,
-      navigationBottomBar,
+      applicationBottomBar,
       content,
       footer,
       hidden,
@@ -101,7 +102,7 @@ class PageFrameWithDrawer extends React.Component {
           <CssBaseline/>
           <AppBar
             position="fixed"
-            elevation={validElevationMap[applicationTopBar.elevation] || 3}
+            elevation={validElevationMap[applicationTopBar.elevation]}
             className={classes.appBar}
           >
             <Toolbar>
@@ -148,7 +149,7 @@ class PageFrameWithDrawer extends React.Component {
               </Drawer>
             </Hidden>
           )}
-          {navigationBottomBar && navigationBottomBar.available && (
+          {applicationBottomBar && applicationBottomBar.available && (
             <Hidden smUp implementation="js">
               <AppBar
                 position="fixed"
@@ -157,7 +158,7 @@ class PageFrameWithDrawer extends React.Component {
                 elevation={0}
               >
                 <div className={classes.toolbar}>
-                  Empty
+                  <BottomNavigation {...applicationBottomBar.bottomNavigation} />
                 </div>
               </AppBar>
             </Hidden>
@@ -187,7 +188,7 @@ class PageFrameWithDrawer extends React.Component {
                 </Container>
               </Box>
             </div>
-            {navigationBottomBar && navigationBottomBar.available && (
+            {applicationBottomBar && applicationBottomBar.available && (
               <Hidden smUp implementation="js">
                 <div className={classes.toolbar}/>
               </Hidden>
@@ -229,8 +230,26 @@ PageFrameWithDrawer.defaultProps = {
     },
     elevation: '3',
   },
-  navigationBottomBar: {
-    available: false,
+  applicationBottomBar: {
+    available: true,
+    bottomNavigation: {
+      showLabels: true,
+      activeNavigationKey: 'navItem1',
+      navigationItems: [
+        {
+          navigationKey: 'navItem1',
+          label: 'Nav Item 1',
+        },
+        {
+          navigationKey: 'navItem2',
+          label: 'Nav Item 2',
+        },
+        {
+          navigationKey: 'navItem3',
+          label: 'Nav Item 3',
+        },
+      ]
+    }
   },
   content: {
     contentContainer: {

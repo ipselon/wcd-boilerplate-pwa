@@ -1,7 +1,7 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "SettingsProps" }]*/
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "defaultSettings" }]*/
 import PropTypes from 'prop-types';
-import { ThemeColorTypes } from './common-props/color.props';
+import { ThemeColorTypes } from './settings.props';
 
 const SettingsProps = {
   // Main page meta data

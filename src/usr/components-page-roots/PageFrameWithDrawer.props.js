@@ -4,6 +4,7 @@ import { TypographyTypes } from '../components-library/typography/Typography.pro
 import { SpacingTypes } from '../components-library/common-props/spacing.props';
 import { SizingTypes } from '../components-library/common-props/sizing.props';
 import { ContainerTypes } from '../components-library/layouts/Container.props';
+import { BottomNavigationTypes } from '../components-library/navigation/BottomNavigation.props';
 
 export const PageFrameWithDrawerTypes = {
   // Drawer
@@ -32,13 +33,17 @@ export const PageFrameWithDrawerTypes = {
     ]),
   }),
   /**
-   * The navigation bottom bar appears in mobile resolution only.
+   * The bottom bar appears in mobile resolution only.
    */
-  navigationBottomBar: PropTypes.shape({
+  applicationBottomBar: PropTypes.shape({
     /**
-     *
+     * If true, the application bottom bar is available to use.
      */
     available: PropTypes.bool,
+    /**
+     * The bottom navigation is used in the mobile view for quick forwarding.
+     */
+    bottomNavigation: PropTypes.shape(BottomNavigationTypes),
   }),
   /**
    * The content of the main area in the page
@@ -102,9 +107,15 @@ export const PageFrameWithDrawerTypes = {
   hidden: PropTypes.arrayOf(PropTypes.node),
 
   /*
-   * Triggered when the user click on the list item in the drawer.
+   * Triggered when the user clicks on the list item in the drawer.
    *
    * @param {ListWithItemsOnItemClickTypes from ../components-library/list/ListWithItems.props}
    */
   onDrawerNavigationListClick: PropTypes.func,
+  /*
+   * Triggered when the user clicks on the bottom navigation item in the application bottom bar.
+   *
+   * @param {BottomNavigationChangeTypes from ../components-library/navigation/BottomNavigation.props}
+   */
+  onBottomNavigationChange: PropTypes.func,
 };

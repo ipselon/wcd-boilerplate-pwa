@@ -2,11 +2,6 @@ import PropTypes from 'prop-types';
 
 export const BottomNavigationTypes = {
   /**
-   * If true then the component's instance will not be allowed to use in flows,
-   * and you will not see the instance name in the pages instances list
-   */
-  doNotUseInFlows: PropTypes.bool,
-  /**
    * If true, all navigation items will show their labels.
    * By default, only the selected navigation item will show its label.
    */

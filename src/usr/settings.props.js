@@ -1,16 +1,8 @@
 import PropTypes from 'prop-types';
 
-export const ColorTypes = {
+export const ThemeColorTypes = {
   // A value from the collection of colors, i.e. hues
   colorHue: PropTypes.oneOf([
-    '',
-    'primary.main',
-    'secondary.main',
-    'error.main',
-    'text.primary',
-    'text.secondary',
-    'text.disabled',
-    'text.hint',
     'red',
     'pink',
     'purple',
@@ -33,7 +25,6 @@ export const ColorTypes = {
   ]),
   // A value from the collection of colors shades
   colorShade: PropTypes.oneOf([
-    '',
     '50',
     '100',
     '200',
@@ -49,5 +40,4 @@ export const ColorTypes = {
     'A400',
     'A700'
   ]),
-
 };
