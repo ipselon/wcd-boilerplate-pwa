@@ -4,7 +4,7 @@ import RadioGroupMUI from '@material-ui/core/RadioGroup';
 import RadioMUI from '@material-ui/core/Radio';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { RadioGroupWithItemsTypes } from './RadioGroupWithItems.props';
 import InputCircularProgress from './assets/InputCircularProgress';
 

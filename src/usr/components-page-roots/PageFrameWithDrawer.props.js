@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import { TypographyTypes } from 'usr/components-library/typography/Typography.props';
-import { SpacingTypes } from 'usr/components-library/common-props/spacing.props';
-import { SizingTypes } from 'usr/components-library/common-props/sizing.props';
-import { ContainerTypes } from 'usr/components-library/layouts/Container.props';
-import { BottomNavigationTypes } from 'usr/components-library/navigation/BottomNavigation.props';
 import { PageHelmetTypes } from 'usr/components-library/misc/PageHelmet.props';
-import { PageParametersReceiverTypes } from '../components-library/misc/PageParametersReceiver.props';
+import { PageParametersReceiverTypes } from 'usr/components-library/misc/PageParametersReceiver.props';
 
 export const PageFrameWithDrawerTypes = {
   /**
@@ -16,20 +12,41 @@ export const PageFrameWithDrawerTypes = {
    * It is used to receive the page parameters in the flow.
    */
   pageParameters: PropTypes.shape(PageParametersReceiverTypes),
+  /**
+   * If true, then the frame will have a drawer with the navigation list inside
+   */
+  drawerIsAvailable: PropTypes.bool,
+  /**
+   * If true, the application bottom bar is available to use.
+   */
+  bottomBarIsAvailable: PropTypes.bool,
+  /**
+   * If true, the footer will be available on the page
+   */
+  footerIsAvailable: PropTypes.bool,
+  /**
+   * Sets drawer open or closed. If true, the drawer is open
+   */
+  drawerOpen: PropTypes.bool,
+  /**
+   * Title of the top application bar
+   */
+  title: PropTypes.shape(TypographyTypes),
   // Drawer
   drawer: PropTypes.shape({
-    /**
-     * If true, then the frame will have a drawer with the navigation list inside
-     */
-    available: PropTypes.bool,
     // The width of the drawer. Should be a string value with the width units.
     width: PropTypes.string,
     // Put the components inside the drawer.
     child: PropTypes.element,
   }),
   // Top application bar. It has fixed position, and is shown in any resolution.
-  applicationTopBar: PropTypes.shape({
-    title: PropTypes.shape(TypographyTypes),
+  topBar: PropTypes.shape({
+    /**
+     * The color of the component. It supports those theme colors that make sense for this component.
+     */
+    color: PropTypes.oneOf([
+      'default', 'inherit', 'primary', 'secondary'
+    ]),
     // Shadow depth. It accepts values between 0 and 24 inclusive.
     elevation: PropTypes.oneOf([
       '0', '1', '2', '3',
@@ -40,43 +57,32 @@ export const PageFrameWithDrawerTypes = {
       '20', '21', '22', '23',
       '24'
     ]),
+    /**
+     * The content of the bottom bar. Usually the toolbar is placed here.
+     */
+    child: PropTypes.node,
   }),
   /**
    * The bottom bar appears in mobile resolution only.
    */
-  applicationBottomBar: PropTypes.shape({
+  bottomBar: PropTypes.shape({
     /**
-     * If true, the application bottom bar is available to use.
+     * The color of the component. It supports those theme colors that make sense for this component.
      */
-    available: PropTypes.bool,
+    color: PropTypes.oneOf([
+      'default', 'inherit', 'primary', 'secondary'
+    ]),
     /**
-     * The bottom navigation is used in the mobile view for quick forwarding.
+     * The content of the bottom bar. Usually the bottom navigation is placed here.
      */
-    bottomNavigation: PropTypes.shape(BottomNavigationTypes),
+    child: PropTypes.node,
   }),
   /**
-   * The content of the main area in the page
+   * The main area in the page
    */
   content: PropTypes.shape({
     /**
-     * Content container
-     */
-    contentContainer: PropTypes.shape(ContainerTypes),
-    /**
-     * The content container box wrapper
-     */
-    contentContainerBox: PropTypes.shape({
-      /**
-       * A range of margin and padding utility classes to modify an element’s appearance.
-       */
-      spacing: PropTypes.shape(SpacingTypes),
-      /**
-       * Easily make an element as wide or as tall (relative to its parent) with the width and height utilities.
-       */
-      sizing: PropTypes.shape(SizingTypes),
-    }),
-    /**
-     * A component to be placed inside content container.
+     * The content of the main area in the page
      */
     child: PropTypes.element,
   }),
@@ -85,28 +91,7 @@ export const PageFrameWithDrawerTypes = {
    */
   footer: PropTypes.shape({
     /**
-     * If true, the footer will be available on the page
-     */
-    available: PropTypes.bool,
-    /**
-     * Footer container
-     */
-    footerContainer: PropTypes.shape(ContainerTypes),
-    /**
-     * The footer container box wrapper
-     */
-    footerContainerBox: PropTypes.shape({
-      /**
-       * Easily make an element as wide or as tall (relative to its parent) with the width and height utilities.
-       */
-      sizing: PropTypes.shape(SizingTypes),
-      /**
-       * A range of margin and padding utility classes to modify an element’s appearance.
-       */
-      spacing: PropTypes.shape(SpacingTypes),
-    }),
-    /**
-     * A component to be placed inside footer container.
+     * The content of the footer area
      */
     child: PropTypes.element,
   }),
@@ -115,15 +100,18 @@ export const PageFrameWithDrawerTypes = {
    */
   hidden: PropTypes.arrayOf(PropTypes.node),
   /*
-   * Triggered when the user clicks on the bottom navigation item in the application bottom bar.
-   *
-   * @param {BottomNavigationChangeTypes from ../components-library/navigation/BottomNavigation.props}
-   */
-  onBottomNavigationChange: PropTypes.func,
-  /*
    * Triggered when the component receives the page parameters.
    * It is used to pass the page parameters on the flow to the nested components.
-   * @param {PageParametersReceiverOnReceivedTypes from ../components-library/misc/PageParametersReceiver.props}
+   *
+   * @functionTypes {PageParametersReceiverOnReceivedTypes from ../components-library/misc/PageParametersReceiver.props}
    */
   onPageParametersReceived: PropTypes.func,
+  /**
+   * Triggered when the user clicks the drawer menu button at the top application bar.
+   */
+  onDrawerOpenClick: PropTypes.func,
+  /**
+   * Triggered when the user clicks on the close button in the opened drawer.
+   */
+  onDrawerCloseClick: PropTypes.func,
 };

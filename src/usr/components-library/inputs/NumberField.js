@@ -3,7 +3,7 @@ import React from 'react';
 import TextFieldMUI from '@material-ui/core/TextField';
 import InputAdornmentMUI from '@material-ui/core/InputAdornment';
 import { NumberFieldTypes } from './NumberField.props';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 
 /**
  * Number field lets users enter and edit numbers.

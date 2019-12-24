@@ -1,7 +1,7 @@
 import React from 'react';
 import SwitchMUI from '@material-ui/core/Switch';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { SwitchTypes } from './Switch.props';
 
 /**

@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
-import findColor from 'usr/components-library/common-props/utils/colorMap';
-import elevationMap from 'usr/components-library/common-props/utils/elevationMap';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import findColor from 'usr/common-props/utils/colorMap';
+import elevationMap from 'usr/common-props/utils/elevationMap';
 import { BoxTypes } from './Box.props';
 
 /**
@@ -24,7 +24,7 @@ class Box extends React.Component {
       spacing,
       boxShadow,
       typography,
-      children,
+      child,
       theme
     } = this.props;
     if (borders) {
@@ -97,7 +97,7 @@ class Box extends React.Component {
     //
     return (
       <BoxMUI {...properties}>
-        {children}
+        {child}
       </BoxMUI>
     );
   }
@@ -106,10 +106,14 @@ class Box extends React.Component {
 Box.propTypes = BoxTypes;
 
 Box.defaultProps = {
+  doNotUseInFlows: true,
   display: {
     display: 'flex',
   },
-  children: [<span/>],
+  sizing: {
+    width: '100%'
+  },
+  child: <span/>,
 };
 
 export default withTheme(Box);

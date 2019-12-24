@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TypographyMUI from '@material-ui/core/Typography';
 import BreadcrumbsMUI from '@material-ui/core/Breadcrumbs';
 import LinkMUI from '@material-ui/core/Link';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { BreadcrumbsWithLinksTypes } from './BreadcrumbsWithLinks.props';
 
 const styles = theme => ({
@@ -25,16 +25,25 @@ const styles = theme => ({
  */
 class BreadcrumbsWithLinks extends React.Component {
 
-  handleClick = (href, id) => e => {
+  handleClick = (item) => e => {
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.props.onClick({ href, id });
+    this.props.onClick(item);
   };
 
   render() {
-    const { classes, links, icons, separatorText, separatorNode, itemsAfterCollapse, itemsBeforeCollapse, maxItems } = this.props;
+    const {
+      classes,
+      links,
+      icons,
+      separatorText,
+      separatorNode,
+      itemsAfterCollapse,
+      itemsBeforeCollapse,
+      maxItems
+    } = this.props;
     const linksElements = [];
     if (links && links.length > 0) {
       let itemIcon;
@@ -49,7 +58,7 @@ class BreadcrumbsWithLinks extends React.Component {
             <LinkMUI
               key={`breadcrumbsLink${id}${i}`}
               {...pickWithValues({href, color, underline, variant})}
-              onClick={this.handleClick(href)}
+              onClick={this.handleClick(links[i])}
             >
               {itemIcon
                 ? (

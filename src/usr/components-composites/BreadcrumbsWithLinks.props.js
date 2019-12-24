@@ -1,5 +1,67 @@
 import PropTypes from 'prop-types';
 
+export const BreadCrumbLinkTypes = {
+
+  /**
+   * An id of the array item
+   */
+  id: PropTypes.string,
+  /**
+   * If true, the link in the item will be disabled.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * href of the link.
+   */
+  href: PropTypes.string,
+  /**
+   * The color of the link.
+   */
+  color: PropTypes.oneOf([
+    'default',
+    'error',
+    'inherit',
+    'primary',
+    'secondary',
+    'textPrimary',
+    'textSecondary'
+  ]),
+  /**
+   * Controls when the link should have an underline.
+   */
+  underline: PropTypes.oneOf(['none', 'hover', 'always']),
+  /**
+   * Applies the theme typography styles.
+   */
+  variant: PropTypes.oneOf([
+    '',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'subtitle1',
+    'subtitle2',
+    'body1',
+    'body2',
+    'caption',
+    'button',
+    'overline',
+    'srOnly',
+    'inherit'
+  ]),
+  /**
+   * Breadcrumbs link label
+   */
+  label: PropTypes.string,
+  /**
+   * The index value if the icon in the icons array property
+   */
+  iconIndex: PropTypes.number,
+
+};
+
 export const BreadcrumbsWithLinksTypes = {
   /**
    * If true then the component's instance will not be allowed to use in flows,
@@ -9,65 +71,7 @@ export const BreadcrumbsWithLinksTypes = {
   /**
    * An array of breadcrumbs links
    */
-  links: PropTypes.arrayOf(PropTypes.shape({
-    /**
-     * An id of the array item
-     */
-    id: PropTypes.string,
-    /**
-     * If true, the link in the item will be disabled.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * href of the link.
-     */
-    href: PropTypes.string,
-    /**
-     * The color of the link.
-     */
-    color: PropTypes.oneOf([
-      'default',
-      'error',
-      'inherit',
-      'primary',
-      'secondary',
-      'textPrimary',
-      'textSecondary'
-    ]),
-    /**
-     * Controls when the link should have an underline.
-     */
-    underline: PropTypes.oneOf(['none', 'hover', 'always']),
-    /**
-     * Applies the theme typography styles.
-     */
-    variant: PropTypes.oneOf([
-      '',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'subtitle1',
-      'subtitle2',
-      'body1',
-      'body2',
-      'caption',
-      'button',
-      'overline',
-      'srOnly',
-      'inherit'
-    ]),
-    /**
-     * Breadcrumbs link label
-     */
-    label: PropTypes.string,
-    /**
-     * The index value if the icon in the icons array property
-     */
-    iconIndex: PropTypes.number,
-  })),
+  links: PropTypes.arrayOf(PropTypes.shape(BreadCrumbLinkTypes)),
   /**
    * A character that will be used as a separator.
    */
@@ -98,12 +102,12 @@ export const BreadcrumbsWithLinksTypes = {
   /*
    * Triggered when the user clicks on the link
    *
-   * @param {BreadcrumbsWithLinksOnClickTypes}
+   * @functionTypes {BreadcrumbsWithLinksOnClickTypes}
    */
   onClick: PropTypes.func
 };
 
 export const BreadcrumbsWithLinksOnClickTypes = {
   // href in the clicked link
-  href: PropTypes.string
+  argument: PropTypes.shape(BreadCrumbLinkTypes),
 };

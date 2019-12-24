@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FabMUI from '@material-ui/core/Fab';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { FloatingActionButtonTypes } from './props/FloatingActionButton';
 

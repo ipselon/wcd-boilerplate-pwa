@@ -8,12 +8,14 @@ export const PageParametersReceiverTypes = {
   /*
    * Triggers when the pageParameters property receives new value
    *
-   * @param {PageParametersReceiverOnReceivedTypes}
+   * @functionTypes {PageParametersReceiverOnReceivedTypes}
    */
   onReceived: PropTypes.func,
 };
 
 export const PageParametersReceiverOnReceivedTypes = {
-  // parameters received from the page
-  pageParameters: PropTypes.object,
+  argument: PropTypes.shape({
+    // parameters received from the page
+    pageParameters: PropTypes.object,
+  }),
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { ButtonTypes } from './props/Button';
 

@@ -1,4 +1,4 @@
-// @param {GoToAppPageByUrlOptionsTypes from ./pageNavigation.props.js}
+// @functionTypes {GoToAppPageByUrlOptionsTypes from ./pageNavigation.props.js}
 export const goToAppPageByUrl = options => dispatch => {
   // do something here with options;
   if (options) {

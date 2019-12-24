@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { PageHelmetTypes } from './PageHelmet.props';
-import pickWithValues from '../common-props/utils/pickWithValues';
+import pickWithValues from '../../common-props/utils/pickWithValues';
 
 class PageHelmet extends React.Component {
   render () {

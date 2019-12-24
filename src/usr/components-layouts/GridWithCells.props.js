@@ -1,28 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const GridFlexTypes = {
-  // Defines the align-content style property. It's applied for all screen sizes.
-  alignContent: PropTypes.oneOf([
-    'stretch', 'center', 'flex-start', 'flex-end', 'space-between', 'space-around'
-  ]),
-  // Defines the align-items style property. It's applied for all screen sizes.
-  alignItems: PropTypes.oneOf([
-    'flex-start', 'center', 'flex-end', 'stretch', 'baseline'
-  ]),
-  // Defines the flex-direction style property. It is applied for all screen sizes.
-  direction: PropTypes.oneOf([
-    'row', 'row-reverse', 'column', 'column-reverse'
-  ]),
-  // Defines the justify-content style property. It is applied for all screen sizes.
-  justify: PropTypes.oneOf([
-    'flex-start', 'center', 'flex-end', 'space-between', 'space-around', 'space-evenly'
-  ]),
-  // Defines the flex-wrap style property. It's applied for all screen sizes.
-  wrap: PropTypes.oneOf([
-    'nowrap', 'wrap', 'wrap-reverse'
-  ]),
-};
-
 export const GridItemTypes = {
   /**
    * Defines the number of grids the component is going to use.
@@ -64,6 +41,26 @@ export const GridItemTypes = {
 };
 
 export const GridContainerTypes = {
+  // Defines the align-content style property. It's applied for all screen sizes.
+  alignContent: PropTypes.oneOf([
+    'stretch', 'center', 'flex-start', 'flex-end', 'space-between', 'space-around'
+  ]),
+  // Defines the align-items style property. It's applied for all screen sizes.
+  alignItems: PropTypes.oneOf([
+    'flex-start', 'center', 'flex-end', 'stretch', 'baseline'
+  ]),
+  // Defines the flex-direction style property. It is applied for all screen sizes.
+  direction: PropTypes.oneOf([
+    'row', 'row-reverse', 'column', 'column-reverse'
+  ]),
+  // Defines the justify-content style property. It is applied for all screen sizes.
+  justify: PropTypes.oneOf([
+    'flex-start', 'center', 'flex-end', 'space-between', 'space-around', 'space-evenly'
+  ]),
+  // Defines the flex-wrap style property. It's applied for all screen sizes.
+  wrap: PropTypes.oneOf([
+    'nowrap', 'wrap', 'wrap-reverse'
+  ]),
   /**
    * Defines the space between the type item component.
    */
@@ -79,14 +76,12 @@ export const GridWithCellsTypes = {
    */
   doNotUseInFlows: PropTypes.bool,
   // Common container properties, it's applied only to the container component.
-  gridProperties: PropTypes.shape(GridContainerTypes),
-  // Common flex props.
-  flexProperties: PropTypes.shape(GridFlexTypes),
+  grid: PropTypes.shape(GridContainerTypes),
   // A list of the cells in the grid.
   cells: PropTypes.arrayOf(PropTypes.shape({
-    // Place here component you need
-    cellContent: PropTypes.element,
+    // Place here a component
+    child: PropTypes.element,
     // Cell properties
-    cellProperties: PropTypes.shape(GridItemTypes),
+    cell: PropTypes.shape(GridItemTypes),
   })),
 };

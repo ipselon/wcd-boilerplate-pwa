@@ -8,15 +8,13 @@ class Container extends React.Component {
   }
 
   render() {
-    const { children, fixed, maxWidth, disableMaxWidth, sizing } = this.props;
-    const style = {...sizing};
+    const { child, fixed, maxWidth, disableMaxWidth } = this.props;
     return (
       <ContainerMUI
         fixed={fixed}
         maxWidth={disableMaxWidth ? false : maxWidth}
-        style={style}
       >
-        {children}
+        {child}
       </ContainerMUI>
     );
   }
@@ -25,9 +23,11 @@ class Container extends React.Component {
 Container.propTypes = ContainerTypes;
 
 Container.defaultProps = {
+  doNotUseInFlows: true,
   fixed: false,
   maxWidth: 'lg',
   disableMaxWidth: false,
+  child: <span />
 };
 
 export default Container;

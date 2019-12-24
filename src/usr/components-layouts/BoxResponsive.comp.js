@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
-import elevationMap from 'usr/components-library/common-props/utils/elevationMap';
-import findColor from 'usr/components-library/common-props/utils/colorMap';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import elevationMap from 'usr/common-props/utils/elevationMap';
+import findColor from 'usr/common-props/utils/colorMap';
 import { BoxResponsiveTypes } from './BoxResponsive.props';
 
 /**
@@ -14,7 +14,7 @@ import { BoxResponsiveTypes } from './BoxResponsive.props';
 class BoxResponsive extends React.Component {
   render() {
     let properties = {};
-    const { stylesByScreenSize, children, theme } = this.props;
+    const { stylesByScreenSize, child, theme } = this.props;
     if (stylesByScreenSize && stylesByScreenSize.length > 0) {
       let stylingBreakpoint;
       for(let i = 0; i < stylesByScreenSize.length; i++) {
@@ -120,7 +120,7 @@ class BoxResponsive extends React.Component {
     }
     return (
       <BoxMUI {...properties}>
-        {children}
+        {child}
       </BoxMUI>
     );
   }
@@ -140,7 +140,7 @@ BoxResponsive.defaultProps = {
       }
     }
   ],
-  children: [<span/>],
+  child: <span/>,
 };
 
 export default withTheme(BoxResponsive);

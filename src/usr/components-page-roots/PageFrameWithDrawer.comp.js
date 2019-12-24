@@ -8,15 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
-import validElevationMap from 'usr/components-library/common-props/utils/elevationMap';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
-import Box from 'usr/components-library/layouts/Box';
-import Container from 'usr/components-library/layouts/Container';
-import BottomNavigation from 'usr/components-library/navigation/BottomNavigation';
+import validElevationMap from 'usr/common-props/utils/elevationMap';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import PageHelmet from 'usr/components-library/misc/PageHelmet';
 import PageParametersReceiver from 'usr/components-library/misc/PageParametersReceiver';
-import MenuIcon from '../icons/material/MenuIcon';
-import CloseIcon from '../icons/material/CloseIcon';
+import MenuIcon from 'usr/icons/material/MenuIcon';
+import CloseIcon from 'usr/icons/material/CloseIcon';
 
 const styles = theme => ({
   root: {
@@ -66,25 +63,21 @@ const styles = theme => ({
 });
 
 class PageFrameWithDrawer extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      isMobileDrawerOpen: false,
-    };
-  }
 
-  handleDrawerToggle = (e) => {
+  handleDrawerOpenClick = (e) => {
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.setState({
-      isMobileDrawerOpen: !this.state.isMobileDrawerOpen,
-    });
+    this.props.onDrawerOpenClick();
   };
 
-  handleBottomNavigationChange = (options) => {
-    this.props.onBottomNavigationChange(options);
+  handleDrawerCloseClick = (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    this.props.onDrawerCloseClick();
   };
 
   handlePageParametersReceived = (options) => {
@@ -96,56 +89,64 @@ class PageFrameWithDrawer extends React.Component {
       classes,
       pageHeader,
       pageParameters,
+      topBar,
+      drawerIsAvailable,
+      bottomBarIsAvailable,
+      footerIsAvailable,
       drawer,
-      applicationTopBar,
-      applicationBottomBar,
+      bottomBar,
       content,
       footer,
       hidden,
+      drawerOpen,
+      title,
     } = this.props;
-    const { isMobileDrawerOpen } = this.state;
     return (
       <React.Fragment>
         <PageHelmet {...pickWithValues(pageHeader)} />
+        <CssBaseline/>
         <div className={classes.root}>
-          <CssBaseline/>
           <AppBar
             position="fixed"
-            elevation={validElevationMap[applicationTopBar.elevation]}
+            color={topBar.color}
+            elevation={validElevationMap[topBar.elevation]}
             className={classes.appBar}
           >
             <Toolbar>
-              {drawer && drawer.available && (
+              {drawerIsAvailable && (
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
-                  onClick={this.handleDrawerToggle}
+                  onClick={this.handleDrawerOpenClick}
                   className={classes.menuButton}
                 >
                   <MenuIcon />
                 </IconButton>
               )}
-              <Typography {...pickWithValues(applicationTopBar.title)}>
-                {applicationTopBar.title.text}
-              </Typography>
+              {title && title.text && (
+                <Typography {...pickWithValues(title)}>
+                  {title.text}
+                </Typography>
+              )}
+              {topBar.child}
             </Toolbar>
           </AppBar>
-          {drawer && drawer.available && (
+          {drawerIsAvailable && (
             <Hidden smUp implementation="js">
               <Drawer
                 className={classes.drawer}
                 variant="temporary"
                 style={{ width: drawer.width }}
-                open={isMobileDrawerOpen}
+                open={drawerOpen}
                 anchor="left"
                 PaperProps={{ style: { width: drawer.width } }}
                 ModalProps={{ keepMounted: true }}
-                onClose={this.handleDrawerToggle}
+                onClose={this.handleDrawerCloseClick}
               >
                 <div className={classes.toolbar}>
                   <IconButton
-                    onClick={this.handleDrawerToggle}
+                    onClick={this.handleDrawerCloseClick}
                     className={classes.closeMenuButton}
                   >
                     <CloseIcon />
@@ -155,24 +156,21 @@ class PageFrameWithDrawer extends React.Component {
               </Drawer>
             </Hidden>
           )}
-          {applicationBottomBar && applicationBottomBar.available && (
+          {bottomBarIsAvailable && (
             <Hidden smUp implementation="js">
               <AppBar
                 position="fixed"
-                color="primary"
+                color={bottomBar.color}
                 className={classes.bottomAppBar}
                 elevation={0}
               >
                 <div className={classes.toolbar}>
-                  <BottomNavigation
-                    {...applicationBottomBar.bottomNavigation}
-                    onChange={this.handleBottomNavigationChange}
-                  />
+                  {bottomBar.child}
                 </div>
               </AppBar>
             </Hidden>
           )}
-          {drawer && drawer.available && (
+          {drawerIsAvailable && (
             <Hidden xsDown implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -188,25 +186,17 @@ class PageFrameWithDrawer extends React.Component {
           <main className={classes.content}>
             <div className={classes.toolbar}/>
             <div className={classes.mainContent}>
-              <Box {...content.contentContainerBox}>
-                <Container {...content.contentContainer}>
-                  {content.child}
-                </Container>
-              </Box>
+              {content.child}
             </div>
-            {applicationBottomBar && applicationBottomBar.available && (
+            {bottomBarIsAvailable && (
               <Hidden smUp implementation="js">
                 <div className={classes.toolbar}/>
               </Hidden>
             )}
-            {footer && footer.available && (
+            {footerIsAvailable && (
               <Hidden xsDown implementation="js">
                 <div className={classes.footerContent}>
-                  <Box {...footer.footerContainerBox}>
-                    <Container {...footer.footerContainer}>
-                      {footer.child}
-                    </Container>
-                  </Box>
+                  {footer.child}
                 </div>
               </Hidden>
             )}
@@ -230,78 +220,33 @@ PageFrameWithDrawer.defaultProps = {
   pageHeader: {
     title: "New Page"
   },
+  drawerIsAvailable: true,
+  bottomBarIsAvailable: true,
+  footerIsAvailable: true,
+  title: {
+    text: 'Some Title Here',
+    variant: 'h6',
+    noWrap: true,
+  },
   drawer: {
     available: true,
     width: '250px',
     child: <span />,
   },
-  applicationTopBar: {
-    title: {
-      text: 'Some Title Here',
-      variant: 'h6',
-      noWrap: true,
-    },
+  topBar: {
     elevation: '3',
   },
-  applicationBottomBar: {
-    available: true,
-    bottomNavigation: {
-      showLabels: true,
-      activeNavigationKey: 'navItem1',
-      navigationItems: [
-        {
-          navigationKey: 'navItem1',
-          label: 'Nav Item 1',
-        },
-        {
-          navigationKey: 'navItem2',
-          label: 'Nav Item 2',
-        },
-        {
-          navigationKey: 'navItem3',
-          label: 'Nav Item 3',
-        },
-      ]
-    }
-  },
-  content: {
-    contentContainer: {
-      fixed: false,
-      maxWidth: 'lg',
-      disableMaxWidth: false,
-    },
-    contentContainerBox: {
-      sizing: {
-        width: '100%',
-      },
-      spacing: {
-        paddingSpacing: {
-          paddingTop: '1'
-        }
-      }
-    },
-    child: <span/>,
-  },
-  footer: {
-    available: true,
-    footerContainer: {
-      fixed: false,
-      maxWidth: 'lg',
-      disableMaxWidth: false,
-    },
-    footerContainerBox: {
-      sizing: {
-        width: '100%',
-      },
-    },
-    child: <span/>,
-  },
+  content: { child: <span /> },
+  footer: { child: <span /> },
   contentHidden: [],
-  onBottomNavigationChange: () => {
-    console.info('PageFrameWithDrawer.onBottomNavigationChange is not set');
-  },
   onPageParametersReceived: () => {
     console.info('PageFrameWithDrawer.onPageParametersReceived is not set');
+  },
+  onDrawerOpenClick: () => {
+    console.info('PageFrameWithDrawer.onDrawerOpenClick is not set');
+  },
+  onDrawerCloseClick: () => {
+    console.info('PageFrameWithDrawer.onDrawerCloseClick is not set');
   },
 };
 

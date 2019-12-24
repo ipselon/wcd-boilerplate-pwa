@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ButtonMUI from '@material-ui/core/Button';
 import ButtonGroupMUI from '@material-ui/core/ButtonGroup';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { ButtonGroupWithButtonsTypes } from './props/ButtonGroupWithButtons';
 
 const useStyles = makeStyles(theme => ({

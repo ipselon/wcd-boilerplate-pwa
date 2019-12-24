@@ -6,7 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import SelectMUI from '@material-ui/core/Select';
 import NativeSelectMUI from '@material-ui/core/NativeSelect';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import InputCircularProgress from './assets/InputCircularProgress';
 import { SelectWithOptionsTypes } from './SelectWithOptions.props';
 

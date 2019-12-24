@@ -1,6 +1,6 @@
 import React from 'react';
 import TypographyMUI from '@material-ui/core/Typography';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { TypographyTypes } from './Typography.props';
 
 class Typography extends React.Component {

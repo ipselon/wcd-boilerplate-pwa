@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckboxMUI from '@material-ui/core/Checkbox';
 import FormControlLabelMUI from '@material-ui/core/FormControlLabel';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import { CheckboxTypes } from './Checkbox.props';
 
 /**

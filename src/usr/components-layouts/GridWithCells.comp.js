@@ -1,7 +1,7 @@
 import React from 'react';
 import GridMUI from '@material-ui/core/Grid';
-import gridSpacingMap from 'usr/components-library/common-props/utils/gridSpacingMap';
-import gridMap from 'usr/components-library/common-props/utils/gridMap';
+import gridSpacingMap from 'usr/common-props/utils/gridSpacingMap';
+import gridMap from 'usr/common-props/utils/gridMap';
 import { GridWithCellsTypes } from './GridWithCells.props';
 
 class GridWithCells extends React.Component {
@@ -10,14 +10,13 @@ class GridWithCells extends React.Component {
   }
 
   render() {
-    const { gridProperties, flexProperties, cells } = this.props;
-    const { spacing } = gridProperties;
-    const { alignContent, alignItems, direction, justify, wrap } = flexProperties;
+    const { grid, cells } = this.props;
+    const { spacing, alignContent, alignItems, direction, justify, wrap } = grid;
     const contentList = [];
     if (cells && cells.length > 0) {
       cells.forEach((contentCellItem, idx) => {
-        const { cellContent, cellProperties } = contentCellItem;
-        const { lg, md, sm, xl, xs, zeroMinWidth } = cellProperties;
+        const { child, cell } = contentCellItem;
+        const { lg, md, sm, xl, xs, zeroMinWidth } = cell;
         contentList.push(
           <GridMUI
             key={`cell${idx}`}
@@ -29,7 +28,7 @@ class GridWithCells extends React.Component {
             xs={gridMap[xs]}
             zeroMinWidth={zeroMinWidth}
           >
-            {cellContent}
+            {child}
           </GridMUI>
         );
       });
@@ -54,10 +53,8 @@ GridWithCells.propTypes = GridWithCellsTypes;
 
 GridWithCells.defaultProps = {
   doNotUseInFlows: true,
-  gridProperties: {
-    spacing: '0'
-  },
-  flexProperties: {
+  grid: {
+    spacing: '0',
     alignContent: 'stretch',
     alignItems: 'stretch',
     direction: 'row',
@@ -66,13 +63,13 @@ GridWithCells.defaultProps = {
   },
   cells: [
     {
-      cellContent: null,
-      cellProperties: {
+      child: <span />,
+      cell: {
         lg: 'false',
         md: 'false',
         sm: 'false',
         xl: 'false',
-        xs: 'true',
+        xs: 'auto',
         zeroMinWidth: false,
       }
     }

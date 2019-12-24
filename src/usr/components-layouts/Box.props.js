@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
-import { ColorTypes } from '../common-props/color.props';
-import { SizingTypes } from '../common-props/sizing.props';
-import { SpacingTypes } from '../common-props/spacing.props';
-import { BordersTypes } from '../common-props/borders.props';
-import { DisplayTypes } from '../common-props/display.props';
-import { FlexboxTypes } from '../common-props/flexbox.props';
-import { PositionsTypes } from '../common-props/positions.props';
-import { TypographyTypes } from '../common-props/typography.props';
+import { ColorTypes } from 'usr/common-props/color.props';
+import { SizingTypes } from 'usr/common-props/sizing.props';
+import { SpacingTypes } from 'usr/common-props/spacing.props';
+import { BordersTypes } from 'usr/common-props/borders.props';
+import { DisplayTypes } from 'usr/common-props/display.props';
+import { FlexboxTypes } from 'usr/common-props/flexbox.props';
+import { PositionsTypes } from 'usr/common-props/positions.props';
+import { TypographyTypes } from 'usr/common-props/typography.props';
 
 export const BoxTypes = {
+  /**
+   * If true then the component's instance will not be allowed to use in flows,
+   * and you will not see the instance name in the pages instances list
+   */
+  doNotUseInFlows: PropTypes.bool,
   // Sets style to element's border
   borders: PropTypes.shape(BordersTypes),
   // Toggle the display value of components
@@ -49,4 +54,8 @@ export const BoxTypes = {
   ]),
   // Text utilities to control alignment, wrapping, weight, and more.
   typography: PropTypes.shape(TypographyTypes),
+  /**
+   * The content of the box.
+   */
+  child: PropTypes.element,
 };

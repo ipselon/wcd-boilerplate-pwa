@@ -73,6 +73,6 @@ export const BoxResponsiveTypes = {
       typography: PropTypes.shape(TypographyTypes),
     }),
   })),
-  // A list of the components that will be placed inside the Box component. Increase the array to have more items.
-  children: PropTypes.arrayOf(PropTypes.element),
+  // A component that will be placed inside the Box component.
+  child: PropTypes.element,
 };

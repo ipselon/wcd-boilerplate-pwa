@@ -1,6 +1,6 @@
 import React from 'react';
 import IconButtonMUI from '@material-ui/core/IconButton';
-import pickWithValues from 'usr/components-library/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/common-props/utils/pickWithValues';
 import ButtonCircularProgress from './assets/ButtonCircularProgress';
 import { IconButtonTypes } from './props/IconButton';
 
