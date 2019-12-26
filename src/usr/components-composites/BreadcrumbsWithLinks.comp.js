@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TypographyMUI from '@material-ui/core/Typography';
 import BreadcrumbsMUI from '@material-ui/core/Breadcrumbs';
 import LinkMUI from '@material-ui/core/Link';
-import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/library/props/utils/pickWithValues';
 import { BreadcrumbsWithLinksTypes } from './BreadcrumbsWithLinks.props';
 
 const styles = theme => ({

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { TypographyTypes } from 'usr/components-library/typography/Typography.props';
-import { PageHelmetTypes } from 'usr/components-library/misc/PageHelmet.props';
-import { PageParametersReceiverTypes } from 'usr/components-library/misc/PageParametersReceiver.props';
+import { TypographyComponentTypes } from 'usr/library/props/typography.props';
+import { PageHelmetTypes } from 'usr/library/components/PageHelmet.props';
+import { PageParametersReceiverTypes } from 'usr/library/components/PageParametersReceiver.props';
 
 export const PageFrameWithDrawerTypes = {
   /**
@@ -31,7 +31,7 @@ export const PageFrameWithDrawerTypes = {
   /**
    * Title of the top application bar
    */
-  title: PropTypes.shape(TypographyTypes),
+  title: PropTypes.shape(TypographyComponentTypes),
   // Drawer
   drawer: PropTypes.shape({
     // The width of the drawer. Should be a string value with the width units.

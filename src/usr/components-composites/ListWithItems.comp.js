@@ -5,9 +5,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLessIcon from 'usr/icons/material/ExpandLessIcon';
-import ExpandMoreIcon from 'usr/icons/material/ExpandMoreIcon';
-import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import ExpandLessIcon from 'usr/library/icons/material/ExpandLessIcon';
+import ExpandMoreIcon from 'usr/library/icons/material/ExpandMoreIcon';
+import pickWithValues from 'usr/library/props/utils/pickWithValues';
 import { ListWithItemsTypes } from './ListWithItems.props';
 
 const styles = theme => ({

@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { ColorTypes } from '../common-props/color.props';
-import { SizingTypes } from '../common-props/sizing.props';
-import { SpacingTypes } from '../common-props/spacing.props';
-import { BordersTypes } from '../common-props/borders.props';
-import { DisplayTypes } from '../common-props/display.props';
-import { FlexboxTypes } from '../common-props/flexbox.props';
-import { PositionsTypes } from '../common-props/positions.props';
-import { TypographyTypes } from '../common-props/typography.props';
+import { ColorTypes } from 'usr/library/props/color.props';
+import { SizingTypes } from 'usr/library/props/sizing.props';
+import { SpacingTypes } from 'usr/library/props/spacing.props';
+import { BordersTypes } from 'usr/library/props/borders.props';
+import { DisplayTypes } from 'usr/library/props/display.props';
+import { FlexboxTypes } from 'usr/library/props/flexbox.props';
+import { PositionsTypes } from 'usr/library/props/positions.props';
+import { TypographyTypes } from 'usr/library/props/typography.props';
 
 export const BoxResponsiveTypes = {
   /**

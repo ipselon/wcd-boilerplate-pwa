@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import BoxMUI from '@material-ui/core/Box';
 import { withTheme } from '@material-ui/core/styles';
-import pickWithValues from 'usr/common-props/utils/pickWithValues';
-import findColor from 'usr/common-props/utils/colorMap';
-import elevationMap from 'usr/common-props/utils/elevationMap';
+import pickWithValues from 'usr/library/props/utils/pickWithValues';
+import findColor from 'usr/library/props/utils/colorMap';
+import elevationMap from 'usr/library/props/utils/elevationMap';
 import { BoxTypes } from './Box.props';
 
 /**

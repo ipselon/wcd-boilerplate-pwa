@@ -1,7 +1,7 @@
 import React from 'react';
 import GridMUI from '@material-ui/core/Grid';
-import gridSpacingMap from 'usr/common-props/utils/gridSpacingMap';
-import gridMap from 'usr/common-props/utils/gridMap';
+import gridSpacingMap from 'usr/library/props/utils/gridSpacingMap';
+import gridMap from 'usr/library/props/utils/gridMap';
 import { GridWithCellsTypes } from './GridWithCells.props';
 
 class GridWithCells extends React.Component {

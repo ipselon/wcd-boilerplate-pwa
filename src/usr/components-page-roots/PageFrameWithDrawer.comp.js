@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
-import validElevationMap from 'usr/common-props/utils/elevationMap';
-import pickWithValues from 'usr/common-props/utils/pickWithValues';
-import PageHelmet from 'usr/components-library/misc/PageHelmet';
-import PageParametersReceiver from 'usr/components-library/misc/PageParametersReceiver';
-import MenuIcon from 'usr/icons/material/MenuIcon';
-import CloseIcon from 'usr/icons/material/CloseIcon';
+import validElevationMap from 'usr/library/props/utils/elevationMap';
+import pickWithValues from 'usr/library/props/utils/pickWithValues';
+import PageHelmet from 'usr/library/components/PageHelmet';
+import PageParametersReceiver from 'usr/library/components/PageParametersReceiver';
+import MenuIcon from 'usr/library/icons/material/MenuIcon';
+import CloseIcon from 'usr/library/icons/material/CloseIcon';
 
 const styles = theme => ({
   root: {

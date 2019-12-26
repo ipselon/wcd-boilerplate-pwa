@@ -1,7 +1,7 @@
 import React from 'react';
 import SvgIconMUI from '@material-ui/core/SvgIcon';
 import { SvgIconTypes } from './SvgIcon.props';
-import pickWithValues from 'usr/common-props/utils/pickWithValues';
+import pickWithValues from 'usr/library/props/utils/pickWithValues';
 
 class SvgIcon extends React.Component {
 
