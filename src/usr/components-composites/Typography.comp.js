@@ -1,7 +1,7 @@
 import React from 'react';
 import TypographyMUI from '@material-ui/core/Typography';
 import pickWithValues from 'usr/library/props/utils/pickWithValues';
-import { TypographyComponentTypes } from 'usr/library/props/typography.props';
+import { TypographyTypes } from './Typography.props';
 
 class Typography extends React.Component {
   render() {
@@ -18,9 +18,10 @@ class Typography extends React.Component {
   }
 }
 
-Typography.propTypes = TypographyComponentTypes;
+Typography.propTypes = TypographyTypes;
 
 Typography.defaultProps = {
+  doNotUseInFlows: true,
   align: 'inherit',
   color: 'initial',
   display: 'initial',
