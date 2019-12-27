@@ -4,7 +4,7 @@ import isArray from 'lodash/isArray';
 let memoryStorage = {};
 
 function mergeCustomizer(objValue, srcValue) {
-  if (_.isArray(objValue)) {
+  if (isArray(objValue)) {
     return srcValue;
   }
 }
