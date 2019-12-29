@@ -12,16 +12,34 @@ export const ListItemTypes = {
    */
   href: PropTypes.string,
   /**
-   * Add JSON description of the nested list items.
-   * The structure of each child should be equal to the parent list item.
+   * Nested list items
    */
-  childrenItems: PropTypes.array,
+  childrenItems: PropTypes.arrayOf(PropTypes.shape({
+    // The list item id.
+    id: PropTypes.string,
+    // The list item primary text
+    primaryText: PropTypes.string,
+    // The list item secondary text
+    secondaryText: PropTypes.string,
+    /**
+     * It is used for creating an URL link in the list item instead of a button.
+     */
+    href: PropTypes.string,
+    // If true, the list item will be disabled.
+    disabled: PropTypes.bool,
+    // If true, a 1px light border is added to the bottom of the list item.
+    divider: PropTypes.bool,
+    /**
+     * The index value of the icon in the icons array property
+     */
+    iconIndex: PropTypes.number,
+  })),
   // If true, the list item will be disabled.
   disabled: PropTypes.bool,
   // If true, a 1px light border is added to the bottom of the list item.
   divider: PropTypes.bool,
   /**
-   * The index value if the icon in the icons array property
+   * The index value of the icon in the icons array property
    */
   iconIndex: PropTypes.number,
 };
@@ -75,10 +93,48 @@ export const ListWithItemsOnItemClickTypes = {
      */
     clickedItem: PropTypes.shape(ListItemTypes),
   }),
-  /**
-   * Dispatch selectedId
-   */
-  selectedId: PropTypes.string,
+  dispatch: PropTypes.shape(ListItemTypes),
+  // // Dispatches the selected item id.
+  // id: PropTypes.string,
+  // // Dispatches the selected item primary text
+  // primaryText: PropTypes.string,
+  // // Dispatches the selected item secondary text
+  // secondaryText: PropTypes.string,
+  // /**
+  //  * Dispatches the selected item URL link.
+  //  */
+  // href: PropTypes.string,
+  // /**
+  //  * Dispatches the nested items of the selected item
+  //  */
+  // childrenItems: PropTypes.arrayOf(PropTypes.shape({
+  //   // The list item id.
+  //   id: PropTypes.string,
+  //   // The list item primary text
+  //   primaryText: PropTypes.string,
+  //   // The list item secondary text
+  //   secondaryText: PropTypes.string,
+  //   /**
+  //    * It is used for creating an URL link in the list item instead of a button.
+  //    */
+  //   href: PropTypes.string,
+  //   // If true, the list item will be disabled.
+  //   disabled: PropTypes.bool,
+  //   // If true, a 1px light border is added to the bottom of the list item.
+  //   divider: PropTypes.bool,
+  //   /**
+  //    * The index value of the icon in the icons array property
+  //    */
+  //   iconIndex: PropTypes.number,
+  // })),
+  // // Dispatches the disabled flag of the selected item.
+  // disabled: PropTypes.bool,
+  // // Dispatches the divider flag the selected item.
+  // divider: PropTypes.bool,
+  // /**
+  //  * Dispatches the index value of the icon the selected item
+  //  */
+  // iconIndex: PropTypes.number,
 };
 
 export const ListWithItemsOnItemToggleExpandTypes = {
@@ -95,8 +151,10 @@ export const ListWithItemsOnItemToggleExpandTypes = {
      */
     toggledItem: PropTypes.shape(ListItemTypes),
   }),
-  /**
-   * Dispatch expandedMap
-   */
-  expandedMap: PropTypes.object,
+  dispatch: PropTypes.shape({
+    /**
+     * Dispatch expandedMap
+     */
+    expandedMap: PropTypes.object,
+  }),
 };

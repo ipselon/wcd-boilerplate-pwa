@@ -3,12 +3,18 @@
  *
  * @functionTypes {BottomNavigationWithActionsOnClickTypes from ./BottomNavigationWithActions.props}
  */
-export const activateById = options => dispatch => {
-  const newActions = [];
+export const handleOnClick = options => dispatch => {
   if (options) {
-    const { selectedAction } = options;
-    if (selectedAction) {
-      dispatch('activeActionId', selectedAction.id);
-    }
+    const { id, label, iconIndex } = options;
+    dispatch({
+      id,
+      label,
+      iconIndex,
+      selectedAction: options,
+    });
+    // dispatch('id', id);
+    // dispatch('label', label);
+    // dispatch('iconIndex', iconIndex);
+    // dispatch('selectedAction', options);
   }
 };

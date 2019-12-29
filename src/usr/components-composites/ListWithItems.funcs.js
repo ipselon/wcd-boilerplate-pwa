@@ -3,10 +3,33 @@
  *
  * @functionTypes {ListWithItemsOnItemClickTypes from ./ListWithItems.props.js}
  */
-export const selectItemById = options => dispatch => {
+export const handleOnItemClick = options => dispatch => {
   if (options) {
-    const { clickedItem } = options;
-    dispatch('selectedId', clickedItem.id);
+    const {
+      id,
+      primaryText,
+      secondaryText,
+      href,
+      childrenItems,
+      disabled,
+      divider,
+      iconIndex
+    } = options;
+    dispatch({
+      childrenItems, disabled, divider, iconIndex, selectedItem: options
+    });
+    dispatch({
+      id, primaryText, secondaryText, href
+    });
+    // dispatch('id', id);
+    // dispatch('primaryText', primaryText);
+    // dispatch('secondaryText', secondaryText);
+    // dispatch('href', href);
+    // dispatch('childrenItems', childrenItems);
+    // dispatch('disabled', disabled);
+    // dispatch('divider', divider);
+    // dispatch('iconIndex', iconIndex);
+    // dispatch('selectedItem', options);
   }
 };
 
@@ -21,7 +44,7 @@ export const toggleItemById = options => dispatch => {
     if (toggledItem) {
       const newExpandedMap = { ...expandedMap };
       newExpandedMap[toggledItem.id] = !newExpandedMap[toggledItem.id];
-      dispatch('expandedMap', newExpandedMap);
+      dispatch({expandedMap: newExpandedMap});
     }
   }
 };

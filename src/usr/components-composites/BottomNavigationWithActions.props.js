@@ -38,16 +38,19 @@ export const BottomNavigationWithActionsTypes = {
 
 export const BottomNavigationWithActionsOnClickTypes = {
   /**
-   * An object passed as the first function argument
+   * The selected action item
    */
-  argument: PropTypes.shape({
-    /**
-     * The currently selected navigation item.
-     */
-    selectedAction: PropTypes.shape(BottomNavigationActionTypes),
-  }),
-  /**
-   * Dispatch activeActionId
-   */
-  activeActionId: PropTypes.string,
+  argument: PropTypes.shape(BottomNavigationActionTypes),
+
+  dispatch: PropTypes.shape(BottomNavigationActionTypes),
+  // // Dispatches the selected item id
+  // id: PropTypes.string,
+  // // Dispatches the selected item label.
+  // label: PropTypes.string,
+  // // Dispatches the selected item icon index.
+  // iconIndex: PropTypes.number,
+  // /**
+  //  * Dispatches the selected action
+  //  */
+  // selectedAction: PropTypes.shape(BottomNavigationActionTypes),
 };

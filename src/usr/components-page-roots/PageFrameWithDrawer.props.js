@@ -115,3 +115,16 @@ export const PageFrameWithDrawerTypes = {
    */
   onDrawerCloseClick: PropTypes.func,
 };
+
+export const SetDrawerTypes = {
+  dispatch: PropTypes.shape({
+    /**
+     * The function dispatch, produce false to close the drawer in page frame
+     */
+    close: PropTypes.bool,
+    /**
+     * The function dispatch, produce true to open the drawer in page frame
+     */
+    open: PropTypes.bool,
+  }),
+};

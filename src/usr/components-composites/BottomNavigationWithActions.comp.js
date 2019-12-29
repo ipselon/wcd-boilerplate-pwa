@@ -11,9 +11,7 @@ class BottomNavigationWithActions extends React.Component {
       e.preventDefault();
     }
     const { onClick, actions } = this.props;
-    onClick({
-      selectedAction: actions.find(i => i.id === value),
-    });
+    onClick(actions.find(i => i.id === value));
   };
 
   render() {

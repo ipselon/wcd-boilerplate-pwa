@@ -24,9 +24,7 @@ class ListWithItems extends React.Component {
       e.preventDefault();
     }
     const { onItemClick } = this.props;
-    onItemClick({
-      clickedItem: item,
-    });
+    onItemClick(item);
   };
 
   handleItemToggle = (item) => (e) => {
