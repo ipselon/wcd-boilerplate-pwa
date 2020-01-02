@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@material-ui/core": "4.8.0",
-    "@webcodesk/react-app-framework": "2.0.21",
+    "@webcodesk/react-app-framework": "2.0.23",
     "@webcodesk/webcodesk-srv": "2.0.0-beta.7",
     "express": "4.17.1",
     "highlight.js": "9.16.2",

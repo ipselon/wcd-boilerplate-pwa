@@ -85,15 +85,16 @@ export const ListWithItemsTypes = {
 
 export const ListWithItemsOnItemClickTypes = {
   /**
-   * An object passed as the first function argument
+   * Clicked item in the list
    */
-  argument: PropTypes.shape({
+  argument: PropTypes.shape(ListItemTypes),
+  dispatch: PropTypes.shape({
     /**
-     * Clicked item in the list
+     *  Dispatches the selected item id.
      */
-    clickedItem: PropTypes.shape(ListItemTypes),
+    selectedItemId: PropTypes.string,
+    selectedItem: PropTypes.shape(ListItemTypes),
   }),
-  dispatch: PropTypes.shape(ListItemTypes),
   // // Dispatches the selected item id.
   // id: PropTypes.string,
   // // Dispatches the selected item primary text

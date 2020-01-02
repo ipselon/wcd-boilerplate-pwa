@@ -16,20 +16,8 @@ export const handleOnItemClick = options => dispatch => {
       iconIndex
     } = options;
     dispatch({
-      childrenItems, disabled, divider, iconIndex, selectedItem: options
+      selectedItemId: id, selectedItem: options
     });
-    dispatch({
-      id, primaryText, secondaryText, href
-    });
-    // dispatch('id', id);
-    // dispatch('primaryText', primaryText);
-    // dispatch('secondaryText', secondaryText);
-    // dispatch('href', href);
-    // dispatch('childrenItems', childrenItems);
-    // dispatch('disabled', disabled);
-    // dispatch('divider', divider);
-    // dispatch('iconIndex', iconIndex);
-    // dispatch('selectedItem', options);
   }
 };
 

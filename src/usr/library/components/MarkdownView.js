@@ -6,6 +6,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import { withStyles } from '@material-ui/core/styles';
 import MarkdownIt from 'markdown-it';
 import mila from 'markdown-it-link-attributes';
+import 'css/github-markdown.css';
 
 hljs.registerLanguage('javascript', javascript);
 

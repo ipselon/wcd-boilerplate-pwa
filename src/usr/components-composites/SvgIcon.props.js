@@ -7,11 +7,11 @@ export const SvgIconTypes = {
   // ]),
   // The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
   fontSize: PropTypes.oneOf([
-    'inherit', 'default', 'small', 'large'
+    '', 'inherit', 'default', 'small', 'large'
   ]),
   // The color of the component. It supports those theme colors that make sense for this component.
   color: PropTypes.oneOf([
-    'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
+    '', 'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
   ]),
   /**
    * Allows you to redefine what the coordinates without units mean inside an SVG element.
