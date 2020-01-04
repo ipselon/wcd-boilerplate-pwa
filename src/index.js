@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Application, { initStore } from '@webcodesk/react-app-framework';
 import './index.css';
 import appSettings from './app/settings';
-import findColor from './usr/library/props/utils/colorMap';
+import findColor from './utils/colorMap';
 import * as serviceWorker from './serviceWorker';
 import serviceWorkerConfig from './serviceWorkerConfig';
 
