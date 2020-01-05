@@ -22,6 +22,7 @@ class SvgIcon extends React.Component {
 SvgIcon.propTypes = SvgIconTypes;
 
 SvgIcon.defaultProps = {
+  doNotUseInFlows: true,
   fontSize: 'inherit',
   color: 'inherit',
   viewBox: '0 0 24 24',
