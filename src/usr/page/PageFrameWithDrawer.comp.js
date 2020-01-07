@@ -6,7 +6,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { PageFrameWithDrawerTypes } from './PageFrameWithDrawer.props';
 import validElevationMap from './utils/elevationMap';
 import pickWithValues from './utils/pickWithValues';
@@ -124,11 +123,6 @@ class PageFrameWithDrawer extends React.Component {
                   <MenuIcon />
                 </IconButton>
               )}
-              {title && title.text && (
-                <Typography {...pickWithValues(title)}>
-                  {title.text}
-                </Typography>
-              )}
               {topBar.child}
             </Toolbar>
           </AppBar>
@@ -223,11 +217,6 @@ PageFrameWithDrawer.defaultProps = {
   drawerIsAvailable: true,
   bottomBarIsAvailable: true,
   footerIsAvailable: true,
-  title: {
-    text: 'Some Title Here',
-    variant: 'h6',
-    noWrap: true,
-  },
   drawer: {
     available: true,
     width: '250px',

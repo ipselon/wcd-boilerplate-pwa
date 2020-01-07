@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { TypographyTypes } from './props/typography.props';
 
 export const TopAreaControlTypes = {
   /**
@@ -39,31 +40,49 @@ export const TopAreaControlTypes = {
 
 export const TopNavigationWithControlsTypes = {
   /**
-   * The size of all controls on the toolbar
+   * Set the controls props by their ids
    */
-  controlsSize: PropTypes.oneOf(['', 'small', 'medium', 'large']),
+  byId: PropTypes.shape({
+    /**
+     * An array of the ids of the controls that will show the loading indicator.
+     * The controls will be disabled.
+     */
+    loadingIds: PropTypes.arrayOf(PropTypes.string),
+    /**
+     * An array of the ids of the controls that should be disabled.
+     */
+    disabledIds: PropTypes.arrayOf(PropTypes.string),
+  }),
   /**
-   * An array of the ids of the controls that will show the loading indicator.
-   * The controls will be disabled.
+   * A dropdown menu items for mobile view
    */
-  loadingControlIds: PropTypes.arrayOf(PropTypes.string),
+  mobile: PropTypes.shape({}),
   /**
-   * An array of the ids of the controls that should be disabled.
+   * A desktop navigation controls view
    */
-  disabledControlIds: PropTypes.arrayOf(PropTypes.string),
-  /**
-   * The list of controls in the left side area of the toolbar
-   */
-  leftAreaControls: PropTypes.arrayOf(PropTypes.shape(TopAreaControlTypes)),
-  /**
-   * The list of controls in the right side area of the toolbar
-   */
-  rightAreaControls: PropTypes.arrayOf(PropTypes.shape(TopAreaControlTypes)),
+  desktop: PropTypes.shape({
+    /**
+     * The size of all controls on the toolbar
+     */
+    controlsSize: PropTypes.oneOf(['', 'small', 'medium', 'large']),
+    /**
+     * The list of controls in the left side area of the toolbar
+     */
+    leftArea: PropTypes.arrayOf(PropTypes.shape(TopAreaControlTypes)),
+    /**
+     * The list of controls in the right side area of the toolbar
+     */
+    rightArea: PropTypes.arrayOf(PropTypes.shape(TopAreaControlTypes)),
+  }),
   /**
    * An array of icons that can be used in the control referenced by
    * index number value in the index property.
    */
   icons: PropTypes.arrayOf(PropTypes.node),
+  /**
+   * Title of the top navigation
+   */
+  title: PropTypes.shape(TypographyTypes),
   /**
    * Triggered when the user clicks on a control
    *

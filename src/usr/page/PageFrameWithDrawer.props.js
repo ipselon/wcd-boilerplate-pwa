@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { TypographyTypes } from './props/typography.props';
 import { PageHelmetTypes } from './lib/PageHelmet.props';
 import { PageParametersReceiverTypes } from './lib/PageParametersReceiver.props';
 
@@ -28,10 +27,6 @@ export const PageFrameWithDrawerTypes = {
    * Sets drawer open or closed. If true, the drawer is open
    */
   drawerOpen: PropTypes.bool,
-  /**
-   * Title of the top application bar
-   */
-  title: PropTypes.shape(TypographyTypes),
   // Drawer
   drawer: PropTypes.shape({
     // The width of the drawer. Should be a string value with the width units.

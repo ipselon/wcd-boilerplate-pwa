@@ -39,16 +39,59 @@ export const ButtonTypes = {
    */
   fullWidth: PropTypes.bool,
   /**
-   * The URL to link to when the button is clicked. If defined, an a element will be used as the root node.
+   * The URL to link to when the button is clicked.
    */
   href: PropTypes.string,
   /**
    * If true the circular progress is shown and button is disabled.
    */
   loading: PropTypes.bool,
+  /**
+   * Set the menu items props by their ids
+   */
+  byId: PropTypes.shape({
+    /**
+     * Selected menu items by id
+     */
+    selectedMenuIds: PropTypes.arrayOf(PropTypes.string),
+    /**
+     * Disabled menu items by id
+     */
+    disabledMenuIds: PropTypes.arrayOf(PropTypes.string),
+  }),
+  /**
+   * A list of the menu items
+   */
+  menu: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * A menu item id
+     */
+    id: PropTypes.string,
+    /**
+     * A menu item label
+     */
+    label: PropTypes.string,
+    /**
+     * The URL to link to when the menu item is clicked.
+     */
+    href: PropTypes.string,
+    /**
+     * If true, the menu item is disabled
+     */
+    disabled: PropTypes.bool,
+    /**
+     * If true, the menu item is selected
+     */
+    selected: PropTypes.bool,
+  })),
   /*
    * Triggered when the user click on the button
    *
    */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  /*
+   * Triggered when the user click on the menu item
+   *
+   */
+  onMenuItemClick: PropTypes.func
 };
