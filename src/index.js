@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Application, { initStore } from '@webcodesk/react-app-framework';
+import * as firebase from "firebase/app";
 import './index.css';
 import appSettings from './app/settings';
 import findColor from './utils/colorMap';
@@ -61,6 +62,25 @@ if (appSettings && appSettings.muiTheme) {
 // console.info(JSON.stringify(muiTheme, null, 4));
 
 const theme = createMuiTheme(muiTheme);
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCMgkAxQWKUfRVDmHdEtJ1IFj8nsFRPKCA",
+//   authDomain: "webcodesk-site.firebaseapp.com",
+//   databaseURL: "https://webcodesk-site.firebaseio.com",
+//   projectId: "webcodesk-site",
+//   storageBucket: "webcodesk-site.appspot.com",
+//   messagingSenderId: "539850020820",
+//   appId: "1:539850020820:web:f9a36601077ccadfb9a841"
+// };
+console.info('Firebase appSettings.firebase: ', appSettings.firebase);
+if (appSettings && appSettings.firebase) {
+  if (appSettings.firebase.firebaseConfig) {
+    // Initialize Firebase
+    firebase.initializeApp(appSettings.firebase.firebaseConfig);
+    console.info('Firebase is initialized');
+  }
+}
+
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
