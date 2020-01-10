@@ -9,10 +9,14 @@ export const MemoryTypes = {
 };
 
 export const InMemoryTypes = {
-  argument: PropTypes.shape({}),
-  storage: PropTypes.shape({}),
+  argument: PropTypes.object,
+  dispatch: PropTypes.shape({
+    storage: PropTypes.object,
+  }),
 };
 
 export const GetFromMemoryTypes = {
-  storage: PropTypes.shape({}),
+  dispatch: PropTypes.shape({
+    storage: PropTypes.object,
+  }),
 };

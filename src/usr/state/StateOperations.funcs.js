@@ -42,7 +42,7 @@ export const addStateListener = ({key}) => dispatch => {
     const stateChangeCounter = stateChangeCounters[key];
     if (stateChangeCounter > listenerChangeCounter) {
       const newState = getStore().getState();
-      dispatch('value', newState[key]);
+      dispatch({value: newState[key]});
     }
   });
 };
@@ -60,5 +60,5 @@ export const getFromState = ({keys}) => dispatch => {
       data[key] = cloneDeep(newState[key]);
     });
   }
-  dispatch('valueMap', data);
+  dispatch({valueMap: data});
 };

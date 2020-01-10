@@ -19,6 +19,10 @@ export const NumberFieldTypes = {
    */
   error: PropTypes.bool,
   /**
+   * The helper text content.
+   */
+  helperText: PropTypes.string,
+  /**
    * If true, the label is displayed as required and the input element` will be required.
    */
   required: PropTypes.bool,
@@ -61,10 +65,6 @@ export const NumberFieldTypes = {
      * If true, the input will take up the full width of its container.
      */
     fullWidth: PropTypes.bool,
-    /**
-     * The helper text content.
-     */
-    helperText: PropTypes.string,
     /**
      * If dense or normal, will adjust vertical spacing of this and contained components.
      */

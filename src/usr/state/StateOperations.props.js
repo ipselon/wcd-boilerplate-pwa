@@ -14,10 +14,12 @@ export const AddStateListenerTypes = {
     // The key under which the data is changed in the state storage
     key: PropTypes.string.isRequired,
   }),
-  /**
-   * Returns a value from the global storage when the value is changed elsewhere
-   */
-  value: PropTypes.any,
+  dispatch: PropTypes.shape({
+    /**
+     * Returns a value from the global storage when the value is changed elsewhere
+     */
+    value: PropTypes.any,
+  }),
 };
 
 export const GetFromStateTypes = {
@@ -25,8 +27,10 @@ export const GetFromStateTypes = {
     // An array of keys that should be retrieved from the global state.
     keys: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
-  /**
-   * The object with keays and values from the global state: {key1: value1, key2: value2}
-   */
-  valueMap: PropTypes.object,
+  dispatch: PropTypes.shape({
+    /**
+     * The object with keays and values from the global state: {key1: value1, key2: value2}
+     */
+    valueMap: PropTypes.object,
+  }),
 };

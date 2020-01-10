@@ -16,7 +16,7 @@ function mergeCustomizer(objValue, srcValue) {
  */
 export const saveInMemory = object => dispatch => {
   memoryStorage = { ...memoryStorage, ...object };
-  dispatch('storage', memoryStorage);
+  dispatch({storage: memoryStorage});
 };
 
 /**
@@ -25,7 +25,7 @@ export const saveInMemory = object => dispatch => {
  * @functionTypes {GetFromMemoryTypes from ./MemoryStorage.props}
  */
 export const getFromMemory = () => dispatch => {
-  dispatch('storage', memoryStorage);
+  dispatch({storage: memoryStorage});
 };
 
 /**
@@ -35,5 +35,5 @@ export const getFromMemory = () => dispatch => {
  */
 export const mergeInMemory = object => dispatch => {
   mergeWith(memoryStorage, object, mergeCustomizer);
-  dispatch('storage', memoryStorage);
+  dispatch({storage: memoryStorage});
 };

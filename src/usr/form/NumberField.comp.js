@@ -52,15 +52,15 @@ class NumberField extends React.Component {
 
   render() {
     const { localInputText } = this.state;
-    const { disabled, error, required, label, inputControl, formControl } = this.props;
-    let mainProps = pickWithValues({ disabled, error, required, label });
+    const { disabled, error, helperText, required, label, inputControl, formControl } = this.props;
+    let mainProps = pickWithValues({ disabled, error, required, label, helperText });
     let inputProps = {};
     if (inputControl) {
       mainProps = {...mainProps, ...pickWithValues(inputControl)};
     }
     if (formControl) {
-      const { color, fullWidth, helperText, margin, placeholder, variant, startAdornment, endAdornment } = formControl;
-      mainProps = {...mainProps, ...pickWithValues({color, fullWidth, helperText, margin, placeholder, variant})};
+      const { color, fullWidth, margin, placeholder, variant, startAdornment, endAdornment } = formControl;
+      mainProps = {...mainProps, ...pickWithValues({color, fullWidth, margin, placeholder, variant})};
       if (startAdornment) {
         inputProps.startAdornment = (
           <InputAdornmentMUI position="start">{startAdornment}</InputAdornmentMUI>
