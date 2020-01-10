@@ -63,15 +63,6 @@ if (appSettings && appSettings.muiTheme) {
 
 const theme = createMuiTheme(muiTheme);
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCMgkAxQWKUfRVDmHdEtJ1IFj8nsFRPKCA",
-//   authDomain: "webcodesk-site.firebaseapp.com",
-//   databaseURL: "https://webcodesk-site.firebaseio.com",
-//   projectId: "webcodesk-site",
-//   storageBucket: "webcodesk-site.appspot.com",
-//   messagingSenderId: "539850020820",
-//   appId: "1:539850020820:web:f9a36601077ccadfb9a841"
-// };
 console.info('Firebase appSettings.firebase: ', appSettings.firebase);
 if (appSettings && appSettings.firebase) {
   if (appSettings.firebase.firebaseConfig) {
