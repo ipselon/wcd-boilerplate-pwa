@@ -264,8 +264,8 @@ PageFrameWithDrawer.defaultProps = {
         {
           id: 'leftNav1', primaryText: 'Left Nav 1',
           childrenItems: [
-            {id: 'leftNav11', label: 'Child Nav 1'},
-            {id: 'leftNav12', label: 'Child Nav 2'}
+            {id: 'leftNav11', primaryText: 'Child Nav 1'},
+            {id: 'leftNav12', primaryText: 'Child Nav 2'}
           ]
         },
         {id: 'leftNav2', primaryText: 'Left Nav 2', selected: true},
