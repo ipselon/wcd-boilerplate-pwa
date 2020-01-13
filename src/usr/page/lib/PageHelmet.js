@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import pickWithValues from '../utils/pickWithValues';
-import { PageHelmetTypes } from './PageHelmet.props';
 
 class PageHelmet extends React.Component {
   render () {
@@ -22,11 +21,5 @@ class PageHelmet extends React.Component {
     );
   }
 }
-
-PageHelmet.propTypes = PageHelmetTypes;
-
-PageHelmet.defaultProps = {
-  title: 'New Page',
-};
 
 export default PageHelmet;

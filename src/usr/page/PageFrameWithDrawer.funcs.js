@@ -3,9 +3,9 @@
  *
  * @functionTypes {SetDrawerTypes from ./PageFrameWithDrawer.props.js}
  */
-export const setDrawer = () => dispatch => {
-  dispatch({
-    close: false,
-    open: true,
-  });
-};
+// export const setDrawer = () => dispatch => {
+//   dispatch({
+//     close: false,
+//     open: true,
+//   });
+// };

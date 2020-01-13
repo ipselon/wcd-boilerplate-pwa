@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
@@ -5,10 +6,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLessIcon from './icons/material/ExpandLessIcon';
-import ExpandMoreIcon from './icons/material/ExpandMoreIcon';
-import pickWithValues from './utils/pickWithValues';
-import { ListWithItemsTypes } from './ListWithItems.props';
+import ExpandLessIcon from '../icons/material/ExpandLessIcon';
+import ExpandMoreIcon from '../icons/material/ExpandMoreIcon';
+import pickWithValues from '../utils/pickWithValues';
 
 const styles = theme => ({
   nested: {
@@ -16,15 +16,17 @@ const styles = theme => ({
   },
 });
 
-class ListWithItems extends React.Component {
+class ListNavigation extends React.Component {
 
   handleItemClick = (item) => e => {
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemClick } = this.props;
-    onItemClick(item);
+    const { onItemClick, items } = this.props;
+    if (onItemClick) {
+      onItemClick({id: item.id, href: item.href, items});
+    }
   };
 
   handleItemToggle = (item) => (e) => {
@@ -32,15 +34,14 @@ class ListWithItems extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemToggleExpand, expandedMap } = this.props;
-    onItemToggleExpand({
-      toggledItem: item,
-      expandedMap,
-    });
+    const { onItemToggleExpand, items } = this.props;
+    if (onItemToggleExpand) {
+      onItemToggleExpand({ id: item.id, items });
+    }
   };
 
-  renderList = (listItems, selectedId, expandedMap = {}, level = 0) => {
-    const { classes, icons, dense, disableGutters } = this.props;
+  renderList = (listItems, level = 0) => {
+    const { classes, icons, dense } = this.props;
     const resultElementList = [];
     if (listItems && listItems.length > 0) {
       listItems.forEach((item, idx) => {
@@ -52,12 +53,14 @@ class ListWithItems extends React.Component {
             href,
             childrenItems,
             disabled,
+            selected,
+            expanded,
             divider,
             iconIndex
           } = item;
-          const listItemProperties = pickWithValues({ disabled, dense, disableGutters, divider });
-          listItemProperties.selected = id && selectedId && id === selectedId;
+          const listItemProperties = pickWithValues({ disabled, selected, dense, divider });
           const uniqueKey = id ? `${id}.${idx}.${level}` : `listItem${idx}.${level}`;
+          const iconElement = get(icons, `[${iconIndex}]`);
           if (childrenItems && childrenItems.length > 0) {
             resultElementList.push(
               <ListItem
@@ -66,23 +69,23 @@ class ListWithItems extends React.Component {
                 {...listItemProperties}
                 onClick={this.handleItemToggle(item)}
               >
-                {iconIndex >= 0 && icons[iconIndex] && (
+                {iconElement && (
                   <ListItemIcon>
-                    {icons[iconIndex]}
+                    {iconElement}
                   </ListItemIcon>
                 )}
                 <ListItemText primary={primaryText} secondary={secondaryText} />
-                {expandedMap[id] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </ListItem>
             );
             resultElementList.push(
               <Collapse
                 key={`collapse.${uniqueKey}`}
-                in={expandedMap[id]}
+                in={expanded}
                 timeout="auto"
                 unmountOnExit={true}
               >
-                {this.renderList(childrenItems, selectedId, expandedMap, level + 1)}
+                {this.renderList(childrenItems, level + 1)}
               </Collapse>
             );
           } else {
@@ -93,9 +96,9 @@ class ListWithItems extends React.Component {
                 {...listItemProperties}
                 onClick={this.handleItemClick(item)}
               >
-                {iconIndex >= 0 && icons[iconIndex] && (
+                {iconElement && (
                   <ListItemIcon>
-                    {icons[iconIndex]}
+                    {iconElement}
                   </ListItemIcon>
                 )}
                 {href
@@ -137,47 +140,12 @@ class ListWithItems extends React.Component {
   };
 
   render () {
-    const { items, selectedId, expandedMap } = this.props;
+    const { items } = this.props;
     if (items) {
-      return this.renderList(items, selectedId, expandedMap);
+      return this.renderList(items);
     }
     return null;
   }
 }
 
-ListWithItems.propTypes = ListWithItemsTypes;
-
-ListWithItems.defaultProps = {
-  expandedMap: {},
-  items: [
-    {
-      id: '00001',
-      primaryText: 'List Item 00001',
-      secondaryText: 'Subtext 00001',
-      divider: true,
-    },
-    {
-      id: '00002',
-      primaryText: 'List Item 00002',
-      secondaryText: 'Subtext 00002'
-    },
-    {
-      id: '00003',
-      primaryText: 'List Item 00003',
-      secondaryText: 'Subtext 00003',
-    },
-    {
-      id: '00004',
-      primaryText: 'List Item 00004',
-      secondaryText: 'Subtext 00004'
-    }
-  ],
-  onItemClick: () => {
-    console.info('ListWithItems.onItemClick is not set');
-  },
-  onItemToggleExpand: () => {
-    console.info('ListWithItems.onItemToggleExpand is not set');
-  },
-};
-
-export default withStyles(styles)(ListWithItems);
+export default withStyles(styles)(ListNavigation);

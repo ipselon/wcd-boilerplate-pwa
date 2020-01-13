@@ -1,9 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
-import { TopNavigationTypes } from './TopNavigation.props';
-import pickWithValues from './utils/pickWithValues';
+import Button from './Button';
 
 const styles = theme => ({
   root: {
@@ -16,7 +14,7 @@ const styles = theme => ({
     marginRight: theme.spacing(2),
   },
   leftSection: {
-    flexGrow: 1,
+    flexGrow: 0,
     display: 'flex',
     '& div:first-child': {
       marginLeft: 0,
@@ -28,7 +26,7 @@ const styles = theme => ({
     justifyContent: 'flex-start',
   },
   rightSection: {
-    flexGrow: 0,
+    flexGrow: 1,
     display: 'flex',
     '& div:last-child': {
       marginRight: 0,
@@ -43,25 +41,62 @@ const styles = theme => ({
 
 class TopNavigation extends React.Component {
 
-  render() {
-    const { classes, mobileView, desktopView, title } = this.props;
-    let mobileControls = [];
-    let desktopLeftControls = [];
-    let desktopRightControls = [];
-    if (mobileView) {
-      mobileControls = mobileView.controls || [];
+  handleControlClick = ({id, href}) => {
+    if (this.props.onItemClick) {
+      this.props.onItemClick({id, href});
     }
-    if (desktopView) {
-      desktopLeftControls = desktopView.leftControls || [];
-      desktopRightControls = desktopView.rightControls || [];
+  };
+
+  render() {
+    const { classes, menuLabel, size, items, titleElement } = this.props;
+    let mobileControls = [];
+    let desktopControls = [];
+    if (items && items.length > 0) {
+      const mobileControlMenuItems = [];
+      let activeControlLabel = menuLabel;
+      for (let i = 0; i < items.length; i++) {
+        const { id, href, label, active, disabled } = items[i];
+        if (active) {
+          activeControlLabel = label;
+        }
+        mobileControlMenuItems.push({
+          id,
+          label,
+          selected: active,
+          disabled,
+          href,
+        });
+        desktopControls.push(
+          <Button
+            key={`navButton${i}`}
+            size={size}
+            color="inherit"
+            variant={active ? 'outlined' : 'text'}
+            disabled={disabled}
+            id={id}
+            label={label}
+            href={href}
+            onClick={this.handleControlClick}
+          />
+        );
+      }
+      mobileControls.push(
+        <Button
+          key="mobileButton"
+          size={size}
+          menu={mobileControlMenuItems}
+          label={activeControlLabel}
+          variant="text"
+          color="inherit"
+          onMenuItemClick={this.handleControlClick}
+        />
+      );
     }
     return (
       <div className={classes.root}>
-        {title && title.text && (
+        {titleElement && (
           <div className={classes.titleSection}>
-            <Typography {...pickWithValues(title)}>
-              {title.text}
-            </Typography>
+            {titleElement}
           </div>
         )}
         {/* Show for mobile */}
@@ -77,15 +112,9 @@ class TopNavigation extends React.Component {
         </Hidden>
         {/* Show for desktop */}
         <Hidden xsDown implementation="js">
-          <div className={classes.leftSection}>
-            {desktopLeftControls.map((control, index) => {
-              return (
-                <div key={`control${index}`}>{control}</div>
-              );
-            })}
-          </div>
+          <div className={classes.leftSection} />
           <div className={classes.rightSection}>
-            {desktopRightControls.map((control, index) => {
+            {desktopControls.map((control, index) => {
               return (
                 <div key={`control${index}`}>{control}</div>
               );
@@ -96,26 +125,5 @@ class TopNavigation extends React.Component {
     );
   }
 }
-
-TopNavigation.propTypes = TopNavigationTypes;
-
-TopNavigation.defaultProps = {
-  title: {
-    text: 'Some Title',
-    variant: 'h6',
-    noWrap: true,
-  },
-  mobileView: {
-    controls: [],
-  },
-  desktopView: {
-    leftControls: [
-    ],
-    rightControls: [
-      <span/>,
-      <span/>,
-    ],
-  }
-};
 
 export default withStyles(styles)(TopNavigation);

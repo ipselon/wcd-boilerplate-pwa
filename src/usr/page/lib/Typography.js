@@ -1,13 +1,13 @@
 import React from 'react';
 import TypographyMUI from '@material-ui/core/Typography';
-import pickWithValues from './utils/pickWithValues';
-import { TypographyTypes } from './Typography.props';
+import pickWithValues from '../utils/pickWithValues';
+import { TypographyTypes } from '../props/Typography.props';
 
 class Typography extends React.Component {
   render() {
-    const { align, color, display, gutterBottom, noWrap, paragraph, variant, text } = this.props;
+    const { color, display, noWrap, variant, text } = this.props;
     const muiTypographyProps =
-      pickWithValues({ align, color, display, gutterBottom, noWrap, paragraph, variant, text });
+      pickWithValues({ color, display, noWrap, variant });
     return (
       <TypographyMUI
         {...muiTypographyProps}
@@ -21,7 +21,6 @@ class Typography extends React.Component {
 Typography.propTypes = TypographyTypes;
 
 Typography.defaultProps = {
-  doNotUseInFlows: true,
   align: 'inherit',
   color: 'initial',
   display: 'initial',

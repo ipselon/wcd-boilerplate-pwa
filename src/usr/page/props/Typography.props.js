@@ -1,24 +1,16 @@
 import PropTypes from 'prop-types';
 
 export const TypographyTypes = {
-  // Set the text-align on the component.
-  align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
   color: PropTypes.oneOf(['initial', 'inherit', 'primary', 'secondary', 'textPrimary', 'textSecondary', 'error']),
-  // Controls the display type
-  display: PropTypes.oneOf(['initial', 'block', 'inline']),
-  // If true, the text will have a bottom margin.
-  gutterBottom: PropTypes.bool,
   /**
    * If true, the text will not wrap, but instead will truncate with a text overflow ellipsis.
    * Note that text overflow can only happen with block or inline-block level elements
    * (the element needs to have a width in order to overflow).
    */
   noWrap: PropTypes.bool,
-  // If true, the text will have a bottom margin.
-  paragraph: PropTypes.bool,
   // Applies the theme typography styles.
   variant: PropTypes.oneOf([
     'h1',
