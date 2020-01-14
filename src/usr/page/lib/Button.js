@@ -5,6 +5,7 @@ import MenuItemMUI from '@material-ui/core/MenuItem';
 import MenuMUI from '@material-ui/core/Menu';
 import pickWithValues from '../utils/pickWithValues';
 import ButtonCircularProgress from './ButtonCircularProgress';
+import ArrowDropDownIcon from '../icons/material/ArrowDropDownIcon';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -78,6 +79,9 @@ const Button = props => {
   }
   if (loading) {
     muiButtonProps.disabled = true;
+  }
+  if (menuItems.length > 0) {
+    muiButtonProps.endIcon = <ArrowDropDownIcon />;
   }
   const buttonElement = (
     <ButtonMUI

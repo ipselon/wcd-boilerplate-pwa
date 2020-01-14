@@ -10,10 +10,12 @@ class BottomNavigation extends React.Component {
       e.preventDefault();
     }
     const { onClick, items } = this.props;
-    onClick({
-      id: value,
-      items,
-    });
+    if (onClick) {
+      onClick({
+        id: value,
+        items,
+      });
+    }
   };
 
   render() {

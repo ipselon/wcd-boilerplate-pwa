@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import validElevationMap from './utils/elevationMap';
 import pickWithValues from './utils/pickWithValues';
+import findColor from './utils/colorMap';
 import PageHelmet from './lib/PageHelmet';
 import MenuIcon from './icons/material/MenuIcon';
 import CloseIcon from './icons/material/CloseIcon';
@@ -16,6 +17,8 @@ import TopNavigation from './lib/TopNavigation';
 import ListNavigation from './lib/ListNavigation';
 import BottomNavigation from './lib/BottomNavigation';
 import Typography from './lib/Typography';
+import Container from './lib/Container';
+import ContentGrid from './lib/ContentGrid';
 
 import { PageFrameWithDrawerTypes } from './props/PageFrameWithDrawer.props';
 
@@ -79,7 +82,7 @@ class PageFrameWithDrawer extends React.Component {
     const oldLeftDrawerOpen = get(prevProps, 'left.drawer.open', false);
     const newLeftDrawerOpen = get(this.props, 'left.drawer.open', false);
     if (oldLeftDrawerOpen !== newLeftDrawerOpen && this.state.leftDrawerOpen !== newLeftDrawerOpen) {
-      this.setState({leftDrawerOpen: newLeftDrawerOpen});
+      this.setState({ leftDrawerOpen: newLeftDrawerOpen });
     }
   }
 
@@ -88,7 +91,7 @@ class PageFrameWithDrawer extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.setState({leftDrawerOpen: true});
+    this.setState({ leftDrawerOpen: true });
   };
 
   handleDrawerCloseClick = (e) => {
@@ -96,7 +99,7 @@ class PageFrameWithDrawer extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.setState({leftDrawerOpen: false});
+    this.setState({ leftDrawerOpen: false });
   };
 
   handleTopNavigationItemClick = (options) => {
@@ -117,27 +120,114 @@ class PageFrameWithDrawer extends React.Component {
     }
   };
 
+  handleBottomNavigationItemClick = (options) => {
+    if (this.props.onBottomNavigationClick) {
+      this.props.onBottomNavigationClick(options);
+    }
+  };
+
   render () {
     const {
+      theme,
       classes,
-      pageHeader,
-      userDetails,
-      top,
-      left,
-      bottom,
-      content,
       hidden,
-      icons
     } = this.props;
     const { leftDrawerOpen } = this.state;
-    const listNavigationElement = (
-      <ListNavigation
-        icons={icons}
-        onItemClick={this.handleListNavigationItemClick}
-        onItemToggleExpand={this.handleListNavigationItemToggleExpand}
-        {...pickWithValues(left.navigation)}
-      />
-    );
+
+    const icons = this.props.icons || [];
+
+    const pageHeader = this.props.pageHeader || {};
+
+    const top = this.props.top || {};
+    const topTitle = top.title || {};
+    const topNavigation = top.navigation || {};
+    const topPalette = top.palette || {};
+
+    const topStyle = {};
+    if (topPalette.color) {
+      const { colorHue, colorShade } = topPalette.color;
+      topStyle.color = findColor(colorHue, colorShade, theme);
+    }
+    if (topPalette.backgroundColor) {
+      const { colorHue, colorShade } = topPalette.backgroundColor;
+      topStyle.backgroundColor = findColor(colorHue, colorShade, theme);
+    }
+
+    const left = this.props.left || {};
+    const leftNavigation = left.navigation || {};
+    const leftDrawer = left.drawer || {};
+
+    let listNavigationElement = null;
+    if (leftNavigation.items && leftNavigation.items.length > 0) {
+      listNavigationElement = (
+        <ListNavigation
+          icons={icons}
+          onItemClick={this.handleListNavigationItemClick}
+          onItemToggleExpand={this.handleListNavigationItemToggleExpand}
+          {...pickWithValues(leftNavigation)}
+        />
+      );
+    }
+
+    const main = this.props.main || {};
+    const mainContent = main.content || {};
+    const mainFooter = main.footer || {};
+    const mainPalette = main.palette || {};
+
+    const mainStyle = {};
+    if (mainPalette.color) {
+      const { colorHue, colorShade } = mainPalette.color;
+      mainStyle.color = findColor(colorHue, colorShade, theme);
+    }
+    if (mainPalette.backgroundColor) {
+      const { colorHue, colorShade } = mainPalette.backgroundColor;
+      mainStyle.backgroundColor = findColor(colorHue, colorShade, theme);
+    }
+
+    let footerElement = null;
+    if (mainFooter.cells && mainFooter.cells.length > 0) {
+      footerElement = (
+        <div className={classes.footerContent}>
+          <Container
+            fixed={main.fixed}
+            maxWidth={main.maxWidth}
+            disableMaxWidth={main.disableMaxWidth}
+          >
+            <ContentGrid
+              alignContent="flex-start"
+              alignItems="stretch"
+              spacing={main.spacing}
+              cells={mainFooter.cells}
+            />
+          </Container>
+        </div>
+      );
+    }
+
+    const bottom = this.props.bottom || {};
+    const bottomNavigation = bottom.navigation || {};
+
+    let bottomElement = null;
+    if (bottomNavigation.items && bottomNavigation.items.length > 0) {
+      bottomElement = (
+        <Hidden smUp implementation="js">
+          <AppBar
+            position="fixed"
+            className={classes.bottomAppBar}
+            elevation={0}
+          >
+            <div className={classes.toolbar}>
+              <BottomNavigation
+                icons={icons}
+                {...pickWithValues(bottomNavigation)}
+                onClick={this.handleBottomNavigationItemClick}
+              />
+            </div>
+          </AppBar>
+        </Hidden>
+      );
+    }
+
     return (
       <React.Fragment>
         <PageHelmet {...pickWithValues(pageHeader)} />
@@ -145,88 +235,100 @@ class PageFrameWithDrawer extends React.Component {
         <div className={classes.root}>
           <AppBar
             position="fixed"
-            color={top.color}
+            style={topStyle}
             elevation={validElevationMap[top.elevation]}
             className={classes.appBar}
           >
             <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={this.handleDrawerOpenClick}
-                className={classes.menuButton}
-              >
-                <MenuIcon/>
-              </IconButton>
+              {listNavigationElement && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={this.handleDrawerOpenClick}
+                  className={classes.menuButton}
+                >
+                  <MenuIcon/>
+                </IconButton>
+              )}
               <TopNavigation
                 titleElement={
-                  top.title.text && (
-                    <Typography {...pickWithValues(top.title)} />
+                  topTitle.text && (
+                    <Typography {...pickWithValues(topTitle)} />
                   )
                 }
-                {...pickWithValues(top.navigation)}
+                {...pickWithValues(topNavigation)}
                 onItemClick={this.handleTopNavigationItemClick}
               />
             </Toolbar>
           </AppBar>
-          <Hidden smUp implementation="js">
-            <Drawer
-              className={classes.drawer}
-              variant="temporary"
-              style={{ width: get(left, 'drawer.width')}}
-              open={leftDrawerOpen}
-              anchor="left"
-              PaperProps={{ style: { width: get(left, 'drawer.width') } }}
-              ModalProps={{ keepMounted: true }}
-              onClose={this.handleDrawerCloseClick}
-            >
-              <div className={classes.toolbar}>
-                <IconButton
-                  onClick={this.handleDrawerCloseClick}
-                  className={classes.closeMenuButton}
-                >
-                  <CloseIcon/>
-                </IconButton>
-              </div>
-              {listNavigationElement}
-            </Drawer>
-          </Hidden>
-          <Hidden smUp implementation="js">
-            <AppBar
-              position="fixed"
-              className={classes.bottomAppBar}
-              elevation={0}
-            >
-              <div className={classes.toolbar}>
-                <BottomNavigation {...pickWithValues(bottom.navigation)} />
-              </div>
-            </AppBar>
-          </Hidden>
-          <Hidden xsDown implementation="js">
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              style={{ width: get(left, 'drawer.width') }}
-              PaperProps={{ style: { width: get(left, 'drawer.width') } }}
-            >
-              <div className={classes.toolbar}/>
-              {listNavigationElement}
-            </Drawer>
-          </Hidden>
-          <main className={classes.content}>
+          {listNavigationElement && (
+            <Hidden smUp implementation="js">
+              <Drawer
+                className={classes.drawer}
+                variant="temporary"
+                style={{ width: leftDrawer.width }}
+                open={leftDrawerOpen}
+                anchor="left"
+                PaperProps={{ style: { width: leftDrawer.width } }}
+                ModalProps={{ keepMounted: true }}
+                onClose={this.handleDrawerCloseClick}
+              >
+                <div className={classes.toolbar}>
+                  <IconButton
+                    onClick={this.handleDrawerCloseClick}
+                    className={classes.closeMenuButton}
+                  >
+                    <CloseIcon/>
+                  </IconButton>
+                </div>
+                {listNavigationElement}
+              </Drawer>
+            </Hidden>
+          )}
+          {bottomElement}
+          {listNavigationElement && (
+            <Hidden xsDown implementation="js">
+              <Drawer
+                className={classes.drawer}
+                variant="permanent"
+                style={{ width: leftDrawer.width }}
+                PaperProps={{ style: { width: leftDrawer.width } }}
+              >
+                <div className={classes.toolbar}/>
+                {listNavigationElement}
+              </Drawer>
+            </Hidden>
+          )}
+          <main className={classes.content} style={mainStyle}>
             <div className={classes.toolbar}/>
             <div className={classes.mainContent}>
-              <div />
+              <Container
+                fixed={main.fixed}
+                maxWidth={main.maxWidth}
+                disableMaxWidth={main.disableMaxWidth}
+              >
+                <ContentGrid
+                  alignContent="flex-start"
+                  alignItems="stretch"
+                  spacing={main.spacing}
+                  cells={mainContent.cells}
+                />
+              </Container>
             </div>
-            <Hidden smUp implementation="js">
-              <div className={classes.toolbar}/>
-            </Hidden>
-            <Hidden xsDown implementation="js">
-              <div className={classes.footerContent}>
-                <div />
-              </div>
-            </Hidden>
+            {mainFooter.showOnMobile
+              ? footerElement
+              : (
+                <Hidden xsDown implementation="js">
+                  {footerElement}
+                </Hidden>
+              )
+            }
+            {bottomElement && (
+              <Hidden smUp implementation="js">
+                <div className={classes.toolbar}/>
+              </Hidden>
+            )}
           </main>
         </div>
         <div className={classes.hiddenArea}>
@@ -242,15 +344,17 @@ PageFrameWithDrawer.propTypes = PageFrameWithDrawerTypes;
 PageFrameWithDrawer.defaultProps = {
   top: {
     title: {
-      text: 'Title'
+      text: 'Title',
+      variant: 'h5'
     },
+    elevation: '2',
     navigation: {
       menuLabel: 'Go To',
       size: 'medium',
       items: [
-        {id: '0001', label: 'Nav 1'},
-        {id: '0002', label: 'Nav 2', active: true},
-        {id: '0003', label: 'Nav 3'}
+        { id: '0001', label: 'Nav 1' },
+        { id: '0002', label: 'Nav 2', active: true },
+        { id: '0003', label: 'Nav 3' }
       ]
     }
   },
@@ -264,15 +368,29 @@ PageFrameWithDrawer.defaultProps = {
         {
           id: 'leftNav1', primaryText: 'Left Nav 1',
           childrenItems: [
-            {id: 'leftNav11', primaryText: 'Child Nav 1'},
-            {id: 'leftNav12', primaryText: 'Child Nav 2'}
+            { id: 'leftNav11', primaryText: 'Child Nav 1' },
+            { id: 'leftNav12', primaryText: 'Child Nav 2' }
           ]
         },
-        {id: 'leftNav2', primaryText: 'Left Nav 2', selected: true},
-        {id: 'leftNav3', primaryText: 'Left Nav 3'},
+        { id: 'leftNav2', primaryText: 'Left Nav 2', selected: true },
+        { id: 'leftNav3', primaryText: 'Left Nav 3' },
       ]
+    }
+  },
+  main: {
+    fixed: false,
+    maxWidth: 'lg',
+    disableMaxWidth: false,
+    spacing: '0',
+    content: {
+      cells: [<span/>]
+    }
+  },
+  bottom: {
+    navigation: {
+      showLabels: true,
     }
   }
 };
 
-export default withStyles(styles)(PageFrameWithDrawer);
+export default withStyles(styles, { withTheme: true })(PageFrameWithDrawer);

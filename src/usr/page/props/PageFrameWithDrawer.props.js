@@ -3,8 +3,9 @@ import { PageHelmetTypes } from './PageHelmet.props';
 import { AuthUserTypes } from './AuthUser.props';
 import { ListItemTypes, ListNavigationTypes } from './ListNavigation.props';
 import { TypographyTypes } from './Typography.props';
-import { BottomNavigationTypes } from './BottomNavigation.props';
-import { TopNavigationTypes } from './TopNavigation.props';
+import { BottomNavigationItemTypes, BottomNavigationTypes } from './BottomNavigation.props';
+import { TopNavigationItemTypes, TopNavigationTypes } from './TopNavigation.props';
+import { ColorTypes } from './Color.props';
 
 export const PageFrameWithDrawerTypes = {
   /**
@@ -24,11 +25,12 @@ export const PageFrameWithDrawerTypes = {
      */
     title: PropTypes.shape(TypographyTypes),
     /**
-     * The color of the navigation bar. It supports those theme colors that make sense for this component.
+     * Sets the custom color of the navigation bar
      */
-    color: PropTypes.oneOf([
-      'default', 'inherit', 'primary', 'secondary'
-    ]),
+    palette: PropTypes.shape({
+      color: PropTypes.shape(ColorTypes),
+      backgroundColor: PropTypes.shape(ColorTypes),
+    }),
     // Shadow depth of the navigation bar. It accepts values between 0 and 24 inclusive.
     elevation: PropTypes.oneOf([
       '0', '1', '2', '3',
@@ -40,7 +42,8 @@ export const PageFrameWithDrawerTypes = {
       '24'
     ]),
     /**
-     *
+     * A navigation in the left-side drawer.
+     * If there is no items, the drawer will be removed.
      */
     navigation: PropTypes.shape(TopNavigationTypes),
   }),
@@ -61,7 +64,8 @@ export const PageFrameWithDrawerTypes = {
       width: PropTypes.string,
     }),
     /**
-     *
+     * A navigation in the left-side drawer.
+     * If there is no items, the drawer will be removed.
      */
     navigation: PropTypes.shape(ListNavigationTypes),
   }),
@@ -69,40 +73,58 @@ export const PageFrameWithDrawerTypes = {
    *
    */
   bottom: PropTypes.shape({
-    footer: PropTypes.shape({
-      showOnMobile: PropTypes.bool,
-      /**
-       * Defines the space between cells.
-       */
-      spacing: PropTypes.oneOf([
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
-      ]),
-      /**
-       *
-       */
-      cells: PropTypes.arrayOf(PropTypes.element),
-    }),
     navigation: PropTypes.shape(BottomNavigationTypes),
   }),
   /**
    * The main area in the page
    */
-  content: PropTypes.shape({
+  main: PropTypes.shape({
     /**
-     * Defines the space between the content cells.
+     * Sets the custom background color of the main area
+     */
+    palette: PropTypes.shape({
+      color: PropTypes.shape(ColorTypes),
+      backgroundColor: PropTypes.shape(ColorTypes),
+    }),
+    /**
+     * Set the max-width to match the min-width of the current breakpoint.
+     * This is useful if you'd prefer to design for a fixed set of sizes instead of trying to
+     * accommodate a fully fluid viewport.
+     * It's fluid by default.
+     */
+    fixed: PropTypes.bool,
+    /**
+     * Determine the max-width of the container.
+     * The container width grows with the size of the screen.
+     * Set disableMaxWidth to true to disable maxWidth.
+     */
+    maxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
+    // Set disableMaxWidth to true to disable maxWidth.
+    disableMaxWidth: PropTypes.bool,
+    /**
+     * Defines the space between cells.
      */
     spacing: PropTypes.oneOf([
       '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
     ]),
+    content: PropTypes.shape({
+      /**
+       * The content cells of the main area in the page
+       */
+      cells: PropTypes.arrayOf(PropTypes.element),
+    }),
+    footer: PropTypes.shape({
+      showOnMobile: PropTypes.bool,
+      /**
+       *
+       */
+      cells: PropTypes.arrayOf(PropTypes.element),
+    }),
     /**
-     * The content cells of the main area in the page
+     * Hidden elements, useful for dialogs.
      */
-    cells: PropTypes.arrayOf(PropTypes.element),
+    hidden: PropTypes.arrayOf(PropTypes.node),
   }),
-  /**
-   * Hidden elements, useful for dialogs.
-   */
-  hidden: PropTypes.arrayOf(PropTypes.node),
   /**
    * An icons elements array
    */
@@ -116,21 +138,32 @@ export const PageFrameWithDrawerTypes = {
   /**
    * Triggered when the user clicks
    *
-   * @functionTypes {}
+   * @functionTypes {OnLeftNavigationClickTypes}
    */
   onLeftNavigationClick: PropTypes.func,
   /**
    * Triggered when the user clicks
    *
-   * @functionTypes {}
+   * @functionTypes {OnLeftNavigationToggleExpandTypes}
    */
   onLeftNavigationToggleExpand: PropTypes.func,
+  /**
+   * Triggered when the user clicks
+   *
+   * @functionTypes {OnBottomNavigationClickTypes}
+   */
+  onBottomNavigationClick: PropTypes.func,
+
 };
 
 export const OnTopNavigationClickTypes = {
   argument: PropTypes.shape({
     id: PropTypes.string,
     href: PropTypes.string,
+    /**
+     * The navigation items array
+     */
+    items: PropTypes.arrayOf(PropTypes.shape(TopNavigationItemTypes)),
   }),
 };
 
@@ -152,5 +185,15 @@ export const OnLeftNavigationToggleExpandTypes = {
      * The list of actions.
      */
     items: PropTypes.arrayOf(PropTypes.shape(ListItemTypes)),
+  }),
+};
+
+export const OnBottomNavigationClickTypes = {
+  argument: PropTypes.shape({
+    id: PropTypes.string,
+    /**
+     * An array of actions in the bottom navigation.
+     */
+    items: PropTypes.arrayOf(PropTypes.shape(BottomNavigationItemTypes)),
   }),
 };
