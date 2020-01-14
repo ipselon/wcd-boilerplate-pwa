@@ -114,6 +114,7 @@ class PageFrameWithDrawer extends React.Component {
     if (onLeftNavigationClick) {
       onLeftNavigationClick({id, href, left});
     }
+    this.setState({ leftDrawerOpen: false });
   };
 
   handleListNavigationItemToggleExpand = ({id, href}) => {

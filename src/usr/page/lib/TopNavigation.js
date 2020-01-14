@@ -53,12 +53,8 @@ class TopNavigation extends React.Component {
     let desktopControls = [];
     if (items && items.length > 0) {
       const mobileControlMenuItems = [];
-      let activeControlLabel = menuLabel;
       for (let i = 0; i < items.length; i++) {
         const { id, href, label, active, disabled } = items[i];
-        if (active) {
-          activeControlLabel = label;
-        }
         mobileControlMenuItems.push({
           id,
           label,
@@ -85,7 +81,7 @@ class TopNavigation extends React.Component {
           key="mobileButton"
           size={size}
           menu={mobileControlMenuItems}
-          label={activeControlLabel}
+          label={menuLabel}
           variant="text"
           color="inherit"
           onMenuItemClick={this.handleControlClick}

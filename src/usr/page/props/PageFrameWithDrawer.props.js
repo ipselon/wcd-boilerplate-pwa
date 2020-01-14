@@ -202,3 +202,45 @@ export const OnBottomNavigationClickTypes = {
     bottom: PropTypes.shape(BottomTypes),
   }),
 };
+
+export const SetActiveTopNavigationByIdTypes = {
+  argument: PropTypes.shape({
+    id: PropTypes.string,
+    href: PropTypes.string,
+    /**
+     * The navigation items array
+     */
+    top: PropTypes.shape(TopTypes),
+  }),
+  dispatch: PropTypes.shape({
+    top: PropTypes.shape(TopTypes),
+  }),
+};
+
+export const SetSelectedLeftNavigationByIdTypes = {
+  argument: PropTypes.shape({
+    id: PropTypes.string,
+    href: PropTypes.string,
+    /**
+     * The navigation items array
+     */
+    left: PropTypes.shape(LeftTypes),
+  }),
+  dispatch: PropTypes.shape({
+    left: PropTypes.shape(LeftTypes),
+  }),
+};
+
+export const ToggleExpandLeftNavigationByIdTypes = {
+  argument: PropTypes.shape({
+    id: PropTypes.string,
+    href: PropTypes.string,
+    /**
+     * The navigation items array
+     */
+    left: PropTypes.shape(LeftTypes),
+  }),
+  dispatch: PropTypes.shape({
+    left: PropTypes.shape(LeftTypes),
+  }),
+};
