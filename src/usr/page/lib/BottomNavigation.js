@@ -9,11 +9,10 @@ class BottomNavigation extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onClick, items } = this.props;
+    const { onClick } = this.props;
     if (onClick) {
       onClick({
         id: value,
-        items,
       });
     }
   };

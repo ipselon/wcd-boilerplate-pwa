@@ -102,27 +102,31 @@ class PageFrameWithDrawer extends React.Component {
     this.setState({ leftDrawerOpen: false });
   };
 
-  handleTopNavigationItemClick = (options) => {
-    if (this.props.onTopNavigationClick) {
-      this.props.onTopNavigationClick(options);
+  handleTopNavigationItemClick = ({id, href}) => {
+    const {onTopNavigationClick, top} = this.props;
+    if (onTopNavigationClick) {
+      onTopNavigationClick({id, href, top});
     }
   };
 
-  handleListNavigationItemClick = (options) => {
-    if (this.props.onLeftNavigationClick) {
-      this.props.onLeftNavigationClick(options);
+  handleListNavigationItemClick = ({id, href}) => {
+    const {onLeftNavigationClick, left} = this.props;
+    if (onLeftNavigationClick) {
+      onLeftNavigationClick({id, href, left});
     }
   };
 
-  handleListNavigationItemToggleExpand = (options) => {
-    if (this.props.onLeftNavigationToggleExpand) {
-      this.props.onLeftNavigationToggleExpand(options);
+  handleListNavigationItemToggleExpand = ({id, href}) => {
+    const {onLeftNavigationToggleExpand, left} = this.props;
+    if (onLeftNavigationToggleExpand) {
+      onLeftNavigationToggleExpand({id, href, left});
     }
   };
 
-  handleBottomNavigationItemClick = (options) => {
-    if (this.props.onBottomNavigationClick) {
-      this.props.onBottomNavigationClick(options);
+  handleBottomNavigationItemClick = ({id}) => {
+    const {onBottomNavigationClick, bottom} = this.props;
+    if (onBottomNavigationClick) {
+      onBottomNavigationClick({id, bottom});
     }
   };
 

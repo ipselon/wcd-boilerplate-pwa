@@ -23,9 +23,9 @@ class ListNavigation extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemClick, items } = this.props;
+    const { onItemClick } = this.props;
     if (onItemClick) {
-      onItemClick({id: item.id, href: item.href, items});
+      onItemClick({id: item.id, href: item.href});
     }
   };
 
@@ -34,9 +34,9 @@ class ListNavigation extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemToggleExpand, items } = this.props;
+    const { onItemToggleExpand } = this.props;
     if (onItemToggleExpand) {
-      onItemToggleExpand({ id: item.id, items });
+      onItemToggleExpand({ id: item.id });
     }
   };
 

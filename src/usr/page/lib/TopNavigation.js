@@ -43,8 +43,7 @@ class TopNavigation extends React.Component {
 
   handleControlClick = ({id, href}) => {
     if (this.props.onItemClick) {
-      const { items } = this.props;
-      this.props.onItemClick({id, href, items});
+      this.props.onItemClick({id, href});
     }
   };
 
