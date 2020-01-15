@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { PageHelmetTypes } from './PageHelmet.props';
-import { AuthUserTypes } from './AuthUser.props';
-import { ListNavigationTypes } from './ListNavigation.props';
-import { TypographyTypes } from './Typography.props';
-import { BottomNavigationTypes } from './BottomNavigation.props';
-import { TopNavigationTypes } from './TopNavigation.props';
-import { ColorTypes } from './Color.props';
+import {PageHelmetTypes} from './PageHelmet.props';
+import {ListItemTypes, ListNavigationTypes} from './ListNavigation.props';
+import {TypographyTypes} from './Typography.props';
+import {BottomNavigationTypes} from './BottomNavigation.props';
+import {TopNavigationItemTypes, TopNavigationTypes} from './TopNavigation.props';
+import {ColorTypes} from './Color.props';
 
 export const TopTypes = {
   /**
@@ -110,21 +109,94 @@ export const MainTypes = {
 
 export const PageFrameWithDrawerTypes = {
   /**
+   * The id of the state of the component instance in the global state
+   */
+  instanceStateId: PropTypes.string,
+  /**
    * Page header properties
    */
   pageHeader: PropTypes.shape(PageHelmetTypes),
   /**
-   *
+   * HTML title tag text value
    */
-  userDetails: PropTypes.shape(AuthUserTypes),
+  htmlHeaderTitle: PropTypes.string,
   /**
-   * The top area properties
+   * Multiple meta elements
    */
-  top: PropTypes.shape(TopTypes),
+  meta: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * The name attribute value of the meta tag in the HTML header
+     */
+    name: PropTypes.string,
+    /**
+     * The content attribute value of the meta tag in the HTML header
+     */
+    content: PropTypes.string,
+    /**
+     * The property attribute value of the meta tag in the HTML header
+     */
+    property: PropTypes.string,
+  })),
   /**
-   *
+   * A user name on the right side in the top bar.
    */
-  left: PropTypes.shape(LeftTypes),
+  authUserDisplayName: PropTypes.string,
+  authUserAvatarUrl: PropTypes.string,
+
+  titleText: PropTypes.string,
+  titleTextVariant: PropTypes.oneOf([
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'subtitle1',
+    'subtitle2',
+    'body1',
+    'body2',
+    'caption',
+    'button',
+    'overline',
+    'srOnly',
+    'inherit'
+  ]),
+  titleTextColor: PropTypes.shape(ColorTypes),
+
+  topBarTextColor: PropTypes.shape(ColorTypes),
+  topBarBackgroundColor: PropTypes.shape(ColorTypes),
+  topBarElevation: PropTypes.oneOf([
+    '0', '1', '2', '3',
+    '4', '5', '6', '7',
+    '8', '9', '10', '11',
+    '12', '13', '14', '15',
+    '16', '17', '18', '19',
+    '20', '21', '22', '23',
+    '24'
+  ]),
+
+  topNavigationActiveId: PropTypes.string,
+  topNavigationDisabledIds: PropTypes.arrayOf(PropTypes.string),
+  topNavigationSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  topNavigationMobileMenuLabel: PropTypes.string,
+  topNavigationItems: PropTypes.arrayOf(PropTypes.shape(TopNavigationItemTypes)),
+
+  /**
+   * Sets drawer open or closed. If true, the drawer is open
+   */
+  leftDrawerOpen: PropTypes.bool,
+  /**
+   * The width of the drawer.
+   * Should be a string value with the width units.
+   */
+  leftDrawerWidth: PropTypes.string,
+
+  leftNavigationActiveId: PropTypes.string,
+  leftNavigationDisabledIds: PropTypes.arrayOf(PropTypes.string),
+  leftNavigationExpandedIds: PropTypes.arrayOf(PropTypes.string),
+  leftNavigationDense: PropTypes.bool,
+  leftNavigationItems: PropTypes.arrayOf(PropTypes.shape(ListItemTypes)),
+
   /**
    *
    */

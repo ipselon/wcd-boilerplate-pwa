@@ -5,18 +5,6 @@ export const TopNavigationItemTypes = {
   id: PropTypes.string,
   // The navigation item label. Shown only when showLabels is true.
   label: PropTypes.string,
-  /**
-   *
-   */
-  href: PropTypes.string,
-  /**
-   * If true, the item will be disabled
-   */
-  disabled: PropTypes.bool,
-  /**
-   * If true, the item will be active.
-   */
-  active: PropTypes.bool,
 };
 
 export const TopNavigationTypes = {
