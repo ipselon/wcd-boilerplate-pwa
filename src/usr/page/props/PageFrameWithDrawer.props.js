@@ -26,11 +26,6 @@ export const TopTypes = {
     '20', '21', '22', '23',
     '24'
   ]),
-  /**
-   * A navigation in the left-side drawer.
-   * If there is no items, the drawer will be removed.
-   */
-  navigation: PropTypes.node,
 };
 
 export const LeftTypes = {
@@ -46,15 +41,6 @@ export const LeftTypes = {
      */
     width: PropTypes.string,
   }),
-  /**
-   * A navigation in the left-side drawer.
-   * If there is no items, the drawer will be removed.
-   */
-  navigation: PropTypes.node,
-};
-
-export const BottomTypes = {
-  navigation: PropTypes.node,
 };
 
 export const MainTypes = {
@@ -86,49 +72,70 @@ export const MainTypes = {
   spacing: PropTypes.oneOf([
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
   ]),
-  content: PropTypes.shape({
+  showFooterOnMobile: PropTypes.bool,
+};
+
+export const PageFrameWithDrawerTypes = {
+  properties: PropTypes.shape({
     /**
-     * The content cells of the main area in the page
+     * Page header properties
      */
-    cells: PropTypes.arrayOf(PropTypes.element),
-  }),
-  footer: PropTypes.shape({
-    showOnMobile: PropTypes.bool,
+    pageHeader: PropTypes.shape(PageHelmetTypes),
     /**
      *
      */
-    cells: PropTypes.arrayOf(PropTypes.element),
+    userDetails: PropTypes.shape(AuthUserTypes),
+    /**
+     * The top area properties
+     */
+    top: PropTypes.shape(TopTypes),
+    /**
+     *
+     */
+    left: PropTypes.shape(LeftTypes),
+    /**
+     * The main area in the page
+     */
+    main: PropTypes.shape(MainTypes),
   }),
+
+  topNavigation: PropTypes.element,
+  /**
+   * A navigation in the left-side drawer.
+   * If there is no items, the drawer will be removed.
+   */
+  leftNavigation: PropTypes.node,
+  bottomNavigation: PropTypes.node,
+  mainContentCells: PropTypes.arrayOf(PropTypes.element),
+  mainFooterCells: PropTypes.arrayOf(PropTypes.element),
   /**
    * Hidden elements, useful for dialogs.
    */
   hidden: PropTypes.arrayOf(PropTypes.node),
+  /**
+   * @functionTypes {OnChangePageUrlTypes}
+   */
+  onChangePageUrl: PropTypes.func,
 };
 
-export const PageFrameWithDrawerTypes = {
-  /**
-   * Page header properties
-   */
-  pageHeader: PropTypes.shape(PageHelmetTypes),
-  /**
-   *
-   */
-  userDetails: PropTypes.shape(AuthUserTypes),
-  /**
-   * The top area properties
-   */
-  top: PropTypes.shape(TopTypes),
-  /**
-   *
-   */
-  left: PropTypes.shape(LeftTypes),
-  /**
-   *
-   */
-  bottom: PropTypes.shape(BottomTypes),
-  /**
-   * The main area in the page
-   */
-  main: PropTypes.shape(MainTypes),
+export const OnChangePageUrlTypes = {
+  argument: PropTypes.shape({
+    url: PropTypes.string,
+  }),
+};
 
+
+export const SetPageFrameTitleTextTypes = {
+  argument: PropTypes.shape({
+    text: PropTypes.string,
+  }),
+  dispatch: PropTypes.shape({
+    properties: PropTypes.object,
+  }),
+};
+
+export const ClosePageFrameDrawerTypes = {
+  dispatch: PropTypes.shape({
+    properties: PropTypes.object,
+  }),
 };

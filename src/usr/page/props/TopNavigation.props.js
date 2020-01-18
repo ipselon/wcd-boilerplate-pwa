@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const TopNavigationItemTypes = {
-  // The navigation item id
-  id: PropTypes.string,
+  // The navigation item url
   url: PropTypes.string,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -33,14 +32,13 @@ export const TopNavigationTypes = {
 
 export const OnTopNavigationItemClickTypes = {
   argument: PropTypes.shape({
-    id: PropTypes.string,
     url: PropTypes.string,
   }),
 };
 
-export const SetActiveTopNavigationByIdTypes = {
+export const SetActiveTopNavigationByUrlTypes = {
   argument: PropTypes.shape({
-    id: PropTypes.string,
+    url: PropTypes.string,
   }),
   dispatch: PropTypes.shape({
     properties: PropTypes.object,

@@ -7,7 +7,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import validElevationMap from './utils/elevationMap';
 import pickWithValues from './utils/pickWithValues';
 import findColor from './utils/colorMap';
@@ -87,17 +86,40 @@ class PageFrameWithDrawer extends React.Component {
   constructor (props, context) {
     super(props, context);
     this.state = {
-      leftDrawerOpen: get(this.props, 'left.drawer.open', false),
+      leftDrawerOpen: get(this.props, 'properties.left.drawer.open', false),
     };
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    const oldLeftDrawerOpen = get(prevProps, 'left.drawer.open', false);
-    const newLeftDrawerOpen = get(this.props, 'left.drawer.open', false);
-    if (oldLeftDrawerOpen !== newLeftDrawerOpen && this.state.leftDrawerOpen !== newLeftDrawerOpen) {
-      this.setState({ leftDrawerOpen: newLeftDrawerOpen });
+  componentDidMount () {
+    const history = window.__applicationBrowserHistory;
+    if (history) {
+      history.listen((location) => {
+        this.handleChangePageUrl(`${location.pathname}${location.search}${location.hash}`);
+      });
+      const currentLocation = history.location;
+      if (currentLocation) {
+        this.handleChangePageUrl(`${currentLocation.pathname}${currentLocation.search}${currentLocation.hash}`);
+      }
     }
   }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    const newProperties = this.props.properties;
+    const oldProperties = prevProps.properties;
+    if (newProperties && oldProperties && newProperties !== oldProperties) {
+      const oldLeftDrawerOpen = get(oldProperties, 'left.drawer.open', false);
+      const newLeftDrawerOpen = get(newProperties, 'left.drawer.open', false);
+      if (oldLeftDrawerOpen !== newLeftDrawerOpen || this.state.leftDrawerOpen !== newLeftDrawerOpen) {
+        this.setState({ leftDrawerOpen: newLeftDrawerOpen });
+      }
+    }
+  }
+
+  handleChangePageUrl = (url) => {
+    if (this.props.onChangePageUrl) {
+      this.props.onChangePageUrl({url});
+    }
+  };
 
   handleDrawerOpenClick = (e) => {
     if (e) {
@@ -120,14 +142,20 @@ class PageFrameWithDrawer extends React.Component {
       theme,
       classes,
       hidden,
+      topNavigation,
+      leftNavigation,
+      mainContentCells,
+      mainFooterCells,
+      bottomNavigation,
     } = this.props;
     const { leftDrawerOpen } = this.state;
 
-    const pageHeader = this.props.pageHeader || {};
+    const properties = this.props.properties || {};
 
-    const top = this.props.top || {};
+    const pageHeader = properties.pageHeader || {};
+
+    const top = properties.top || {};
     const topTitle = top.title || {};
-    const topNavigation = top.navigation;
     const topPalette = top.palette || {};
 
     const topStyle = {};
@@ -140,14 +168,12 @@ class PageFrameWithDrawer extends React.Component {
       topStyle.backgroundColor = findColor(colorHue, colorShade, theme);
     }
 
-    const left = this.props.left || {};
-    const leftNavigation = left.navigation;
+    const left = properties.left || {};
     const leftDrawer = left.drawer || {};
 
-    const main = this.props.main || {};
-    const mainContent = main.content || {};
-    const mainFooter = main.footer || {};
+    const main = properties.main || {};
     const mainPalette = main.palette || {};
+    const showFooterOnMobile = main.showFooterOnMobile;
 
     const mainStyle = {};
     if (mainPalette.color) {
@@ -160,7 +186,7 @@ class PageFrameWithDrawer extends React.Component {
     }
 
     let footerElement = null;
-    if (mainFooter.cells && mainFooter.cells.length > 0) {
+    if (mainFooterCells && mainFooterCells.length > 0) {
       footerElement = (
         <div className={classes.footerContent}>
           <Container
@@ -172,15 +198,12 @@ class PageFrameWithDrawer extends React.Component {
               alignContent="flex-start"
               alignItems="stretch"
               spacing={main.spacing}
-              cells={mainFooter.cells}
+              cells={mainFooterCells}
             />
           </Container>
         </div>
       );
     }
-
-    const bottom = this.props.bottom || {};
-    const bottomNavigation = bottom.navigation;
 
     return (
       <React.Fragment>
@@ -194,7 +217,7 @@ class PageFrameWithDrawer extends React.Component {
             className={classes.appBar}
           >
             <Toolbar>
-              {this.props.left && (
+              {leftNavigation && (
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
@@ -280,11 +303,11 @@ class PageFrameWithDrawer extends React.Component {
                   alignContent="flex-start"
                   alignItems="stretch"
                   spacing={main.spacing}
-                  cells={mainContent.cells}
+                  cells={mainContentCells}
                 />
               </Container>
             </div>
-            {mainFooter.showOnMobile
+            {showFooterOnMobile
               ? footerElement
               : (
                 <Hidden xsDown implementation="js">
@@ -310,33 +333,28 @@ class PageFrameWithDrawer extends React.Component {
 PageFrameWithDrawer.propTypes = PageFrameWithDrawerTypes;
 
 PageFrameWithDrawer.defaultProps = {
-  top: {
-    title: {
-      text: 'Title',
-      variant: 'h5'
+  properties: {
+    top: {
+      title: {
+        text: 'Title',
+        variant: 'h5'
+      },
+      elevation: '2'
     },
-    elevation: '2'
+    left: {
+      drawer: {
+        open: false,
+        width: '250px'
+      }
+    },
+    main: {
+      fixed: false,
+      maxWidth: 'lg',
+      disableMaxWidth: false,
+      spacing: '0',
+    },
   },
-  left: {
-    drawer: {
-      open: false,
-      width: '250px'
-    }
-  },
-  main: {
-    fixed: false,
-    maxWidth: 'lg',
-    disableMaxWidth: false,
-    spacing: '0',
-    content: {
-      cells: [<span/>]
-    }
-  },
-  bottom: {
-    navigation: {
-      showLabels: true,
-    }
-  }
+  mainContentCells: [<span/>],
 };
 
 export default withStyles(styles, { withTheme: true })(PageFrameWithDrawer);

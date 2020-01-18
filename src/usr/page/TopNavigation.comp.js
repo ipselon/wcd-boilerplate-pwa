@@ -38,9 +38,9 @@ const styles = theme => ({
 
 class TopNavigation extends React.Component {
 
-  handleControlClick = ({id, href}) => {
+  handleControlClick = ({href}) => {
     if (this.props.onTopNavigationItemClick) {
-      this.props.onTopNavigationItemClick({id, url: href});
+      this.props.onTopNavigationItemClick({url: href});
     }
   };
 
@@ -53,9 +53,8 @@ class TopNavigation extends React.Component {
     if (items && items.length > 0) {
       const mobileControlMenuItems = [];
       for (let i = 0; i < items.length; i++) {
-        const { id, label, url, active, disabled } = items[i];
+        const { label, url, active, disabled } = items[i];
         mobileControlMenuItems.push({
-          id,
           label,
           href: url,
           selected: active,
@@ -68,7 +67,6 @@ class TopNavigation extends React.Component {
             color="inherit"
             disabled={disabled}
             variant={active ? 'outlined' : 'text'}
-            id={id}
             href={url}
             label={label}
             onClick={this.handleControlClick}
@@ -124,21 +122,17 @@ TopNavigation.defaultProps = {
     size: 'medium',
     items: [
       {
-        id: '00001',
-        label: 'Item 00001',
+        url: '/',
+        label: 'Home',
       },
       {
-        id: '00002',
-        label: 'Item 00002',
+        url: '/blog',
+        label: 'Blog',
       },
       {
-        id: '00003',
-        label: 'Item 00003',
+        url: '/about',
+        label: 'About',
       },
-      {
-        id: '00004',
-        label: 'Item 00004',
-      }
     ]
   }
 };

@@ -24,9 +24,9 @@ class ListNavigation extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemClick } = this.props;
-    if (onItemClick) {
-      onItemClick({id: item.id, url: item.url});
+    const { onListNavigationItemClick } = this.props;
+    if (onListNavigationItemClick) {
+      onListNavigationItemClick({url: item.url});
     }
   };
 
@@ -35,9 +35,11 @@ class ListNavigation extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    const { onItemToggleExpand } = this.props;
-    if (onItemToggleExpand) {
-      onItemToggleExpand({ id: item.id });
+    const { onListNavigationItemExpandClick, onListNavigationItemCollapseClick } = this.props;
+    if (item.expanded && onListNavigationItemCollapseClick) {
+      onListNavigationItemCollapseClick({url: item.url});
+    } else if (!item.expanded && onListNavigationItemExpandClick) {
+      onListNavigationItemExpandClick({url: item.url});
     }
   };
 
@@ -52,7 +54,6 @@ class ListNavigation extends React.Component {
       listItems.forEach((item, idx) => {
         if (item) {
           const {
-            id,
             primaryText,
             secondaryText,
             url: href,
@@ -64,7 +65,7 @@ class ListNavigation extends React.Component {
             iconIndex
           } = item;
           const listItemProperties = pickWithValues({ dense, divider, selected, disabled });
-          const uniqueKey = id ? `${id}.${idx}.${level}` : `listItem${idx}.${level}`;
+          const uniqueKey = `listItem${idx}.${level}`;
           const iconElement = get(icons, `[${iconIndex}]`);
           if (childrenItems && childrenItems.length > 0) {
             resultElementList.push(
@@ -159,23 +160,23 @@ ListNavigation.defaultProps = {
   properties: {
     items: [
       {
-        id: '00001',
+        url: '/page1',
         primaryText: 'List Item 00001',
         secondaryText: 'Subtext 00001',
         divider: true,
       },
       {
-        id: '00002',
+        url: '/page2',
         primaryText: 'List Item 00002',
         secondaryText: 'Subtext 00002'
       },
       {
-        id: '00003',
+        url: '/page3',
         primaryText: 'List Item 00003',
         secondaryText: 'Subtext 00003',
       },
       {
-        id: '00004',
+        url: '/page4',
         primaryText: 'List Item 00004',
         secondaryText: 'Subtext 00004'
       }
