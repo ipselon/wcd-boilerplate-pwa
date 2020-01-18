@@ -1,17 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import Button from './Button';
+import Button from './lib/Button';
+import { TopNavigationTypes } from './props/TopNavigation.props';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
     width: '100%'
-  },
-  titleSection: {
-    flexGrow: 0,
-    marginRight: theme.spacing(2),
   },
   leftSection: {
     flexGrow: 0,
@@ -42,36 +39,38 @@ const styles = theme => ({
 class TopNavigation extends React.Component {
 
   handleControlClick = ({id, href}) => {
-    if (this.props.onItemClick) {
-      this.props.onItemClick({id, href});
+    if (this.props.onTopNavigationItemClick) {
+      this.props.onTopNavigationItemClick({id, url: href});
     }
   };
 
   render() {
-    const { classes, menuLabel, size, items, titleElement } = this.props;
+    const { classes } = this.props;
+    const properties = this.props.properties || {};
+    const { menuLabel, size, items } = properties;
     let mobileControls = [];
     let desktopControls = [];
     if (items && items.length > 0) {
       const mobileControlMenuItems = [];
       for (let i = 0; i < items.length; i++) {
-        const { id, href, label, active, disabled } = items[i];
+        const { id, label, url, active, disabled } = items[i];
         mobileControlMenuItems.push({
           id,
           label,
+          href: url,
           selected: active,
           disabled,
-          href,
         });
         desktopControls.push(
           <Button
             key={`navButton${i}`}
             size={size}
             color="inherit"
-            variant={active ? 'outlined' : 'text'}
             disabled={disabled}
+            variant={active ? 'outlined' : 'text'}
             id={id}
+            href={url}
             label={label}
-            href={href}
             onClick={this.handleControlClick}
           />
         );
@@ -90,11 +89,6 @@ class TopNavigation extends React.Component {
     }
     return (
       <div className={classes.root}>
-        {titleElement && (
-          <div className={classes.titleSection}>
-            {titleElement}
-          </div>
-        )}
         {/* Show for mobile */}
         <Hidden smUp implementation="js">
           <div className={classes.leftSection} />
@@ -121,5 +115,32 @@ class TopNavigation extends React.Component {
     );
   }
 }
+
+TopNavigation.propTypes = TopNavigationTypes;
+
+TopNavigation.defaultProps = {
+  properties: {
+    menuLabel: 'Go To',
+    size: 'medium',
+    items: [
+      {
+        id: '00001',
+        label: 'Item 00001',
+      },
+      {
+        id: '00002',
+        label: 'Item 00002',
+      },
+      {
+        id: '00003',
+        label: 'Item 00003',
+      },
+      {
+        id: '00004',
+        label: 'Item 00004',
+      }
+    ]
+  }
+};
 
 export default withStyles(styles)(TopNavigation);

@@ -1,2 +1,2 @@
 
-export default {'usr':{'page':{'PageFrameWithDrawer':require('usr/page/PageFrameWithDrawer.funcs'),'PageNavigation':require('usr/page/PageNavigation.funcs'),},},};
+export default {'usr':{'page':{'PageNavigation':require('usr/page/PageNavigation.funcs'),'TopNavigation':require('usr/page/TopNavigation.funcs'),},},};

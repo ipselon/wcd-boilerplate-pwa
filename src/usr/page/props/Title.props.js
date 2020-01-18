@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const TypographyTypes = {
+export const TitleTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */

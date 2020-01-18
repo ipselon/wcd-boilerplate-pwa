@@ -7,20 +7,18 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import validElevationMap from './utils/elevationMap';
 import pickWithValues from './utils/pickWithValues';
 import findColor from './utils/colorMap';
 import PageHelmet from './lib/PageHelmet';
 import MenuIcon from './icons/material/MenuIcon';
 import CloseIcon from './icons/material/CloseIcon';
-import TopNavigation from './lib/TopNavigation';
-import ListNavigation from './lib/ListNavigation';
-import BottomNavigation from './lib/BottomNavigation';
-import Typography from './lib/Typography';
 import Container from './lib/Container';
 import ContentGrid from './lib/ContentGrid';
 
 import { PageFrameWithDrawerTypes } from './props/PageFrameWithDrawer.props';
+import Title from './lib/Title';
 
 const styles = theme => ({
   root: {
@@ -31,6 +29,21 @@ const styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  topNavigationArea: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%'
+  },
+  topNavigationTitleSection: {
+    flexGrow: 0,
+    marginRight: theme.spacing(2),
+  },
+  topNavigationCenterSection: {
+    flexGrow: 1,
+  },
+  topNavigationRightSection: {
+      marginLeft: theme.spacing(1),
   },
   bottomAppBar: {
     top: 'auto',
@@ -102,35 +115,6 @@ class PageFrameWithDrawer extends React.Component {
     this.setState({ leftDrawerOpen: false });
   };
 
-  handleTopNavigationItemClick = ({id, href}) => {
-    const {onTopNavigationClick, top} = this.props;
-    if (onTopNavigationClick) {
-      onTopNavigationClick({id, href, top});
-    }
-  };
-
-  handleListNavigationItemClick = ({id, href}) => {
-    const {onLeftNavigationClick, left} = this.props;
-    if (onLeftNavigationClick) {
-      onLeftNavigationClick({id, href, left});
-    }
-    this.setState({ leftDrawerOpen: false });
-  };
-
-  handleListNavigationItemToggleExpand = ({id, href}) => {
-    const {onLeftNavigationToggleExpand, left} = this.props;
-    if (onLeftNavigationToggleExpand) {
-      onLeftNavigationToggleExpand({id, href, left});
-    }
-  };
-
-  handleBottomNavigationItemClick = ({id}) => {
-    const {onBottomNavigationClick, bottom} = this.props;
-    if (onBottomNavigationClick) {
-      onBottomNavigationClick({id, bottom});
-    }
-  };
-
   render () {
     const {
       theme,
@@ -139,13 +123,11 @@ class PageFrameWithDrawer extends React.Component {
     } = this.props;
     const { leftDrawerOpen } = this.state;
 
-    const icons = this.props.icons || [];
-
     const pageHeader = this.props.pageHeader || {};
 
     const top = this.props.top || {};
     const topTitle = top.title || {};
-    const topNavigation = top.navigation || {};
+    const topNavigation = top.navigation;
     const topPalette = top.palette || {};
 
     const topStyle = {};
@@ -159,20 +141,8 @@ class PageFrameWithDrawer extends React.Component {
     }
 
     const left = this.props.left || {};
-    const leftNavigation = left.navigation || {};
+    const leftNavigation = left.navigation;
     const leftDrawer = left.drawer || {};
-
-    let listNavigationElement = null;
-    if (leftNavigation.items && leftNavigation.items.length > 0) {
-      listNavigationElement = (
-        <ListNavigation
-          icons={icons}
-          onItemClick={this.handleListNavigationItemClick}
-          onItemToggleExpand={this.handleListNavigationItemToggleExpand}
-          {...pickWithValues(leftNavigation)}
-        />
-      );
-    }
 
     const main = this.props.main || {};
     const mainContent = main.content || {};
@@ -210,28 +180,7 @@ class PageFrameWithDrawer extends React.Component {
     }
 
     const bottom = this.props.bottom || {};
-    const bottomNavigation = bottom.navigation || {};
-
-    let bottomElement = null;
-    if (bottomNavigation.items && bottomNavigation.items.length > 0) {
-      bottomElement = (
-        <Hidden smUp implementation="js">
-          <AppBar
-            position="fixed"
-            className={classes.bottomAppBar}
-            elevation={0}
-          >
-            <div className={classes.toolbar}>
-              <BottomNavigation
-                icons={icons}
-                {...pickWithValues(bottomNavigation)}
-                onClick={this.handleBottomNavigationItemClick}
-              />
-            </div>
-          </AppBar>
-        </Hidden>
-      );
-    }
+    const bottomNavigation = bottom.navigation;
 
     return (
       <React.Fragment>
@@ -245,7 +194,7 @@ class PageFrameWithDrawer extends React.Component {
             className={classes.appBar}
           >
             <Toolbar>
-              {listNavigationElement && (
+              {this.props.left && (
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
@@ -256,18 +205,20 @@ class PageFrameWithDrawer extends React.Component {
                   <MenuIcon/>
                 </IconButton>
               )}
-              <TopNavigation
-                titleElement={
-                  topTitle.text && (
-                    <Typography {...pickWithValues(topTitle)} />
-                  )
-                }
-                {...pickWithValues(topNavigation)}
-                onItemClick={this.handleTopNavigationItemClick}
-              />
+              <div className={classes.topNavigationArea}>
+                <div className={classes.topNavigationTitleSection}>
+                  <Title {...pickWithValues(topTitle)} />
+                </div>
+                <div className={classes.topNavigationCenterSection}>
+                  {topNavigation}
+                </div>
+                <div className={classes.topNavigationRightSection}>
+                  USER
+                </div>
+              </div>
             </Toolbar>
           </AppBar>
-          {listNavigationElement && (
+          {leftNavigation && (
             <Hidden smUp implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -287,12 +238,24 @@ class PageFrameWithDrawer extends React.Component {
                     <CloseIcon/>
                   </IconButton>
                 </div>
-                {listNavigationElement}
+                {leftNavigation}
               </Drawer>
             </Hidden>
           )}
-          {bottomElement}
-          {listNavigationElement && (
+          {bottomNavigation && (
+            <Hidden smUp implementation="js">
+              <AppBar
+                position="fixed"
+                className={classes.bottomAppBar}
+                elevation={0}
+              >
+                <div className={classes.toolbar}>
+                  {bottomNavigation}
+                </div>
+              </AppBar>
+            </Hidden>
+          )}
+          {leftNavigation && (
             <Hidden xsDown implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -301,7 +264,7 @@ class PageFrameWithDrawer extends React.Component {
                 PaperProps={{ style: { width: leftDrawer.width } }}
               >
                 <div className={classes.toolbar}/>
-                {listNavigationElement}
+                {leftNavigation}
               </Drawer>
             </Hidden>
           )}
@@ -329,7 +292,7 @@ class PageFrameWithDrawer extends React.Component {
                 </Hidden>
               )
             }
-            {bottomElement && (
+            {bottomNavigation && (
               <Hidden smUp implementation="js">
                 <div className={classes.toolbar}/>
               </Hidden>
@@ -352,34 +315,12 @@ PageFrameWithDrawer.defaultProps = {
       text: 'Title',
       variant: 'h5'
     },
-    elevation: '2',
-    navigation: {
-      menuLabel: 'Go To',
-      size: 'medium',
-      items: [
-        { id: '0001', label: 'Nav 1' },
-        { id: '0002', label: 'Nav 2', active: true },
-        { id: '0003', label: 'Nav 3' }
-      ]
-    }
+    elevation: '2'
   },
   left: {
     drawer: {
       open: false,
       width: '250px'
-    },
-    navigation: {
-      items: [
-        {
-          id: 'leftNav1', primaryText: 'Left Nav 1',
-          childrenItems: [
-            { id: 'leftNav11', primaryText: 'Child Nav 1' },
-            { id: 'leftNav12', primaryText: 'Child Nav 2' }
-          ]
-        },
-        { id: 'leftNav2', primaryText: 'Left Nav 2', selected: true },
-        { id: 'leftNav3', primaryText: 'Left Nav 3' },
-      ]
     }
   },
   main: {

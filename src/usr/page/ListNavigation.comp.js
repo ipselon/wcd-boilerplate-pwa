@@ -6,9 +6,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLessIcon from '../icons/material/ExpandLessIcon';
-import ExpandMoreIcon from '../icons/material/ExpandMoreIcon';
-import pickWithValues from '../utils/pickWithValues';
+import ExpandLessIcon from './icons/material/ExpandLessIcon';
+import ExpandMoreIcon from './icons/material/ExpandMoreIcon';
+import pickWithValues from './utils/pickWithValues';
+import { ListNavigationTypes } from './props/ListNavigation.props';
 
 const styles = theme => ({
   nested: {
@@ -25,7 +26,7 @@ class ListNavigation extends React.Component {
     }
     const { onItemClick } = this.props;
     if (onItemClick) {
-      onItemClick({id: item.id, href: item.href});
+      onItemClick({id: item.id, url: item.url});
     }
   };
 
@@ -41,7 +42,11 @@ class ListNavigation extends React.Component {
   };
 
   renderList = (listItems, level = 0) => {
-    const { classes, icons, dense } = this.props;
+    const { classes, properties, icons } = this.props;
+    let dense = false;
+    if (properties) {
+      dense = properties.dense;
+    }
     const resultElementList = [];
     if (listItems && listItems.length > 0) {
       listItems.forEach((item, idx) => {
@@ -50,15 +55,15 @@ class ListNavigation extends React.Component {
             id,
             primaryText,
             secondaryText,
-            href,
-            childrenItems,
-            disabled,
+            url: href,
             selected,
             expanded,
+            disabled,
+            childrenItems,
             divider,
             iconIndex
           } = item;
-          const listItemProperties = pickWithValues({ disabled, selected, dense, divider });
+          const listItemProperties = pickWithValues({ dense, divider, selected, disabled });
           const uniqueKey = id ? `${id}.${idx}.${level}` : `listItem${idx}.${level}`;
           const iconElement = get(icons, `[${iconIndex}]`);
           if (childrenItems && childrenItems.length > 0) {
@@ -140,12 +145,42 @@ class ListNavigation extends React.Component {
   };
 
   render () {
-    const { items } = this.props;
-    if (items) {
-      return this.renderList(items);
+    const properties = this.props.properties || {};
+    if (properties.items) {
+      return this.renderList(properties.items);
     }
     return null;
   }
 }
+
+ListNavigation.propTypes = ListNavigationTypes;
+
+ListNavigation.defaultProps = {
+  properties: {
+    items: [
+      {
+        id: '00001',
+        primaryText: 'List Item 00001',
+        secondaryText: 'Subtext 00001',
+        divider: true,
+      },
+      {
+        id: '00002',
+        primaryText: 'List Item 00002',
+        secondaryText: 'Subtext 00002'
+      },
+      {
+        id: '00003',
+        primaryText: 'List Item 00003',
+        secondaryText: 'Subtext 00003',
+      },
+      {
+        id: '00004',
+        primaryText: 'List Item 00004',
+        secondaryText: 'Subtext 00004'
+      }
+    ]
+  }
+};
 
 export default withStyles(styles)(ListNavigation);

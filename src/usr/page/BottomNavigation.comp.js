@@ -1,6 +1,7 @@
 import React from 'react';
 import BottomNavigationMUI from '@material-ui/core/BottomNavigation';
 import BottomNavigationActionMUI from '@material-ui/core/BottomNavigationAction';
+import { BottomNavigationTypes } from './props/BottomNavigation.props';
 
 class BottomNavigation extends React.Component {
 
@@ -18,18 +19,20 @@ class BottomNavigation extends React.Component {
   };
 
   render() {
-    const { items, showLabels, icons } = this.props;
+    const { icons } = this.props;
+    const properties = this.props.properties || {};
+    const { items, showLabels } = properties;
     if (items) {
       const actionsElements = [];
-      let activeActionId;
+      let activeId;
       if (items && items.length > 0) {
         for (let i = 0; i < items.length; i++) {
           if (items[i]) {
             const { id, label, active, iconIndex } = items[i];
-            const icon = icons && icons.length > 0 ? icons[iconIndex] : null;
-            if (active) {
-              activeActionId = id;
+            if(active) {
+              activeId = id;
             }
+            const icon = icons && icons.length > 0 ? icons[iconIndex] : null;
             actionsElements.push(
               <BottomNavigationActionMUI
                 key={`navigationAction${i}`}
@@ -44,7 +47,7 @@ class BottomNavigation extends React.Component {
       return (
         <BottomNavigationMUI
           showLabels={showLabels}
-          value={activeActionId}
+          value={activeId}
           onChange={this.handleChange}
         >
           {actionsElements}
@@ -54,5 +57,27 @@ class BottomNavigation extends React.Component {
     return null;
   }
 }
+
+BottomNavigation.propTypes = BottomNavigationTypes;
+
+BottomNavigation.defaultProps = {
+  properties: {
+    showLabels: true,
+    items: [
+      {
+        id: 'navItem1',
+        label: 'Nav Item 1',
+      },
+      {
+        id: 'navItem2',
+        label: 'Nav Item 2',
+      },
+      {
+        id: 'navItem3',
+        label: 'Nav Item 3',
+      },
+    ],
+  }
+};
 
 export default BottomNavigation;
