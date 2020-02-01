@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Application from '@webcodesk/react-app-framework';
+// import Application from '@webcodesk/react-app-framework';
+import Application from './framework';
 import * as firebase from "firebase/app";
 import './index.css';
 import appSettings from './app/settings';

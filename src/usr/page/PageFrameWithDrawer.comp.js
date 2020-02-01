@@ -1,4 +1,3 @@
-import get from 'lodash/get';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -85,9 +84,6 @@ class PageFrameWithDrawer extends React.Component {
 
   constructor (props, context) {
     super(props, context);
-    this.state = {
-      leftDrawerOpen: get(this.props, 'properties.left.drawer.open', false),
-    };
   }
 
   componentDidMount () {
@@ -103,18 +99,6 @@ class PageFrameWithDrawer extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    const newProperties = this.props.properties;
-    const oldProperties = prevProps.properties;
-    if (newProperties && oldProperties && newProperties !== oldProperties) {
-      const oldLeftDrawerOpen = get(oldProperties, 'left.drawer.open', false);
-      const newLeftDrawerOpen = get(newProperties, 'left.drawer.open', false);
-      if (oldLeftDrawerOpen !== newLeftDrawerOpen || this.state.leftDrawerOpen !== newLeftDrawerOpen) {
-        this.setState({ leftDrawerOpen: newLeftDrawerOpen });
-      }
-    }
-  }
-
   handleChangePageUrl = (url) => {
     if (this.props.onChangePageUrl) {
       this.props.onChangePageUrl({url});
@@ -126,7 +110,10 @@ class PageFrameWithDrawer extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.setState({ leftDrawerOpen: true });
+    const { onToggleDrawer } = this.props;
+    if (onToggleDrawer) {
+      onToggleDrawer();
+    }
   };
 
   handleDrawerCloseClick = (e) => {
@@ -134,7 +121,10 @@ class PageFrameWithDrawer extends React.Component {
       e.stopPropagation();
       e.preventDefault();
     }
-    this.setState({ leftDrawerOpen: false });
+    const { onToggleDrawer } = this.props;
+    if (onToggleDrawer) {
+      onToggleDrawer();
+    }
   };
 
   render () {
@@ -148,9 +138,8 @@ class PageFrameWithDrawer extends React.Component {
       mainFooterCells,
       bottomNavigation,
     } = this.props;
-    const { leftDrawerOpen } = this.state;
 
-    const properties = this.props.properties || {};
+    const properties = this.props;
 
     const pageHeader = properties.pageHeader || {};
 
@@ -170,6 +159,7 @@ class PageFrameWithDrawer extends React.Component {
 
     const left = properties.left || {};
     const leftDrawer = left.drawer || {};
+    const leftDrawerOpen = left.drawer.open;
 
     const main = properties.main || {};
     const mainPalette = main.palette || {};
@@ -333,26 +323,24 @@ class PageFrameWithDrawer extends React.Component {
 PageFrameWithDrawer.propTypes = PageFrameWithDrawerTypes;
 
 PageFrameWithDrawer.defaultProps = {
-  properties: {
-    top: {
-      title: {
-        text: 'Title',
-        variant: 'h5'
-      },
-      elevation: '2'
+  top: {
+    title: {
+      text: 'Title',
+      variant: 'h5'
     },
-    left: {
-      drawer: {
-        open: false,
-        width: '250px'
-      }
-    },
-    main: {
-      fixed: false,
-      maxWidth: 'lg',
-      disableMaxWidth: false,
-      spacing: '0',
-    },
+    elevation: '2'
+  },
+  left: {
+    drawer: {
+      open: false,
+      width: '250px'
+    }
+  },
+  main: {
+    fixed: false,
+    maxWidth: 'lg',
+    disableMaxWidth: false,
+    spacing: '0',
   },
   mainContentCells: [<span/>],
 };

@@ -18,9 +18,30 @@ export const setPageFrameTitleText = ({text}, state) => dispatch => {
  *
  * @functionTypes {ClosePageFrameDrawerTypes from ./props/PageFrameWithDrawer.props.js}
  */
-export const closePageFrameDrawer = (options, state) => dispatch => {
-  if (state) {
-    set(state, 'properties.properties.left.drawer.open', false);
-    dispatch({properties: get(state, 'properties.properties')});
+export const closePageFrameDrawer = (options, {stateByDispatch}) => dispatch => {
+  if (stateByDispatch) {
+    const { properties } = stateByDispatch;
+    const newProperties = {...properties};
+    set(newProperties, 'left.drawer.open', false);
+    dispatch({properties: newProperties});
+  }
+};
+
+/**
+ *
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ */
+export const togglePageFrameDrawer = (options, {stateByDispatch}) => dispatch => {
+  if (stateByDispatch) {
+    const { properties } = stateByDispatch;
+    const newProperties = {...properties};
+    let isOpen = get(newProperties, 'left.drawer.open', false);
+    set(newProperties, 'left.drawer.open', !isOpen);
+    dispatch({properties: newProperties});
   }
 };

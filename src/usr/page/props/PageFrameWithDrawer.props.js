@@ -76,28 +76,26 @@ export const MainTypes = {
 };
 
 export const PageFrameWithDrawerTypes = {
-  properties: PropTypes.shape({
-    /**
-     * Page header properties
-     */
-    pageHeader: PropTypes.shape(PageHelmetTypes),
-    /**
-     *
-     */
-    userDetails: PropTypes.shape(AuthUserTypes),
-    /**
-     * The top area properties
-     */
-    top: PropTypes.shape(TopTypes),
-    /**
-     *
-     */
-    left: PropTypes.shape(LeftTypes),
-    /**
-     * The main area in the page
-     */
-    main: PropTypes.shape(MainTypes),
-  }),
+  /**
+   * Page header properties
+   */
+  pageHeader: PropTypes.shape(PageHelmetTypes),
+  /**
+   *
+   */
+  userDetails: PropTypes.shape(AuthUserTypes),
+  /**
+   * The top area properties
+   */
+  top: PropTypes.shape(TopTypes),
+  /**
+   *
+   */
+  left: PropTypes.shape(LeftTypes),
+  /**
+   * The main area in the page
+   */
+  main: PropTypes.shape(MainTypes),
 
   topNavigation: PropTypes.element,
   /**
@@ -116,6 +114,10 @@ export const PageFrameWithDrawerTypes = {
    * @functionTypes {OnChangePageUrlTypes}
    */
   onChangePageUrl: PropTypes.func,
+  /**
+   * @connect with Function from usr/page/PageFrameWithDrawer.func.js
+   */
+  onToggleDrawer: PropTypes.func,
 };
 
 export const OnChangePageUrlTypes = {

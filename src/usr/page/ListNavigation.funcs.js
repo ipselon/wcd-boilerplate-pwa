@@ -30,6 +30,9 @@ export const selectListNavigationItemByUrl = ({url}, state) => dispatch => {
         if (listNavigationItems && listNavigationItems.length > 0) {
           selectLeftNavigationItemsByUrl(listNavigationItems, url);
         }
+        /**
+         * Hey, comment for properties... is not working
+         */
         dispatch({properties: connectedPropState});
       }
     }
