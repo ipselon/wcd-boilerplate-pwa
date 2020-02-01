@@ -115,7 +115,7 @@ export const PageFrameWithDrawerTypes = {
    */
   onChangePageUrl: PropTypes.func,
   /**
-   * @connect with Function from usr/page/PageFrameWithDrawer.func.js
+   * @connect to Function from usr/page/PageFrameWithDrawer.func.js
    */
   onToggleDrawer: PropTypes.func,
 };

@@ -29,12 +29,8 @@ export const closePageFrameDrawer = (options, {stateByDispatch}) => dispatch => 
 
 /**
  *
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
- * @connect properties with Component from usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties to usr/page/PageFrameWithDrawer.comp.js
+ * @connect properties1 to Component from usr/page/PageFrameWithDrawer.comp.js
  */
 export const togglePageFrameDrawer = (options, {stateByDispatch}) => dispatch => {
   if (stateByDispatch) {
@@ -43,5 +39,6 @@ export const togglePageFrameDrawer = (options, {stateByDispatch}) => dispatch =>
     let isOpen = get(newProperties, 'left.drawer.open', false);
     set(newProperties, 'left.drawer.open', !isOpen);
     dispatch({properties: newProperties});
+    dispatch({properties1: true});
   }
 };
