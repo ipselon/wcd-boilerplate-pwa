@@ -33,17 +33,20 @@ class PageComposition extends Component {
     this.renderComponent = this.renderComponent.bind(this);
   }
 
-  renderShape (descriptionShape) {
+  renderShape (descriptionShape, instances) {
     const result = {};
     forOwn(descriptionShape, (value, prop) => {
       if (value) {
         if (isArray(value)){
-          result[prop] = this.renderArray(value);
+          result[prop] = this.renderArray(value, instances);
         } else if (isPlainObject(value)) {
-          if (value.type && value.instance) {
-            result[prop] = this.renderComponent(value);
+          if (value.instanceRef) {
+            const foundInstance = instances[value.instanceRef];
+            if (foundInstance) {
+              result[prop] = this.renderComponent(foundInstance, instances);
+            }
           } else {
-            result[prop] = this.renderShape(value);
+            result[prop] = this.renderShape(value, instances);
           }
         } else {
           result[prop] = value;
@@ -55,18 +58,21 @@ class PageComposition extends Component {
     return result;
   }
 
-  renderArray (descriptionArray) {
+  renderArray (descriptionArray, instances) {
     const result = [];
     if (descriptionArray.length > 0) {
       descriptionArray.forEach(descriptionItem => {
         if (descriptionItem) {
           if (isArray(descriptionItem)) {
-            result.push(this.renderArray(descriptionItem));
+            result.push(this.renderArray(descriptionItem, instances));
           } else if (isPlainObject(descriptionItem)) {
-            if (descriptionItem.type && descriptionItem.instance) {
-              result.push(this.renderComponent(descriptionItem));
+            if (descriptionItem.instanceRef) {
+              const foundInstance = instances[descriptionItem.instanceRef];
+              if (foundInstance) {
+                result.push(this.renderComponent(foundInstance, instances));
+              }
             } else {
-              result.push(this.renderShape(descriptionItem));
+              result.push(this.renderShape(descriptionItem, instances));
             }
           } else {
             result.push(descriptionItem);
@@ -79,7 +85,7 @@ class PageComposition extends Component {
     return result;
   }
 
-  renderComponent (description) {
+  renderComponent (description, instances) {
     const {
       userComponents,
       actionSequences,
@@ -88,20 +94,24 @@ class PageComposition extends Component {
     if (!description) {
       return null;
     }
-
+    console.info('Create component: ', instances);
     const { type, instance, key, props, children } = description;
     if (!type) {
       return null;
     }
     let propsComponents = {};
     if (props) {
-      propsComponents = this.renderShape(props);
+      propsComponents = this.renderShape(props, instances);
     }
     let nestedComponents = [];
     if (children && children.length > 0) {
-      nestedComponents = children.map(child => {
-        return this.renderComponent(child);
-      });
+      for (let c = 0; c < children.length; c++) {
+        const { instanceRef } = children[c];
+        const foundInstance = instances[instanceRef];
+        if (foundInstance) {
+          nestedComponents.push(this.renderComponent(foundInstance, instances));
+        }
+      }
     }
     if (propsComponents.children && isArray(propsComponents.children)) {
       nestedComponents = nestedComponents.concat(propsComponents.children);
@@ -159,9 +169,15 @@ class PageComposition extends Component {
   };
 
   renderPage () {
-    const {componentsTree} = this.props;
-    if (componentsTree && !isEmpty(componentsTree)) {
-      return this.renderComponent(componentsTree);
+    const {pageProps, instances} = this.props;
+    if (pageProps && !isEmpty(pageProps)) {
+      const { instanceRef } = pageProps;
+      if (instances && instanceRef) {
+        const foundInstance = instances[instanceRef];
+        if (foundInstance) {
+          return this.renderComponent(foundInstance, instances);
+        }
+      }
     }
     return (<WarningComponent message="Page does not have components" />);
   }

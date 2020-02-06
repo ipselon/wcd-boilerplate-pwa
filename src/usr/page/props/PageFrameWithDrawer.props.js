@@ -111,11 +111,13 @@ export const PageFrameWithDrawerTypes = {
    */
   hidden: PropTypes.arrayOf(PropTypes.node),
   /**
-   * @functionTypes {OnChangePageUrlTypes}
+   * @connect to Function from usr/page/PageFrameWithDrawer.func.js
    */
   onChangePageUrl: PropTypes.func,
   /**
-   * @connect to Function from usr/page/PageFrameWithDrawer.func.js
+   * @connect to togglePageFrameDrawer from usr/page/PageFrameWithDrawer.funcs.js
+   * @connect to togglePageFrameDrawer from usr/page/PageFrameWithDrawer.funcs.js
+   * @connect to togglePageFrameDrawer from usr/page/PageFrameWithDrawer.funcs.js
    */
   onToggleDrawer: PropTypes.func,
 };

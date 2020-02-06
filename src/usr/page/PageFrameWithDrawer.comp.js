@@ -231,7 +231,7 @@ class PageFrameWithDrawer extends React.Component {
               </div>
             </Toolbar>
           </AppBar>
-          {leftNavigation && (
+          {/*{leftNavigation && (*/}
             <Hidden smUp implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -254,7 +254,7 @@ class PageFrameWithDrawer extends React.Component {
                 {leftNavigation}
               </Drawer>
             </Hidden>
-          )}
+          {/*)}*/}
           {bottomNavigation && (
             <Hidden smUp implementation="js">
               <AppBar
@@ -268,7 +268,7 @@ class PageFrameWithDrawer extends React.Component {
               </AppBar>
             </Hidden>
           )}
-          {leftNavigation && (
+          {/*{leftNavigation && (*/}
             <Hidden xsDown implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -280,7 +280,7 @@ class PageFrameWithDrawer extends React.Component {
                 {leftNavigation}
               </Drawer>
             </Hidden>
-          )}
+          {/*)}*/}
           <main className={classes.content} style={mainStyle}>
             <div className={classes.toolbar}/>
             <div className={classes.mainContent}>

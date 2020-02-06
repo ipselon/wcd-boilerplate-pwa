@@ -6,7 +6,7 @@ import PageComposition from '../PageComposition';
 import WarningComponent from '../WarningComponent';
 
 const PageRouter = (props) => {
-  const { routes, pages, userComponents, history, actionSequences } = props;
+  const { routes, pages, instances, userComponents, history, actionSequences } = props;
   if (!routes || routes.length === 0) {
     return (<WarningComponent message="Application does not have pages."/>);
   }
@@ -24,7 +24,8 @@ const PageRouter = (props) => {
                 <PageComposition
                   key={`page_${route.pageName}`}
                   userComponents={userComponents}
-                  componentsTree={get(pages, route.pageName, {})}
+                  pageProps={get(pages, route.pageName, {})}
+                  instances={instances}
                   actionSequences={actionSequences}
                   routePath={route.path}
                 />
@@ -39,7 +40,8 @@ const PageRouter = (props) => {
                   <PageComposition
                     key={`page_${noMatchRoute.pageName}`}
                     userComponents={userComponents}
-                    componentsTree={get(pages, noMatchRoute.pageName, {})}
+                    pageProps={get(pages, noMatchRoute.pageName, {})}
+                    instances={instances}
                     actionSequences={actionSequences}
                     routePath={noMatchRoute.path}
                   />
