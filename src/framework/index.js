@@ -94,7 +94,7 @@ class Application extends React.Component {
         )
       }
     }
-    const { routes, pages, flows, instances } = schema;
+    const { routes, pages, flows } = schema;
     const { store, history } = initStore(pages, name, version);
     if (!store) {
       return (
@@ -116,7 +116,6 @@ class Application extends React.Component {
             history={history}
             routes={routes}
             pages={pages}
-            instances={instances}
             userComponents={userComponents}
             actionSequences={actionSequences}
           />
