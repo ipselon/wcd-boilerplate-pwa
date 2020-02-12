@@ -5,10 +5,12 @@ import { configureStore } from './store/store';
 import { clearActionsCache } from './store/actions';
 import { createActionSequences } from './store/sequences';
 import { createInitialState } from './store/state';
+import { getSchema } from './store/storage';
 
 import PageRouter from './components/PageRouter';
 import StartWrapper from './components/StartWrapper';
 import WarningComponent from './components/WarningComponent';
+import DemoAppConfig from './components/DemoAppConfig';
 
 let constants;
 let ComponentComposer;
@@ -45,9 +47,36 @@ const initStore = (pages, name, version) => {
 
 class Application extends React.Component {
 
+  constructor (props, context) {
+    super(props, context);
+    this.state = {
+      isLoadingFromStorage: true,
+    };
+  }
+
   componentDidMount () {
     if (process.env.NODE_ENV !== 'production') {
       window.addEventListener("message", this.handleReceiveMessage, false);
+    }
+    const {schema} = this.props;
+    if (schema && schema.appMode === 'demo') {
+      // load from storage
+
+      getSchema()
+        .then(schemaFromStorage => {
+          if (schemaFromStorage) {
+            this.routesFromStorage = schemaFromStorage.routes;
+            this.pagesFromStorage = schemaFromStorage.pages;
+            this.flowsFromStorage = schemaFromStorage.flows;
+          }
+          this.setState({isLoadingFromStorage: false});
+        })
+        .catch((error) => {
+          console.error(error.message);
+          this.setState({isLoadingFromStorage: false});
+        });
+    } else {
+      this.setState({isLoadingFromStorage: false});
     }
   }
 
@@ -68,8 +97,7 @@ class Application extends React.Component {
             window.__sendFrameworkMessage({
               type: constants.FRAMEWORK_MESSAGE_INIT_DEBUG,
               payload: {
-                actionSequences: this.actionSequences,
-                targetProperties: this.targetProperties,
+                actionSequences: this.actionSequences
               },
             });
           }, 0);
@@ -81,9 +109,9 @@ class Application extends React.Component {
   };
 
   render () {
-    const { schema, userComponents, userFunctions, name, version } = this.props;
+    const { userComponents } = this.props;
+    const href = window.location.href;
     if (process.env.NODE_ENV !== 'production') {
-      const href = window.location.href;
       if (href.indexOf('/webcodesk__component_view') > 0) {
         return (
           <ComponentComposer userComponents={userComponents} />
@@ -94,7 +122,22 @@ class Application extends React.Component {
         )
       }
     }
-    const { routes, pages, flows } = schema;
+    if(href.indexOf('/webcodesk__demo_app_config') > 0) {
+      return (
+        <DemoAppConfig />
+      )
+    }
+    const { schema, userFunctions, name, version } = this.props;
+    const { isLoadingFromStorage } = this.state;
+    if (isLoadingFromStorage) {
+      return null;
+    }
+    let routes, pages, flows;
+    if (schema) {
+      routes = this.routesFromStorage || schema.routes;
+      pages = this.pagesFromStorage || schema.pages;
+      flows = this.flowsFromStorage || schema.flows;
+    }
     const { store, history } = initStore(pages, name, version);
     if (!store) {
       return (
