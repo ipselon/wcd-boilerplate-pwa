@@ -21,11 +21,10 @@ class DemoAppConfig extends React.Component {
         get('/etcFiles.json')
           .then(data => {
             result.etcFiles = data;
-            return get('/declarationsInFileArray.json');
+            return get('/declarationFiles.json');
           })
           .then(data => {
             result.declarationFiles = data;
-            console.info('Demo App sends the message declarationFilesWithEtcFiles: ', data);
             window.parent.postMessage({
               type: 'declarationFilesWithEtcFiles',
               payload: result,
@@ -40,7 +39,7 @@ class DemoAppConfig extends React.Component {
           });
       } else if (type === 'getDeclarationFiles') {
         const result = {};
-        get('/declarationsInFileArray.json')
+        get('/declarationFiles.json')
           .then(data => {
             result.declarationFiles = data;
             window.parent.postMessage({
