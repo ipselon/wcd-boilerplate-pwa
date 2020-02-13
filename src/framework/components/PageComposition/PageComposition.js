@@ -142,6 +142,7 @@ class PageComposition extends Component {
         containerHandlers = actionSequence.events;
         componentKey = actionSequence.componentKey;
       }
+      console.info('wrappedComponent: ', type, instance,  wrappedComponent);
       return createContainer(
         wrappedComponent,
         type,
@@ -161,6 +162,7 @@ class PageComposition extends Component {
   renderPage () {
     const {componentsTree} = this.props;
     if (componentsTree && !isEmpty(componentsTree)) {
+      console.info('Page composition: ', componentsTree);
       return this.renderComponent(componentsTree);
     }
     return (<WarningComponent message="Page does not have components" />);

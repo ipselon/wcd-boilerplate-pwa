@@ -232,7 +232,7 @@ class PageFrameWithDrawer extends React.Component {
               </div>
             </Toolbar>
           </AppBar>
-          {/*{leftNavigation && (*/}
+          {leftNavigation && (
             <Hidden smUp implementation="js">
               <Drawer
                 className={classes.drawer}
@@ -255,7 +255,7 @@ class PageFrameWithDrawer extends React.Component {
                 {leftNavigation}
               </Drawer>
             </Hidden>
-          {/*)}*/}
+          )}
           {bottomNavigation && (
             <Hidden smUp implementation="js">
               <AppBar

@@ -38,6 +38,7 @@ export const togglePageFrameDrawer = (options, {stateByDispatch}) => dispatch =>
     const newProperties = {...properties};
     let isOpen = get(newProperties, 'left.drawer.open', false);
     set(newProperties, 'left.drawer.open', !isOpen);
+    console.info('New Properties: ', newProperties);
     dispatch({properties: newProperties});
     dispatch({properties1: true});
   }

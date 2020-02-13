@@ -5,7 +5,7 @@ import { configureStore } from './store/store';
 import { clearActionsCache } from './store/actions';
 import { createActionSequences } from './store/sequences';
 import { createInitialState } from './store/state';
-import { getSchema } from './store/storage';
+import { getSchema, getSettings, saveSchema, saveSettings } from './store/storage';
 
 import PageRouter from './components/PageRouter';
 import StartWrapper from './components/StartWrapper';
@@ -45,38 +45,32 @@ const initStore = (pages, name, version) => {
   return {store, history};
 };
 
-class Application extends React.Component {
+export function getDemoFiles({schema, settings}) {
+  const newFiles = {schema, settings};
+  return getSchema()
+    .then(schemaFromStorage => {
+      if (schemaFromStorage) {
+        newFiles.schema = schemaFromStorage;
+      }
+      return getSettings();
+    })
+    .then(settingsFromStorage => {
+      if (settingsFromStorage) {
+        newFiles.settings = settingsFromStorage;
+      }
+      return newFiles;
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return newFiles;
+    });
+}
 
-  constructor (props, context) {
-    super(props, context);
-    this.state = {
-      isLoadingFromStorage: true,
-    };
-  }
+class Application extends React.Component {
 
   componentDidMount () {
     if (process.env.NODE_ENV !== 'production') {
       window.addEventListener("message", this.handleReceiveMessage, false);
-    }
-    const {schema} = this.props;
-    if (schema && schema.appMode === 'demo') {
-      // load from storage
-
-      getSchema()
-        .then(schemaFromStorage => {
-          if (schemaFromStorage) {
-            this.routesFromStorage = schemaFromStorage.routes;
-            this.pagesFromStorage = schemaFromStorage.pages;
-            this.flowsFromStorage = schemaFromStorage.flows;
-          }
-          this.setState({isLoadingFromStorage: false});
-        })
-        .catch((error) => {
-          console.error(error.message);
-          this.setState({isLoadingFromStorage: false});
-        });
-    } else {
-      this.setState({isLoadingFromStorage: false});
     }
   }
 
@@ -106,6 +100,29 @@ class Application extends React.Component {
         }
       }
     }
+    const {data: message} = event;
+    if (message) {
+      console.info('Index receive message: ', message);
+      const { type, payload } = message;
+      if (type === 'saveDemoFiles' && payload) {
+        const {schema, settings} = payload;
+        saveSchema(schema)
+          .then(() => {
+            return saveSettings(settings);
+          })
+          .then(() => {
+            window.__sendFrameworkMessage({
+              type: 'demoFilesSaved',
+            });
+          })
+          .catch((error) => {
+            console.error(error.message);
+            window.__sendFrameworkMessage({
+              type: 'demoFilesSaved',
+            });
+          });
+      }
+    }
   };
 
   render () {
@@ -128,15 +145,11 @@ class Application extends React.Component {
       )
     }
     const { schema, userFunctions, name, version } = this.props;
-    const { isLoadingFromStorage } = this.state;
-    if (isLoadingFromStorage) {
-      return null;
-    }
     let routes, pages, flows;
     if (schema) {
-      routes = this.routesFromStorage || schema.routes;
-      pages = this.pagesFromStorage || schema.pages;
-      flows = this.flowsFromStorage || schema.flows;
+      routes = schema.routes;
+      pages = schema.pages;
+      flows = schema.flows;
     }
     const { store, history } = initStore(pages, name, version);
     if (!store) {
@@ -149,6 +162,7 @@ class Application extends React.Component {
     const actionSequences = createActionSequences(flows, userFunctions);
     // store action sequences and components properties in case we have to send them for debug
     this.actionSequences = actionSequences;
+    console.info('Render App with pages: ', pages);
     return (
       <Provider store={store}>
         <StartWrapper

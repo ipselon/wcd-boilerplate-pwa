@@ -38,6 +38,18 @@ export async function getSchema() {
   return getStorageInstance().getItem('schema');
 }
 
+export async function saveSchema(schema) {
+  return getStorageInstance().setItem('schema', schema);
+}
+
+export async function getSettings() {
+  return getStorageInstance().getItem('settings');
+}
+
+export async function saveSettings(settings) {
+  return getStorageInstance().setItem('settings', settings);
+}
+
 // export async function setRecordOfComponentPropsKeys(projectKey, expandedResourcesKeys) {
 //   return getStorageInstance().getItem(STORAGE_RECORD_EXPANDED_COMPONENT_PROPS_KEYS)
 //     .then(recordOfExpandedKeys => {
