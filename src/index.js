@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 // import Application from '@webcodesk/react-app-framework';
-import Application, {getDemoFiles} from './framework';
+import Application from './framework';
 import * as firebase from "firebase/app";
 import './index.css';
 import appSettings from './app/settings';
@@ -27,19 +27,9 @@ if (process.env.NODE_ENV !== 'production') {
   userFunctions = require('./app/indices-prod/userFunctions').default;
 }
 
-// function render() {
-//   getDemoFiles({schema, settings: appSettings}).then(({schema, settings}) => {
-//     console.info('New schema: ', schema);
-//   });
-// }
-//
-// render();
-
-const settings = appSettings;
-
 const muiTheme = {};
-if (settings && settings.muiTheme) {
-  const { breakpoints, palette, zIndex } = settings.muiTheme;
+if (appSettings && appSettings.muiTheme) {
+  const { breakpoints, palette, zIndex } = appSettings.muiTheme;
   muiTheme.breakpoints = breakpoints;
   muiTheme.zIndex = zIndex;
   if (palette) {
@@ -72,12 +62,12 @@ if (settings && settings.muiTheme) {
 
 const theme = createMuiTheme(muiTheme);
 
-console.info('Firebase settings.firebase: ', settings.firebase);
-if (settings && settings.firebase) {
-  if (settings.firebase.firebaseConfig) {
+// console.info('Firebase settings.firebase: ', settings.firebase);
+if (appSettings && appSettings.firebase) {
+  if (appSettings.firebase.firebaseConfig) {
     // Initialize Firebase
     // firebase.initializeApp(appSettings.firebase.firebaseConfig);
-    console.info('Firebase is initialized');
+    // console.info('Firebase is initialized');
   }
 }
 

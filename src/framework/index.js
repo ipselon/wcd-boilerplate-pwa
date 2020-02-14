@@ -5,12 +5,9 @@ import { configureStore } from './store/store';
 import { clearActionsCache } from './store/actions';
 import { createActionSequences } from './store/sequences';
 import { createInitialState } from './store/state';
-import { getSchema, getSettings, saveSchema, saveSettings } from './store/storage';
-
 import PageRouter from './components/PageRouter';
 import StartWrapper from './components/StartWrapper';
 import WarningComponent from './components/WarningComponent';
-import DemoAppConfig from './components/DemoAppConfig';
 
 let constants;
 let ComponentComposer;
@@ -44,27 +41,6 @@ const initStore = (pages, name, version) => {
 
   return {store, history};
 };
-
-export function getDemoFiles({schema, settings}) {
-  const newFiles = {schema, settings};
-  return getSchema()
-    .then(schemaFromStorage => {
-      if (schemaFromStorage) {
-        newFiles.schema = schemaFromStorage;
-      }
-      return getSettings();
-    })
-    .then(settingsFromStorage => {
-      if (settingsFromStorage) {
-        newFiles.settings = settingsFromStorage;
-      }
-      return newFiles;
-    })
-    .catch((error) => {
-      console.error(error.message);
-      return newFiles;
-    });
-}
 
 class Application extends React.Component {
 
@@ -100,29 +76,6 @@ class Application extends React.Component {
         }
       }
     }
-    const {data: message} = event;
-    if (message) {
-      console.info('Index receive message: ', message);
-      const { type, payload } = message;
-      if (type === 'saveDemoFiles' && payload) {
-        const {schema, settings} = payload;
-        saveSchema(schema)
-          .then(() => {
-            return saveSettings(settings);
-          })
-          .then(() => {
-            window.__sendFrameworkMessage({
-              type: 'demoFilesSaved',
-            });
-          })
-          .catch((error) => {
-            console.error(error.message);
-            window.__sendFrameworkMessage({
-              type: 'demoFilesSaved',
-            });
-          });
-      }
-    }
   };
 
   render () {
@@ -138,11 +91,6 @@ class Application extends React.Component {
           <PageComposer userComponents={userComponents} />
         )
       }
-    }
-    if(href.indexOf('/webcodesk__demo_app_config') > 0) {
-      return (
-        <DemoAppConfig />
-      )
     }
     const { schema, userFunctions, name, version } = this.props;
     let routes, pages, flows;
