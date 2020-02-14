@@ -7,7 +7,6 @@ class SvgIcon extends React.Component {
 
   render() {
     const { fontSize, color, viewBox, paths } = this.props;
-    console.info('Paths: ', paths);
     return (
       <SvgIconMUI {...pickWithValues({fontSize, color, viewBox})}>
         {paths.map((pathItem, index) => {

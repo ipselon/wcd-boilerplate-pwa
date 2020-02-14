@@ -79,8 +79,6 @@ class Container extends React.Component {
       stateProps,
       children
     } = this.props;
-    console.info('Wrapped props: ', wrappedProps);
-    console.info('State props: ', stateProps);
     return React.createElement(
       wrappedComponent,
       { ...wrappedProps, ...this.wrappedHandlers, ...stateProps },

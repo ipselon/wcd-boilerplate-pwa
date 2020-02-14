@@ -110,7 +110,6 @@ class Application extends React.Component {
     const actionSequences = createActionSequences(flows, userFunctions);
     // store action sequences and components properties in case we have to send them for debug
     this.actionSequences = actionSequences;
-    console.info('Render App with pages: ', pages);
     return (
       <Provider store={store}>
         <StartWrapper

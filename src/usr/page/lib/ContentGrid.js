@@ -24,7 +24,6 @@ class ContentGrid extends React.Component {
         );
       });
     }
-    console.info('Content grid: ', contentList);
     return (
       <BoxMUI width="100%" paddingY={gridSpacingMap[spacing]}>
         <GridMUI
