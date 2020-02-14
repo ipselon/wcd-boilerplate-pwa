@@ -1,4 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +13,34 @@ let constants;
 if (process.env.NODE_ENV !== 'production') {
   sendDebugMessage = require('../../commons/sendMessage').default;
   constants = require('../../commons/constants');
+}
+
+export function pickReactElements(obj2) {
+  let obj1 = undefined;
+  if (React.isValidElement(obj2)){
+    obj1 = obj2;
+  } else if (isArray(obj2)) {
+    let arrayItem;
+    for (let i = 0; i < obj2.length; i++) {
+      arrayItem = pickReactElements(obj2[i]);
+      if (arrayItem) {
+        obj1 = obj1 || [];
+        obj1.push(arrayItem);
+      }
+    }
+  } else if (isObject(obj2)) {
+    let objectField;
+    for (let item in obj2) {
+      if (obj2.hasOwnProperty(item)) {
+        objectField = pickReactElements(obj2[item]);
+        if (objectField) {
+          obj1 = obj1 || {};
+          obj1[item] = objectField;
+        }
+      }
+    }
+  }
+  return obj1;
 }
 
 class Container extends React.Component {
@@ -79,9 +109,10 @@ class Container extends React.Component {
       stateProps,
       children
     } = this.props;
+    const elementsProps = pickReactElements(wrappedProps) || {};
     return React.createElement(
       wrappedComponent,
-      { ...wrappedProps, ...this.wrappedHandlers, ...stateProps },
+      { ...wrappedProps, ...this.wrappedHandlers, ...stateProps, ...elementsProps },
       children
     );
   }
