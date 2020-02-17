@@ -107,7 +107,7 @@ class Application extends React.Component {
     }
     window.__applicationBrowserHistory = history;
     clearActionsCache();
-    const actionSequences = createActionSequences(flows, userFunctions);
+    const {actionSequences, targets} = createActionSequences(flows, userFunctions);
     // store action sequences and components properties in case we have to send them for debug
     this.actionSequences = actionSequences;
     return (
@@ -122,6 +122,7 @@ class Application extends React.Component {
             pages={pages}
             userComponents={userComponents}
             actionSequences={actionSequences}
+            targets={targets}
           />
         </StartWrapper>
       </Provider>

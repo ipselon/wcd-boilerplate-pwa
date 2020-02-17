@@ -17,6 +17,7 @@ class PageComposition extends Component {
     userComponents: PropTypes.object,
     componentsTree: PropTypes.object,
     actionSequences: PropTypes.object,
+    targets: PropTypes.object,
     routePath: PropTypes.string,
   };
 
@@ -24,6 +25,7 @@ class PageComposition extends Component {
     userComponents: {},
     componentsTree: {},
     actionSequences: {},
+    targets: {},
     routePath: '',
   };
 
@@ -83,6 +85,7 @@ class PageComposition extends Component {
     const {
       userComponents,
       actionSequences,
+      targets,
     } = this.props;
 
     if (!description) {
@@ -142,12 +145,14 @@ class PageComposition extends Component {
         containerHandlers = actionSequence.events;
         componentKey = actionSequence.componentKey;
       }
+      const isTargetContainer = targets[containerKey];
       return createContainer(
         wrappedComponent,
         type,
         instance,
         componentKey,
         containerHandlers,
+        isTargetContainer,
         {
           key: key || `${containerKey}_${uniqueId('c')}`,
           ...props,

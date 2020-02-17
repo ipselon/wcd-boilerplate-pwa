@@ -1,7 +1,6 @@
 import uniqueId from 'lodash/uniqueId';
 import forOwn from 'lodash/forOwn';
 import get from 'lodash/get';
-import merge from 'lodash/merge';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import isEmpty from 'lodash/isEmpty';
@@ -11,40 +10,30 @@ import { COMPONENT_TYPE, USER_FUNCTION_TYPE } from './constants';
 
 let userFunctions = {};
 
-// function getTargetPropertiesFromEvents (events, targetProperties) {
-//   if (events && events.length > 0) {
-//     events.forEach(event => {
-//       const { targets } = event;
-//       if (targets && targets.length > 0) {
-//         let key;
-//         let propertiesObject;
-//         targets.forEach(target => {
-//           const { type, props, events } = target;
-//           if (type === COMPONENT_TYPE && props) {
-//             const { componentName, componentInstance, propertyName, populatePath } = props;
-//             if (propertyName) {
-//               key = `${componentName}_${componentInstance}`;
-//               propertiesObject = targetProperties[key] || {};
-//               // tell the that this property should be bind to the http request query
-//               propertiesObject[propertyName] = merge({}, propertiesObject[propertyName], {
-//                 populatePath
-//               });
-//               targetProperties[key] = propertiesObject;
-//             }
-//           }
-//           getTargetPropertiesFromEvents(events, targetProperties);
-//         });
-//       }
-//     });
-//   }
-// }
+function getTargetsFromEvents (events, targetsMap) {
+  if (events && events.length > 0) {
+    events.forEach(event => {
+      const { targets } = event;
+      if (targets && targets.length > 0) {
+        targets.forEach(target => {
+          const { type, props, events } = target;
+          if (type === COMPONENT_TYPE && props) {
+            const { componentName, componentInstance } = props;
+            targetsMap[`${componentName}_${componentInstance}`] = true;
+          }
+          getTargetsFromEvents(events, targetsMap);
+        });
+      }
+    });
+  }
+}
 
-// function deriveTargetProperties (actionSequences, targetProperties = {}) {
-//   forOwn(actionSequences, (value, prop) => {
-//     getTargetPropertiesFromEvents(value.events, targetProperties);
-//   });
-//   return targetProperties;
-// }
+function deriveTargets (actionSequences, targets = {}) {
+  forOwn(actionSequences, (value, prop) => {
+    getTargetsFromEvents(value.events, targets);
+  });
+  return targets;
+}
 
 function getEventSequence (event) {
   const eventSequence = {};
@@ -219,8 +208,8 @@ function createActionSequencesRecursively (handlers, actionSequences = {}) {
 export function createActionSequences (handlers, functions) {
   userFunctions = { ...functions };
   const actionSequences = createActionSequencesRecursively(handlers);
-  // const targetProperties = deriveTargetProperties(actionSequences);
-  return actionSequences;
+  const targets = deriveTargets(actionSequences);
+  return {actionSequences, targets};
 }
 
 export function getUserFunctionByName (functionName) {
